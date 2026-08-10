@@ -191,7 +191,7 @@ const REMINDERS = [
   { text: "Israeli passport holders don't need a visa for Japan for stays up to 90 days — this trip is well within that. Just make sure passports are valid 6+ months beyond Nov 3, 2026, and be ready to show proof of onward/return travel at immigration.", flag: false },
   { text: "Driving in Japan requires an International Driving Permit (IDP) — this has to be obtained in Israel before you fly (from the Ministry of Transport / a licensing bureau), it cannot be arranged in Japan. This isn't yet in the budget as a line item beyond the placeholder — get this sorted well before Oct 5.", flag: true },
   { text: "The uploaded flight ticket (ref ZE7M8J) works out to Tel Aviv → Narita, departing Nov 3 at 19:00 and landing Nov 4 at 13:25 — see the flag on the Flights tab. Worth confirming this is the leg you meant to add, and the return (Tokyo → Tel Aviv) is still needed.", flag: true },
-  { text: "This site is hosted on GitHub Pages, which is technically public even behind the password screen. Passport numbers are now on the Crew tab — same trade-off you accepted for the Vietnam site, flagging it again here since it's new data.", flag: true },
+  { text: "The repo hosting this site is public (required for free GitHub Pages). Passport numbers were removed from the Crew tab for that reason — they're kept separately, off this site.", flag: false },
   { text: "Travel insurance: policy numbers and emergency-assistance line to be added once you send them over.", flag: false },
   { text: "Kinsuikan (Miyajima): consider upgrading to a sea-view / annex room for torii gate views and a private bathroom.", flag: false },
   { text: "UOGASHI 7070 (Naoshima) and Minamino Fields Fudozaka (Kumano): contact hosts in advance with your arrival time.", flag: false },
@@ -203,14 +203,11 @@ const REMINDERS = [
 const CREW = [
   {
     name: "Doritte", role: "Trip planner",
-    passport: { country: "Israel", fullName: "Doritte Yael Hoek", number: "39055920", expiry: "2036-05-13" }
+    passportOnFile: "Kept separately, not published in this site — ask Doritte or Rick directly if it's needed."
   },
   {
     name: "Rick", role: "Driver (age 78 — listed on the car rental)",
-    passports: [
-      { country: "Israel", fullName: "Richard Neil Borenstein", number: "36330282", expiry: "2032-08-22" },
-      { country: "United States", fullName: "Richard Neil Borenstein", number: "566006902", expiry: "2028-07-05" }
-    ]
+    passportOnFile: "Kept separately, not published in this site — ask Doritte or Rick directly if it's needed."
   }
 ];
 

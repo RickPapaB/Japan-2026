@@ -245,9 +245,9 @@ function fmtPassport(p) {
 function renderCrew() {
   const el = document.getElementById('crew-list');
   el.innerHTML = CREW.map(c => {
-    const passportsHtml = c.passport
-      ? `<div class="meta" style="margin-top:8px;">${fmtPassport(c.passport)}</div>`
-      : (c.passports || []).map(p => `<div class="meta" style="margin-top:8px;">${fmtPassport(p)}</div>`).join('');
+    const passportHtml = c.passportOnFile
+      ? `<div class="meta placeholder" style="margin-top:8px;">${c.passportOnFile}</div>`
+      : '';
     return `
     <div class="card">
       <div class="crew-card">
@@ -257,7 +257,7 @@ function renderCrew() {
           <div class="meta">${c.role}</div>
         </div>
       </div>
-      ${passportsHtml}
+      ${passportHtml}
     </div>`;
   }).join('') + `
     <div class="card">
