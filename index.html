@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c2b4a">
+<title>Japan Fall Trip 2026</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Japan '26">
+<style>
+:root{
+  --indigo-950:#12203c;
+  --indigo-900:#1c2b4a;
+  --indigo-700:#2f4368;
+  --indigo-500:#4a5f8a;
+  --maple-600:#b8452f;
+  --maple-500:#c85a3d;
+  --maple-300:#e08a68;
+  --gold-500:#c99a4a;
+  --gold-300:#e0c087;
+  --cream-50:#faf6ef;
+  --cream-100:#f3ecdd;
+  --cream-200:#e9dfc8;
+  --ink-900:#241d16;
+  --ink-600:#5a5041;
+  --font-display:'Shippori','Zen Old Mincho','Noto Serif JP',serif;
+  --font-body:'Zen Kaku Gothic New','Hiragino Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font-body);
+  background:var(--cream-50);
+  color:var(--ink-900);
+  min-height:100vh;
+  min-height:100dvh;
+  overscroll-behavior-y:none;
+}
+@font-face{font-family:'Shippori';src:local('Shippori Mincho');}
+
+/* ---------- Lock screen ---------- */
+#lock{
+  position:fixed;inset:0;z-index:999;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(200,90,61,0.35), transparent 45%),
+    radial-gradient(circle at 80% 85%, rgba(201,154,74,0.25), transparent 50%),
+    linear-gradient(160deg, var(--indigo-950), var(--indigo-900) 60%, #16233e);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+#lock.hidden{display:none;}
+.lock-card{
+  width:100%;max-width:360px;
+  text-align:center;
+  color:var(--cream-100);
+}
+.lock-mon{
+  font-size:13px;letter-spacing:0.35em;color:var(--gold-300);
+  text-transform:uppercase;margin-bottom:10px;
+}
+.lock-title{
+  font-family:var(--font-display);
+  font-size:32px;font-weight:600;color:#fff;
+  margin:0 0 6px;
+  letter-spacing:0.02em;
+}
+.lock-sub{color:var(--cream-200);opacity:0.8;font-size:14px;margin-bottom:34px;}
+.leaf{width:46px;height:46px;margin:0 auto 18px;opacity:0.9;}
+#lock input{
+  width:100%;padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);color:#fff;font-size:16px;text-align:center;
+  letter-spacing:0.08em;margin-bottom:12px;outline:none;
+}
+#lock input::placeholder{color:rgba(255,255,255,0.45);}
+#lock input:focus{border-color:var(--gold-500);}
+#lock button{
+  width:100%;padding:14px;border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--maple-500),var(--maple-600));
+  color:#fff;font-size:15px;font-weight:600;letter-spacing:0.03em;cursor:pointer;
+}
+#lock button:active{transform:scale(0.98);}
+#lock-error{color:var(--maple-300);font-size:13px;margin-top:12px;min-height:16px;}
+
+/* ---------- App shell ---------- */
+#app{display:none;min-height:100vh;min-height:100dvh;flex-direction:column;}
+#app.show{display:flex;}
+
+header.top{
+  position:sticky;top:0;z-index:50;
+  background:linear-gradient(160deg,var(--indigo-900),var(--indigo-700));
+  color:#fff;
+  padding:calc(env(safe-area-inset-top) + 14px) 18px 14px;
+  box-shadow:0 2px 14px rgba(18,32,60,0.25);
+}
+header.top .eyebrow{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-300);opacity:0.9;}
+header.top h1{font-family:var(--font-display);font-size:22px;margin:2px 0 2px;font-weight:600;}
+header.top .sub{font-size:12.5px;color:var(--cream-200);opacity:0.85;}
+
+#countdown{
+  margin-top:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  border-radius:12px;padding:10px 14px;font-size:13px;color:var(--cream-50);
+  display:flex;align-items:center;justify-content:space-between;
+}
+#countdown b{font-family:var(--font-display);font-size:16px;color:var(--gold-300);font-weight:600;}
+
+nav.views{
+  display:flex;gap:6px;padding:10px 14px 0;background:var(--indigo-900);
+  overflow-x:auto;scrollbar-width:none;
+}
+nav.views::-webkit-scrollbar{display:none;}
+nav.views button{
+  flex:0 0 auto;background:transparent;border:none;color:rgba(255,255,255,0.55);
+  padding:8px 4px 12px;font-size:14px;font-weight:600;cursor:pointer;
+  border-bottom:3px solid transparent;white-space:nowrap;
+}
+nav.views button.active{color:#fff;border-color:var(--gold-500);}
+
+main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
+.view{display:none;animation:fade 0.25s ease;}
+.view.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* sub-tabs within overview */
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.subtabs button{
+  padding:7px 13px;border-radius:999px;border:1px solid var(--cream-200);
+  background:#fff;color:var(--ink-600);font-size:13px;font-weight:600;cursor:pointer;
+}
+.subtabs button.active{background:var(--indigo-900);color:#fff;border-color:var(--indigo-900);}
+.subview{display:none;}
+.subview.active{display:block;}
+
+h2.section-title{
+  font-family:var(--font-display);font-size:19px;color:var(--indigo-900);
+  margin:0 0 12px;font-weight:600;
+}
+
+/* Cards */
+.card{
+  background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;
+  border:1px solid var(--cream-200);box-shadow:0 1px 3px rgba(36,29,22,0.04);
+}
+.card h3{margin:0 0 4px;font-family:var(--font-display);font-size:16.5px;color:var(--ink-900);font-weight:600;}
+.card .meta{font-size:12.5px;color:var(--ink-600);line-height:1.6;}
+.card .meta a{color:var(--indigo-700);text-decoration:none;}
+.tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.03em;
+  padding:2px 9px;border-radius:999px;margin-right:6px;margin-top:6px;
+}
+.tag.nights{background:var(--cream-200);color:var(--ink-600);}
+.tag.price{background:#eef4ea;color:#3d6b3f;}
+.hotel-links{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+.hotel-links a{
+  font-size:12.5px;font-weight:600;text-decoration:none;color:#fff;
+  background:var(--indigo-700);padding:7px 12px;border-radius:8px;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.hotel-links a.secondary{background:var(--maple-500);}
+
+/* Map */
+#map{width:100%;height:420px;border-radius:14px;overflow:hidden;border:1px solid var(--cream-200);margin-bottom:14px;}
+.leaflet-popup-content-wrapper{border-radius:10px;font-family:var(--font-body);}
+.map-legend{font-size:12px;color:var(--ink-600);margin-bottom:10px;}
+
+/* Budget */
+.budget-total{
+  background:linear-gradient(135deg,var(--indigo-900),var(--indigo-700));
+  color:#fff;border-radius:14px;padding:20px;text-align:center;margin-bottom:14px;
+}
+.budget-total .amt{font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--gold-300);}
+.budget-total .lbl{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.8;margin-top:2px;}
+table.budget{width:100%;border-collapse:collapse;font-size:13.5px;}
+table.budget td{padding:9px 4px;border-bottom:1px solid var(--cream-200);}
+table.budget td:last-child{text-align:right;font-weight:600;white-space:nowrap;}
+table.budget tr.total td{font-weight:700;border-top:2px solid var(--indigo-900);border-bottom:none;padding-top:12px;}
+
+/* Timeline */
+.day-group{margin-bottom:10px;border-radius:14px;overflow:hidden;border:1px solid var(--cream-200);background:#fff;}
+.day-group summary{
+  list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:12px;
+  background:var(--cream-100);
+}
+.day-group summary::-webkit-details-marker{display:none;}
+.day-group[open] summary{background:var(--cream-200);}
+.day-badge{
+  flex:0 0 auto;width:44px;height:44px;border-radius:10px;
+  background:var(--indigo-900);color:#fff;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;font-family:var(--font-display);
+}
+.day-badge .num{font-size:16px;font-weight:700;line-height:1;}
+.day-badge .mon{font-size:9px;letter-spacing:0.05em;text-transform:uppercase;opacity:0.75;}
+.day-group.today .day-badge{background:var(--maple-500);}
+.day-head{flex:1;min-width:0;}
+.day-head .loc{font-weight:700;font-size:14.5px;color:var(--ink-900);}
+.day-head .hotel{font-size:12px;color:var(--ink-600);}
+.day-body{padding:2px 16px 16px 72px;font-size:13.5px;color:var(--ink-900);line-height:1.6;}
+.day-body .note{margin-bottom:8px;}
+.day-body .placeholder{color:var(--ink-600);font-style:italic;}
+.chev{transition:transform 0.2s;color:var(--indigo-700);}
+.day-group[open] .chev{transform:rotate(90deg);}
+
+/* Reminders / crew */
+.reminder-list{list-style:none;margin:0;padding:0;}
+.reminder-list li{
+  background:#fff;border:1px solid var(--cream-200);border-left:4px solid var(--gold-500);
+  border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:13.5px;line-height:1.55;
+}
+.reminder-list li.flag{border-left-color:var(--maple-500);}
+.crew-card{display:flex;align-items:center;gap:12px;}
+.avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-500),var(--maple-500));
+  color:#fff;font-family:var(--font-display);font-weight:700;font-size:17px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+
+/* Bottom nav */
+nav.bottom{
+  position:fixed;bottom:0;left:0;right:0;z-index:40;
+  background:rgba(250,246,239,0.94);backdrop-filter:blur(10px);
+  border-top:1px solid var(--cream-200);
+  display:flex;padding:6px 4px calc(env(safe-area-inset-bottom) + 6px);
+}
+nav.bottom button{
+  flex:1;background:none;border:none;padding:8px 2px;color:var(--ink-600);
+  font-size:10.5px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+nav.bottom button.active{color:var(--maple-600);}
+nav.bottom svg{width:21px;height:21px;}
+
+.back-top{
+  position:fixed;right:16px;bottom:78px;z-index:39;
+  width:42px;height:42px;border-radius:50%;background:var(--indigo-900);color:#fff;
+  border:none;box-shadow:0 3px 10px rgba(18,32,60,0.3);display:none;align-items:center;justify-content:center;
+}
+.back-top.show{display:flex;}
+
+@media(min-width:760px){
+  main{max-width:820px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOCK SCREEN ================= -->
+<div id="lock">
+  <div class="lock-card">
+    <svg class="leaf" viewBox="0 0 64 64" fill="none"><path d="M32 4C20 16 8 24 8 38c0 12 10 20 24 20s24-8 24-20C56 24 44 16 32 4Z" fill="#c85a3d" opacity="0.85"/><path d="M32 4v54M32 22c-6 4-10 10-10 10M32 22c6 4 10 10 10 10M32 34c-8 3-14 10-14 10M32 34c8 3 14 10 14 10" stroke="#12203c" stroke-width="1.2" stroke-linecap="round"/></svg>
+    <div class="lock-mon">秋 · Autumn 2026</div>
+    <h1 class="lock-title">Japan, 39 Nights</h1>
+    <div class="lock-sub">Enter the family password to open the trip</div>
+    <input id="pw-input" type="password" placeholder="Password" autocomplete="off" autocapitalize="off">
+    <button id="pw-submit">Unlock</button>
+    <div id="lock-error"></div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app">
+  <header class="top">
+    <div class="eyebrow">Doritte &amp; Rick</div>
+    <h1>Japan Fall Trip 2026</h1>
+    <div class="sub">Sep 25 – Nov 3 · 39 nights · 17 stays</div>
+    <div id="countdown"></div>
+  </header>
+
+  <nav class="views">
+    <button data-view="overview" class="active">Overview</button>
+    <button data-view="timeline">Timeline</button>
+  </nav>
+
+  <main>
+    <!-- ---------- OVERVIEW ---------- -->
+    <section id="view-overview" class="view active">
+      <div class="subtabs">
+        <button data-sub="flights" class="active">Flights</button>
+        <button data-sub="hotels">Hotels</button>
+        <button data-sub="map">Map</button>
+        <button data-sub="car">Car</button>
+        <button data-sub="budget">Budget</button>
+        <button data-sub="notes">Notes</button>
+        <button data-sub="crew">Crew</button>
+      </div>
+
+      <div id="sub-flights" class="subview active">
+        <h2 class="section-title">Flights</h2>
+        <div id="flight-list"></div>
+      </div>
+
+      <div id="sub-hotels" class="subview">
+        <h2 class="section-title">17 stays, 39 nights</h2>
+        <div id="hotel-list"></div>
+      </div>
+
+      <div id="sub-map" class="subview">
+        <h2 class="section-title">The route</h2>
+        <div class="map-legend">Tap a pin for dates &amp; a link to the hotel. Line follows stay order, not the literal driving road.</div>
+        <div id="map"></div>
+      </div>
+
+      <div id="sub-car" class="subview">
+        <h2 class="section-title">Rental car</h2>
+        <div id="car-card"></div>
+      </div>
+
+      <div id="sub-budget" class="subview">
+        <h2 class="section-title">Budget</h2>
+        <div id="budget-content"></div>
+      </div>
+
+      <div id="sub-notes" class="subview">
+        <h2 class="section-title">Reminders &amp; things to confirm</h2>
+        <ul class="reminder-list" id="reminder-list"></ul>
+      </div>
+
+      <div id="sub-crew" class="subview">
+        <h2 class="section-title">Crew</h2>
+        <div id="crew-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------- TIMELINE ---------- -->
+    <section id="view-timeline" class="view">
+      <h2 class="section-title">Day by day</h2>
+      <div id="timeline-list"></div>
+    </section>
+  </main>
+
+  <button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+  <nav class="bottom">
+    <button data-view="overview" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
+      Overview
+    </button>
+    <button data-view="timeline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v3M16 3v3M4 9h16M5 6h14a1 1 0 011 1v12a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1z"/></svg>
+      Timeline
+    </button>
+  </nav>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

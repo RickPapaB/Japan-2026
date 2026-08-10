@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="20%" r="90%">
+      <stop offset="0%" stop-color="#2f4368"/>
+      <stop offset="55%" stop-color="#1c2b4a"/>
+      <stop offset="100%" stop-color="#12203c"/>
+    </radialGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0a26a"/>
+      <stop offset="55%" stop-color="#c85a3d"/>
+      <stop offset="100%" stop-color="#a83f28"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <g transform="translate(256,256)">
+    <path d="M0 -170 C -95 -95 -190 -40 -190 60 C -190 155 -105 210 0 210 C 105 210 190 155 190 60 C 190 -40 95 -95 0 -170 Z"
+          fill="url(#leaf)" opacity="0.95"/>
+    <g stroke="#12203c" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.85">
+      <path d="M0 -160 L0 205"/>
+      <path d="M0 -95 C -55 -55 -85 -25 -85 -25"/>
+      <path d="M0 -95 C 55 -55 85 -25 85 -25"/>
+      <path d="M0 -20 C -75 15 -120 65 -120 65"/>
+      <path d="M0 -20 C 75 15 120 65 120 65"/>
+      <path d="M0 60 C -65 90 -105 130 -105 130"/>
+      <path d="M0 60 C 65 90 105 130 105 130"/>
+    </g>
+  </g>
+</svg>
