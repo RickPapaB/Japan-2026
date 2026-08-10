@@ -1,6 +1,6 @@
 // Service worker — caches the whole app shell for offline use.
 // Bump CACHE_NAME whenever you deploy an update so old caches are cleared.
-const CACHE_NAME = 'japan-trip-2026-v1';
+const CACHE_NAME = 'japan-trip-2026-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -8,9 +8,7 @@ const ASSETS = [
   './app.js',
   './manifest.json',
   './icons/icon-192.png',
-  './icons/icon-512.png',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'
+  './icons/icon-512.png'
 ];
 
 self.addEventListener('install', event => {

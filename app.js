@@ -144,30 +144,65 @@ function renderHotels() {
 
 // --- Map -------------------------------------------------------------
 let mapInstance = null;
+let leafletLoadPromise = null;
+
+function loadLeaflet() {
+  if (window.L) return Promise.resolve();
+  if (leafletLoadPromise) return leafletLoadPromise;
+
+  leafletLoadPromise = new Promise((resolve, reject) => {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Leaflet failed to load'));
+    document.body.appendChild(script);
+
+    // Don't hang forever if the network is slow/blocked — fail after 8s.
+    setTimeout(() => reject(new Error('Leaflet load timed out')), 8000);
+  });
+  return leafletLoadPromise;
+}
+
 function renderMap() {
   if (mapInstance) return;
-  mapInstance = L.map('map', { scrollWheelZoom: false }).setView([35.5, 136.5], 6);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 18
-  }).addTo(mapInstance);
+  const mapEl = document.getElementById('map');
+  mapEl.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--ink-600);font-size:13px;">Loading map…</div>`;
 
-  const latlngs = HOTELS.map(h => [h.lat, h.lng]);
-  L.polyline(latlngs, { color: '#c85a3d', weight: 3, opacity: 0.75, dashArray: '2,8' }).addTo(mapInstance);
+  loadLeaflet().then(() => {
+    mapEl.innerHTML = '';
+    mapInstance = L.map('map', { scrollWheelZoom: false }).setView([35.5, 136.5], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(mapInstance);
 
-  HOTELS.forEach((h, i) => {
-    const icon = L.divIcon({
-      className: '',
-      html: `<div style="background:#1c2b4a;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${i + 1}</div>`,
-      iconSize: [26, 26],
-      iconAnchor: [13, 13]
+    const latlngs = HOTELS.map(h => [h.lat, h.lng]);
+    L.polyline(latlngs, { color: '#c85a3d', weight: 3, opacity: 0.75, dashArray: '2,8' }).addTo(mapInstance);
+
+    HOTELS.forEach((h, i) => {
+      const icon = L.divIcon({
+        className: '',
+        html: `<div style="background:#1c2b4a;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${i + 1}</div>`,
+        iconSize: [26, 26],
+        iconAnchor: [13, 13]
+      });
+      const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.hotel + ' ' + h.address)}`;
+      L.marker([h.lat, h.lng], { icon }).addTo(mapInstance)
+        .bindPopup(`<b>${h.dest}</b><br>${h.hotel}<br>${fmtDate(h.checkin)} – ${fmtDate(h.checkout)}<br><a href="${gmaps}" target="_blank">Open in Google Maps</a>`);
     });
-    const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.hotel + ' ' + h.address)}`;
-    L.marker([h.lat, h.lng], { icon }).addTo(mapInstance)
-      .bindPopup(`<b>${h.dest}</b><br>${h.hotel}<br>${fmtDate(h.checkin)} – ${fmtDate(h.checkout)}<br><a href="${gmaps}" target="_blank">Open in Google Maps</a>`);
-  });
 
-  setTimeout(() => mapInstance.invalidateSize(), 200);
+    setTimeout(() => mapInstance.invalidateSize(), 200);
+  }).catch(() => {
+    mapEl.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--ink-600);font-size:13px;text-align:center;padding:20px;gap:10px;">
+      <div>Map couldn't load — this needs an internet connection to fetch map tiles.</div>
+      <button onclick="mapInstance=null;leafletLoadPromise=null;renderMap();" style="padding:8px 16px;border-radius:8px;border:1px solid var(--cream-200);background:#fff;font-size:13px;cursor:pointer;">Try again</button>
+    </div>`;
+  });
 }
 
 // --- Car card ----------------------------------------------------------
