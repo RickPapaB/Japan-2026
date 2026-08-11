@@ -422,8 +422,15 @@ async function init() {
 
   document.getElementById('pw-input').focus();
 
+  // Service worker temporarily disabled while diagnosing an iOS Safari crash —
+  // also actively unregister any old one already installed from a prior visit.
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+    navigator.serviceWorker.getRegistrations().then(regs => {
+      regs.forEach(reg => reg.unregister());
+    }).catch(() => {});
+  }
+  if (window.caches) {
+    caches.keys().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
   }
 }
 init();
