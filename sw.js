@@ -1,11 +1,9 @@
 // Service worker — caches the whole app shell for offline use.
 // Bump CACHE_NAME whenever you deploy an update so old caches are cleared.
-const CACHE_NAME = 'japan-trip-2026-v2';
+const CACHE_NAME = 'japan-trip-2026-v3';
 const ASSETS = [
   './',
   './index.html',
-  './data.js',
-  './app.js',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png'

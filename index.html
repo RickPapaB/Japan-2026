@@ -388,7 +388,715 @@ nav.bottom svg{width:21px;height:21px;}
   </nav>
 </div>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script>
+// ============================================================
+// Japan Fall Trip 2026 — trip data
+// Sourced from: Japan_Fall_Trip_-_Hotel_Reservations.pdf,
+// Booking_information-_car_rental.pdf, Japan_2026_Trip_Budget_Summary.pdf,
+// and the planning-chat docs uploaded to this project.
+// Edit this file (or just tell Claude what changed) to update the site.
+// ============================================================
+
+const TRIP = {
+  travelers: "Doritte & Rick",
+  start: "2026-09-25",
+  end: "2026-11-03",
+  diet: "Pescatarian — fish & seafood yes, meat & poultry no. Flag this at every property on arrival.",
+  passwordHint: "Ask Doritte or Rick"
+};
+
+// Each stay: destination, hotel name, check-in/out (ISO), nights, address, phone, total USD, coords, notes
+const HOTELS = [
+  {
+    dest: "Kyoto", hotel: "Minn Nijo-jo", checkin: "2026-09-25", checkout: "2026-10-03", nights: 8,
+    address: "17-1 Shinsenencho, Nakagyo-ku, Kyoto", phone: "+81 50-3627-5213", total: 1750,
+    lat: 35.0117, lng: 135.7444,
+    notes: "First 8 nights of Kyoto, near Nijo Castle."
+  },
+  {
+    dest: "Kyoto", hotel: "Nazuna Kyoto Nishi Honganji", checkin: "2026-10-03", checkout: "2026-10-05", nights: 2,
+    address: "228-2 Bukuguyacho, Shimogyo-ku, Kyoto", phone: "+81 75-585-2810", total: 1590,
+    lat: 34.9928, lng: 135.7530,
+    notes: "Final 2 Kyoto nights — a ryokan-style close to the Kyoto leg before the drive north."
+  },
+  {
+    dest: "Kanazawa", hotel: "Mitsui Garden Hotel Kanazawa", checkin: "2026-10-05", checkout: "2026-10-07", nights: 2,
+    address: "1-22 Kamitsutsumi-cho, Kanazawa, Ishikawa", phone: "+81 76-263-5531", total: 387,
+    lat: 36.5652, lng: 136.6559,
+    notes: "Top-floor public bath looks toward Kanazawa Castle Park and Kenrokuen."
+  },
+  {
+    dest: "Takayama", hotel: "Takayama Green Hotel (Keio)", checkin: "2026-10-07", checkout: "2026-10-09", nights: 2,
+    address: "2-180 Nishino-isshiki, Takayama, Gifu", phone: "+81 577-33-5500", total: 700,
+    lat: 36.1408, lng: 137.2519,
+    notes: "One hotel dinner here is worth it — Hida beef / regional set menu."
+  },
+  {
+    dest: "Hirayu Onsen", hotel: "Hodakaso Yamano Hotel", checkin: "2026-10-09", checkout: "2026-10-11", nights: 2,
+    address: "577-13 Okuhida Onsengo Kansaka, Takayama", phone: "+81 578-892-004", total: 800,
+    lat: 36.2072, lng: 137.5814,
+    notes: "Inform the hotel if arriving after 18:00 — dinner may not be served. Eat both dinners at the hotel; evening options nearby are limited."
+  },
+  {
+    dest: "Matsumoto", hotel: "Matsumoto Hotel Kagetsu", checkin: "2026-10-11", checkout: "2026-10-13", nights: 2,
+    address: "4-8-9 Ote, Matsumoto, Nagano", phone: "+81 263-32-0114", total: 710,
+    lat: 36.2380, lng: 137.9720,
+    notes: "Reserve at least one of the two Matsumoto dinners; keep the other casual."
+  },
+  {
+    dest: "Shiojiri / Narai", hotel: "La Terra Resort", checkin: "2026-10-13", checkout: "2026-10-14", nights: 1,
+    address: "4045-1 Senba, Shiojiri City, Nagano", phone: "+81 263-52-7000", total: 470,
+    lat: 36.1103, lng: 137.9530,
+    notes: "For an October stay, request the cabin with the private outdoor tub rather than a main-building room."
+  },
+  {
+    dest: "Kiso Valley", hotel: "Ryori Ryokan Shikanoyu", checkin: "2026-10-14", checkout: "2026-10-16", nights: 2,
+    address: "Ena, Gifu Prefecture (details in confirmation)", phone: "Via booking confirmation", total: 591,
+    lat: 35.5333, lng: 137.4167,
+    notes: "Nakasendo Magome–Tsumago hike booked for Oct 15 ($300)."
+  },
+  {
+    dest: "Gujo Hachiman", hotel: "Miharaya Ryokan", checkin: "2026-10-16", checkout: "2026-10-17", nights: 1,
+    address: "266 Hachimancho Yanagimachi, Gujo, Gifu", phone: "+81 575-65-3348", total: 192,
+    lat: 35.7167, lng: 136.9583,
+    notes: "One-night reset between the mountains and the coast — canal-town wandering, no big sightseeing agenda."
+  },
+  {
+    dest: "Ise-Shima", hotel: "Nemu Resort Hotel Nemu", checkin: "2026-10-17", checkout: "2026-10-19", nights: 2,
+    address: "2692-3 Hazako, Hamajima-cho, Shima City, Mie", phone: "+81 599-52-1211", total: 492,
+    lat: 34.3350, lng: 136.7986,
+    notes: "Meals currently booked for 3 guests — confirm this is intentional, or amend headcount. Ise Grand Shrine guided walk booked Oct 18 ($220). Eat dinner at the resort both nights, not in town."
+  },
+  {
+    dest: "Kumano", hotel: "Minamino Fields Fudozaka Cottage", checkin: "2026-10-19", checkout: "2026-10-22", nights: 3,
+    address: "1227 Minamihirano, Nachikatsuura, Wakayama", phone: "Contact via Booking.com", total: 334,
+    lat: 33.6167, lng: 135.9333,
+    notes: "Self-catering cottage, no meals — plan a serious grocery stop before driving up. Contact the host in advance with your arrival time; check-in window is 15:00–17:00."
+  },
+  {
+    dest: "Koyasan", hotel: "Koyasan Syukubou Fudouin", checkin: "2026-10-22", checkout: "2026-10-24", nights: 2,
+    address: "Koyasan 456, Koya Town, Wakayama", phone: "+81 736-562-414", total: 1220,
+    lat: 34.2125, lng: 135.5936,
+    notes: "Meals currently booked for 3 guests — amend to 2 before the free-cancellation deadline of Oct 7, 2026, if it's just the two of you."
+  },
+  {
+    dest: "Kurashiki", hotel: "Kurashiki Ivy Square", checkin: "2026-10-24", checkout: "2026-10-25", nights: 1,
+    address: "7-2 Honmachi, Kurashiki, Okayama", phone: "+81 86-422-0011", total: 300,
+    lat: 34.5967, lng: 133.7717,
+    notes: "One night before the ferry crossing to Naoshima. To reach Naoshima: train/taxi from Kurashiki to Uno Port (~30 min), then the ferry."
+  },
+  {
+    dest: "Naoshima", hotel: "UOGASHI 7070 Ocean View", checkin: "2026-10-25", checkout: "2026-10-28", nights: 3,
+    address: "2193-2 Miyanoura, Naoshima, Kagawa", phone: "Contact details in confirmation", total: 865,
+    lat: 34.4597, lng: 133.9967,
+    notes: "3 nights gives room for a Teshima side trip. Request upgrading to a sea-view / annex room for the torii gate views and a private bathroom."
+  },
+  {
+    dest: "Miyajima", hotel: "Kinsuikan", checkin: "2026-10-28", checkout: "2026-10-29", nights: 1,
+    address: "1133 Miyajima-cho, Hatsukaichi, Hiroshima", phone: "+81 829-44-2131", total: 880,
+    lat: 34.2960, lng: 132.3196,
+    notes: "One night on the island."
+  },
+  {
+    dest: "Hiroshima", hotel: "Sheraton Grand Hiroshima", checkin: "2026-10-29", checkout: "2026-10-30", nights: 1,
+    address: "12-1 Wakakusa-cho, Higashi-ku, Hiroshima", phone: "+81 82-262-7111", total: 383,
+    lat: 34.3963, lng: 132.4756,
+    notes: "Peace Memorial Museum is the natural anchor for this stop."
+  },
+  {
+    dest: "Tokyo", hotel: "Dai-ichi Hotel Tokyo", checkin: "2026-10-30", checkout: "2026-11-03", nights: 4,
+    address: "1-2-6 Shimbashi, Minato-ku, Tokyo", phone: "+81 3-3501-4411", total: 1595,
+    lat: 35.6669, lng: 139.7592,
+    notes: "4-5 nights makes up for a rushed Tokyo last time. Guided Omotesando/Aoyama architecture tour booked for Oct 31 (VietnamStay/Lily) — Prada Aoyama, Nezu Museum, 21_21 DESIGN SIGHT. Last day (Nov 3) is kept deliberately open as a rest day before flying home."
+  }
+];
+
+// Flights — add each confirmed leg here as you get them.
+const FLIGHTS = [
+  {
+    route: "Tel Aviv (TLV) → Tokyo Narita (NRT)",
+    flightNo: "LY91 (El Al, Dreamliner)",
+    bookingRef: "ZE7M8J",
+    cabin: "Premium Economy (Q)",
+    stops: "Direct",
+    status: "Confirmed",
+    depAirport: "TLV", depDateTime: "2026-11-03T19:00:00",
+    arrAirport: "NRT", arrDateTime: "2026-11-04T13:25:00",
+    duration: "11h 25m",
+    flag: "The ticket's own numbers (an 11h25m flight, TLV at UTC+2 in November, NRT at UTC+9) only resolve to the exact minute one way: departing Tel Aviv 19:00 on Nov 3 and landing Narita 13:25 on Nov 4. That makes this look like an outbound TLV→NRT flight rather than the Tokyo→Tel Aviv return — worth confirming which leg this actually is, since it currently lands a day after your Tokyo hotel checkout (Nov 3)."
+  }
+];
+// Return leg (Tokyo -> Tel Aviv) not added yet — drop in the confirmation when you have it.
+
+const CAR = {
+  company: "ORIX (booked via Klook)",
+  bookingNo: "JQC448833",
+  vehicle: "Toyota Prius Hybrid or similar (mid-size, 5 seats, 2 suitcases, automatic, A/C)",
+  pickupLocation: "Kyoto Station Shichijo Horikawa Store",
+  pickupAddress: "389 Munkaku-cho, Higashi-Nakasuji, Kyoto",
+  pickupPhone: "075-744-6153",
+  pickupDateTime: "2026-10-05T10:00:00",
+  dropoffLocation: "Shin-Osaka Store",
+  dropoffPhone: "06-6399-0543",
+  fuelPolicy: "Full to full",
+  mileage: "Unlimited mileage",
+  insurance: "Enhanced Plus — Collision Damage Waiver (¥0 excess), Third-Party Liability (¥0 excess), Non-operation Charge (¥0 excess)",
+  payment: "US$1,604.45 paid online; ¥260,260 due at the store",
+  cancellation: "Free cancellation before 28 Sep 2026 10:00 (local time) — booking becomes non-amendable after that",
+  driver: "Rick (age 78) — 1 free extra driver included, free GPS included",
+  flag: "Earlier planning notes mention picking the car up in Kanazawa — the confirmed Klook booking is Kyoto Station on Oct 5, dropping off at Shin-Osaka. Going with the confirmed booking; worth a final glance to be sure nothing changed since."
+};
+
+const BUDGET = {
+  total: 26590,
+  currency: "USD",
+  rows: [
+    ["Accommodation (39 nights, 17 properties)", 14040],
+    ["Tours & guided activities", 6000],
+    ["Car rental (19 days, incl. ETC card)", 1750],
+    ["Travel insurance (both travelers)", 2300],
+    ["Phones (SIM/eSIM or rental)", 1000],
+    ["Tips", 300],
+    ["~20 light dinners not covered by hotel rates", 1200]
+  ],
+  tours: [
+    ["Kanazawa Night Walking Tour", "Oct 6", 75],
+    ["Nakasendo Magome–Tsumago Hike", "Oct 15", 300],
+    ["Ise Grand Shrine guided walk", "Oct 18", 220],
+    ["Kyoto x4 + Tokyo x1 guided package", "Sep 27, 28, 29, Oct 2, Oct 31", 4666]
+  ],
+  notIncluded: [
+    "International Driving Permit fee",
+    "Fuel / tolls beyond the ETC card",
+    "Remaining independent dinners not yet finalized",
+    "Incidental entrance fees on free/unplanned days",
+    "Souvenirs and personal expenses"
+  ],
+  note: "Prepared Aug 2, 2026 — figures reflect confirmed bookings plus rounded estimates. Excludes the separate ~3-week Vietnam trip."
+};
+
+const REMINDERS = [
+  { text: TRIP.diet, flag: false },
+  { text: "Nemu Resort Hotel Nemu (Ise-Shima) and Koyasan Syukubou Fudouin both show meals booked for 3 guests — confirmed it's just the two of you traveling, so this is likely a hotel-side booking mistake. Not urgent to fix, but worth a heads-up to the properties so breakfast isn't over-set.", flag: false },
+  { text: "Car rental: confirmed pickup is Kyoto Station on Oct 5, drop-off Shin-Osaka on Oct 24 — earlier notes mentioning a Kanazawa pickup are outdated.", flag: true },
+  { text: "Israeli passport holders don't need a visa for Japan for stays up to 90 days — this trip is well within that. Just make sure passports are valid 6+ months beyond Nov 3, 2026, and be ready to show proof of onward/return travel at immigration.", flag: false },
+  { text: "Driving in Japan requires an International Driving Permit (IDP) — this has to be obtained in Israel before you fly (from the Ministry of Transport / a licensing bureau), it cannot be arranged in Japan. This isn't yet in the budget as a line item beyond the placeholder — get this sorted well before Oct 5.", flag: true },
+  { text: "The uploaded flight ticket (ref ZE7M8J) works out to Tel Aviv → Narita, departing Nov 3 at 19:00 and landing Nov 4 at 13:25 — see the flag on the Flights tab. Worth confirming this is the leg you meant to add, and the return (Tokyo → Tel Aviv) is still needed.", flag: true },
+  { text: "The repo hosting this site is public (required for free GitHub Pages). Passport numbers were removed from the Crew tab for that reason — they're kept separately, off this site.", flag: false },
+  { text: "Travel insurance: policy numbers and emergency-assistance line to be added once you send them over.", flag: false },
+  { text: "Kinsuikan (Miyajima): consider upgrading to a sea-view / annex room for torii gate views and a private bathroom.", flag: false },
+  { text: "UOGASHI 7070 (Naoshima) and Minamino Fields Fudozaka (Kumano): contact hosts in advance with your arrival time.", flag: false },
+  { text: "La Terra Resort (Shiojiri/Narai): request the cabin with the private outdoor tub rather than a main-building room for an October stay.", flag: false },
+  { text: "Uno Port ferry to Naoshima: train or taxi from Kurashiki to Uno Port (~30 min), then the ferry across.", flag: false },
+  { text: "Hodakaso Yamano Hotel (Hirayu Onsen): inform the property if arriving after 18:00 — dinner may not be served.", flag: false }
+];
+
+const CREW = [
+  {
+    name: "Doritte", role: "Trip planner",
+    passportOnFile: "Kept separately, not published in this site — ask Doritte or Rick directly if it's needed."
+  },
+  {
+    name: "Rick", role: "Driver (age 78 — listed on the car rental)",
+    passportOnFile: "Kept separately, not published in this site — ask Doritte or Rick directly if it's needed."
+  }
+];
+
+const CONNECTIVITY = "Data plans: keeping home phone numbers, adding a local data plan through your home carrier (not a separate Japan eSIM/rental).";
+
+const TOUR_OPERATOR = {
+  company: "VietnamStay (same operator as the Vietnam leg)",
+  bookingCode: "SO851003",
+  designer: "Lily — +84 982 893 692",
+  hotline: "+84 985 459 921",
+  clients: "Doritte Hoek + 1 (2 total), Israeli nationality",
+  period: "25 Sep – 3 Nov 2026",
+  price: "US$2,333/person (land services, after 3% returning-client discount) — US$4,666 total for 2, matching the budget's guided-package line",
+  note: "Confirmed day tours below. International flight details still need to go to VietnamStay for airport transfer arrangements."
+};
+
+// Narrative day notes, keyed by ISO date, pulled from the planning-chat docs.
+// Days without an entry just show the hotel/location — that's expected for legs
+// that haven't been mapped out yet.
+const DAY_NOTES = {
+  "2026-09-27": "Guided tour (VietnamStay/Lily) — Nanzen-ji, Aqueduct & Japanese Gardens: Nanzen-ji Temple and Sanmon Gate, the Meiji-era Suirokaku Aqueduct, Murin-an Garden, a walk along the Keage Incline, and Shoren-in Temple. English-speaking guide, private Alphard vehicle, 10 hours.",
+  "2026-09-28": "Guided tour (VietnamStay/Lily) — Antique Streets, Gion & Machiya Architecture: Shinmonzen and Furumonzen antique streets, Gion Shirakawa and Tatsumi Bridge, machiya townhouse architecture, and Kennin-ji Temple (Twin Dragons ceiling). English-speaking guide, private Alphard vehicle, 10 hours.",
+  "2026-09-29": "Guided tour (VietnamStay/Lily) — Nishijin Textiles & Kamishichiken: Nishijin textile district and workshop (silk dyeing/weaving demonstration), Kamishichiken geisha district, then free time. Half-day, English-speaking guide, private Alphard vehicle.",
+  "2026-10-02": "Guided tour (VietnamStay/Lily) — Uji Tea Culture & Byodo-in: Fukujuen tea visit covering cultivation and processing, a matcha stone-mill grinding experience, Byodo-in Temple (Phoenix Hall & Hoshokan Museum), and a walk along the Uji River. English-speaking guide, private Alphard vehicle, 10 hours.",
+  "2026-10-05": "Rental car pickup at Kyoto Station, ~8:30–9:00 AM — confirm ETC card, English GPS/CarPlay, and fuel type before leaving the lot. Drive to Kanazawa (allow 4–4.5 hrs with stops). Evening: check in at Mitsui Garden Hotel, light walk around Kanazawa Castle Park / Oyama Shrine, dinner out in town.",
+  "2026-10-06": "Kanazawa Night Walking Tour booked ($75). Suggested plan: Kenrokuen early (~7:30–8:00 AM) before crowds, then Kanazawa Castle Park, lunch at Omicho Market, one craft/samurai-district stop in the afternoon.",
+  "2026-10-07": "Drive Kanazawa → Shirakawa-go (~2.5–3 hrs there) → Takayama. Shirakawa-go: observation viewpoint, village lanes, one gassho-zukuri house interior. Check in at Takayama Green Hotel, early walk through Sanmachi Suji old town.",
+  "2026-10-08": "Takayama full day — Miyagawa morning market and old town before crowds build, then Hida Folk Village or Hida Furukawa in the afternoon.",
+  "2026-10-09": "Transition to Hirayu Onsen / Kamikochi. Keep it light — scenic drive, no forced sightseeing.",
+  "2026-10-11": "Transition Hirayu → Matsumoto. Check into Matsumoto Hotel Kagetsu, visit Matsumoto Castle if energy allows (timed-entry tickets), light walk on Nawate/Nakamachi Street, reserved dinner in town.",
+  "2026-10-12": "Matsumoto full day — castle grounds and old streets if not done the day before, then pick one: Matsumoto City Museum of Art, the Folkcraft Museum, or the former Kaichi School. Deliberately slow afternoon.",
+  "2026-10-13": "Transition to Shiojiri/Narai — La Terra Resort.",
+  "2026-10-14": "Transition to Kiso Valley — Ryori Ryokan Shikanoyu.",
+  "2026-10-15": "Nakasendo Magome–Tsumago hike booked ($300).",
+  "2026-10-16": "Transition to Gujo Hachiman — Miharaya Ryokan. Canal-town wandering, easy dinner.",
+  "2026-10-17": "Drive Gujo Hachiman → Ise-Shima (plan on ~3 hrs before sightseeing, longer with stops). Visit Ise Jingu Geku (Outer Shrine) in the afternoon, then settle into NEMU Resort. Dinner at the resort.",
+  "2026-10-18": "Ise Grand Shrine guided walk booked ($220) — Ise Jingu Naiku (Inner Shrine) early, then Oharai-machi / Okage Yokocho for lunch. Afternoon: Yokoyama Observatory / Ago Bay for the classic Ise-Shima coastal view.",
+  "2026-10-19": "Drive to Kumano — Minamino Fields Fudozaka cottage. Grocery stop essential; no meals at the cottage.",
+  "2026-10-22": "Drive to Koyasan — Koyasan Syukubou Fudouin (temple lodging).",
+  "2026-10-24": "Drive to Kurashiki — Kurashiki Ivy Square, one night before the ferry to Naoshima.",
+  "2026-10-25": "Ferry from Uno Port to Naoshima (~30 min crossing). Check into UOGASHI 7070.",
+  "2026-10-28": "Ferry/travel to Miyajima — Kinsuikan.",
+  "2026-10-29": "Miyajima → Hiroshima — Sheraton Grand Hiroshima. Peace Memorial Museum likely anchor for the day.",
+  "2026-10-30": "Hiroshima → Tokyo — Dai-ichi Hotel Tokyo, 4 nights.",
+  "2026-10-31": "Guided tour (VietnamStay/Lily) — Omotesando & Aoyama Architecture: architectural walk through Omotesando/Aoyama, Prada Aoyama (Herzog & de Meuron), Nezu Museum (Kengo Kuma, bamboo approach & garden), 21_21 DESIGN SIGHT (Tadao Ando), Tokyo Midtown design district. English-speaking guide, private Alphard vehicle, 10 hours.",
+  "2026-11-03": "Rest day — departure. Last day of the trip, kept deliberately open before flying home."
+};
+
+</script>
+<script>
+// ============================================================
+// App logic
+// ============================================================
+
+// --- Password gate ---------------------------------------------------
+// The site checks against a SHA-256 hash rather than storing the password
+// in plain text. Default password is "kouyou2026" (kōyō = autumn leaves).
+// To change it, just ask Claude — it'll compute the new hash and update
+// window.__PW_HASH__ below.
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Only the hash lives in source — the plaintext password is never stored here.
+const PASSWORD_HASH = "61de6cf2b38bd74c977a02cdfa360e7791e0d06ddba39bffba4cc9a825ce7012";
+
+async function checkPassword(input) {
+  const h = await sha256(input.trim());
+  return h === PASSWORD_HASH;
+}
+
+function unlock() {
+  try {
+    document.getElementById('lock').classList.add('hidden');
+    document.getElementById('app').classList.add('show');
+    try { localStorage.setItem('jt_unlocked', '1'); } catch (e) {}
+    // Cookie fallback — survives iOS/Safari clearing localStorage for installed PWAs
+    try { document.cookie = 'jt_unlocked=1; max-age=63072000; path=/; SameSite=Lax'; } catch (e) {}
+    render();
+  } catch (e) {
+    if (window.__showAppError) window.__showAppError('unlock()/render() threw', e);
+    else alert('Error after unlock: ' + (e && e.message ? e.message : e));
+  }
+}
+
+document.getElementById('pw-submit').addEventListener('click', trySubmit);
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') trySubmit(); });
+
+async function trySubmit() {
+  try {
+    const input = document.getElementById('pw-input');
+    const err = document.getElementById('lock-error');
+    const ok = await checkPassword(input.value);
+    if (ok) {
+      unlock();
+    } else {
+      err.textContent = 'Not quite — try again.';
+      input.value = '';
+      input.focus();
+    }
+  } catch (e) {
+    if (window.__showAppError) window.__showAppError('trySubmit() threw', e);
+    else alert('Error during password check: ' + (e && e.message ? e.message : e));
+  }
+}
+
+// --- Formatting helpers -----------------------------------------------
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(iso) {
+  const d = new Date(iso + "T00:00:00");
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+}
+function fmtDateFull(iso) {
+  const d = new Date(iso + "T00:00:00");
+  const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  return `${days[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;
+}
+function fmtDateWithYear(iso) {
+  const d = new Date(iso + "T00:00:00");
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+function usd(n) { return '$' + n.toLocaleString('en-US'); }
+function addDays(iso, n) {
+  const d = new Date(iso + "T00:00:00");
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+function dateRange(startIso, endIso) {
+  const out = [];
+  let cur = startIso;
+  while (cur <= endIso) { out.push(cur); cur = addDays(cur, 1); }
+  return out;
+}
+function hotelForDate(iso) {
+  return HOTELS.find(h => iso >= h.checkin && iso < h.checkout) ||
+         (iso === TRIP.end ? HOTELS[HOTELS.length - 1] : null);
+}
+
+// --- Countdown ----------------------------------------------------------
+function renderCountdown() {
+  const el = document.getElementById('countdown');
+  const now = new Date();
+  const todayIso = now.toISOString().slice(0, 10);
+  const start = new Date(TRIP.start + "T00:00:00");
+  const end = new Date(TRIP.end + "T00:00:00");
+  const today = new Date(todayIso + "T00:00:00");
+
+  if (today < start) {
+    const diff = Math.ceil((start - today) / 86400000);
+    el.innerHTML = `<span>Departure</span><b>${diff} day${diff === 1 ? '' : 's'} to go</b>`;
+  } else if (today >= start && today <= end) {
+    const dayNum = Math.floor((today - start) / 86400000) + 1;
+    const totalDays = Math.floor((end - start) / 86400000) + 1;
+    const h = hotelForDate(todayIso);
+    el.innerHTML = `<span>On the road</span><b>Day ${dayNum} of ${totalDays}${h ? ' · ' + h.dest : ''}</b>`;
+  } else {
+    el.innerHTML = `<span>Trip complete</span><b>Welcome home 🍁</b>`;
+  }
+}
+
+// --- Flights ---------------------------------------------------------
+function renderFlights() {
+  const el = document.getElementById('flight-list');
+  if (!FLIGHTS.length) {
+    el.innerHTML = `<div class="card"><div class="meta placeholder">No flights added yet.</div></div>`;
+    return;
+  }
+  el.innerHTML = FLIGHTS.map(f => `
+    <div class="card">
+      <h3>${f.route}</h3>
+      <div class="meta">${f.flightNo} · ${f.cabin} · ${f.stops} · Booking ref ${f.bookingRef}</div>
+      <div class="meta" style="margin-top:10px;">
+        <b>Depart</b> ${f.depAirport} — ${fmtDateFull(f.depDateTime.slice(0,10))}, ${f.depDateTime.slice(11,16)}<br>
+        <b>Arrive</b> ${f.arrAirport} — ${fmtDateFull(f.arrDateTime.slice(0,10))}, ${f.arrDateTime.slice(11,16)}<br>
+        <b>Duration</b> ${f.duration} · <b>Status</b> ${f.status}
+      </div>
+    </div>
+    ${f.flag ? `<div class="card" style="border-left:4px solid var(--maple-500);"><div class="meta"><b>Worth double-checking:</b> ${f.flag}</div></div>` : ''}
+  `).join('') + `
+  <div class="card" style="background:var(--cream-100);border-style:dashed;">
+    <div class="meta placeholder">Return flight (Tokyo → Tel Aviv) not added yet — upload the confirmation whenever you have it.</div>
+  </div>`;
+}
+
+// --- Hotels list ---------------------------------------------------------
+function renderHotels() {
+  const el = document.getElementById('hotel-list');
+  el.innerHTML = HOTELS.map(h => {
+    const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.hotel + ' ' + h.address)}`;
+    return `
+    <div class="card">
+      <h3>${h.hotel}</h3>
+      <div class="meta">${h.dest} · ${h.address}<br>
+        ${fmtDate(h.checkin)} → ${fmtDate(h.checkout)} · <a href="tel:${h.phone.replace(/\s/g,'')}">${h.phone}</a>
+      </div>
+      <span class="tag nights">${h.nights} night${h.nights > 1 ? 's' : ''}</span>
+      <span class="tag price">${usd(h.total)}</span>
+      <div class="meta" style="margin-top:8px;">${h.notes}</div>
+      <div class="hotel-links">
+        <a href="${gmaps}" target="_blank" rel="noopener">📍 Google Maps</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// --- Map -------------------------------------------------------------
+let mapInstance = null;
+let leafletLoadPromise = null;
+
+function loadLeaflet() {
+  if (window.L) return Promise.resolve();
+  if (leafletLoadPromise) return leafletLoadPromise;
+
+  leafletLoadPromise = new Promise((resolve, reject) => {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(css);
+
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Leaflet failed to load'));
+    document.body.appendChild(script);
+
+    // Don't hang forever if the network is slow/blocked — fail after 8s.
+    setTimeout(() => reject(new Error('Leaflet load timed out')), 8000);
+  });
+  return leafletLoadPromise;
+}
+
+function renderMap() {
+  if (mapInstance) return;
+  const mapEl = document.getElementById('map');
+  mapEl.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--ink-600);font-size:13px;">Loading map…</div>`;
+
+  loadLeaflet().then(() => {
+    mapEl.innerHTML = '';
+    mapInstance = L.map('map', { scrollWheelZoom: false }).setView([35.5, 136.5], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(mapInstance);
+
+    const latlngs = HOTELS.map(h => [h.lat, h.lng]);
+    L.polyline(latlngs, { color: '#c85a3d', weight: 3, opacity: 0.75, dashArray: '2,8' }).addTo(mapInstance);
+
+    HOTELS.forEach((h, i) => {
+      const icon = L.divIcon({
+        className: '',
+        html: `<div style="background:#1c2b4a;color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${i + 1}</div>`,
+        iconSize: [26, 26],
+        iconAnchor: [13, 13]
+      });
+      const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.hotel + ' ' + h.address)}`;
+      L.marker([h.lat, h.lng], { icon }).addTo(mapInstance)
+        .bindPopup(`<b>${h.dest}</b><br>${h.hotel}<br>${fmtDate(h.checkin)} – ${fmtDate(h.checkout)}<br><a href="${gmaps}" target="_blank">Open in Google Maps</a>`);
+    });
+
+    setTimeout(() => mapInstance.invalidateSize(), 200);
+  }).catch(() => {
+    mapEl.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--ink-600);font-size:13px;text-align:center;padding:20px;gap:10px;">
+      <div>Map couldn't load — this needs an internet connection to fetch map tiles.</div>
+      <button onclick="mapInstance=null;leafletLoadPromise=null;renderMap();" style="padding:8px 16px;border-radius:8px;border:1px solid var(--cream-200);background:#fff;font-size:13px;cursor:pointer;">Try again</button>
+    </div>`;
+  });
+}
+
+// --- Car card ----------------------------------------------------------
+function renderCar() {
+  const el = document.getElementById('car-card');
+  const gmapsPickup = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CAR.pickupLocation + ' ' + CAR.pickupAddress)}`;
+  el.innerHTML = `
+    <div class="card">
+      <h3>${CAR.vehicle}</h3>
+      <div class="meta">${CAR.company} · Booking #${CAR.bookingNo}</div>
+      <div class="meta" style="margin-top:10px;">
+        <b>Pick up</b> — ${fmtDateFull(CAR.pickupDateTime.slice(0,10))}, ${CAR.pickupDateTime.slice(11,16)}<br>
+        ${CAR.pickupLocation}, ${CAR.pickupAddress}<br>
+        ${CAR.pickupPhone}
+      </div>
+      <div class="meta" style="margin-top:10px;">
+        <b>Drop off</b> — ${CAR.dropoffLocation}<br>${CAR.dropoffPhone}
+      </div>
+      <div class="meta" style="margin-top:10px;">
+        <b>Fuel:</b> ${CAR.fuelPolicy} &nbsp;·&nbsp; <b>Mileage:</b> ${CAR.mileage}<br>
+        <b>Insurance:</b> ${CAR.insurance}<br>
+        <b>Payment:</b> ${CAR.payment}<br>
+        <b>Cancellation:</b> ${CAR.cancellation}<br>
+        <b>Driver:</b> ${CAR.driver}
+      </div>
+      <div class="hotel-links">
+        <a href="${gmapsPickup}" target="_blank" rel="noopener">📍 Pickup location</a>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--maple-500);">
+      <div class="meta"><b>Worth double-checking:</b> ${CAR.flag}</div>
+    </div>
+  `;
+}
+
+// --- Budget --------------------------------------------------------------
+function renderBudget() {
+  const el = document.getElementById('budget-content');
+  const rowsHtml = BUDGET.rows.map(r => `<tr><td>${r[0]}</td><td>${usd(r[1])}</td></tr>`).join('');
+  const toursHtml = BUDGET.tours.map(t => `<tr><td>${t[0]} <span style="color:var(--ink-600);font-weight:400;">(${t[1]})</span></td><td>${usd(t[2])}</td></tr>`).join('');
+  const notIncludedHtml = BUDGET.notIncluded.map(n => `<li>${n}</li>`).join('');
+  el.innerHTML = `
+    <div class="budget-total">
+      <div class="amt">${usd(BUDGET.total)}</div>
+      <div class="lbl">Total estimated — Japan only</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:10px;">By category</h3>
+      <table class="budget">${rowsHtml}
+        <tr class="total"><td>Total</td><td>${usd(BUDGET.total)}</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:10px;">Tours & guided activities</h3>
+      <table class="budget">${toursHtml}</table>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:10px;">Not yet included</h3>
+      <ul style="margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-600);line-height:1.8;">${notIncludedHtml}</ul>
+    </div>
+    <div class="meta" style="padding:0 4px;">${BUDGET.note}</div>
+  `;
+}
+
+// --- Reminders -----------------------------------------------------------
+function renderReminders() {
+  const el = document.getElementById('reminder-list');
+  el.innerHTML = REMINDERS.map(r => `<li class="${r.flag ? 'flag' : ''}">${r.text}</li>`).join('');
+}
+
+// --- Crew ------------------------------------------------------------
+function fmtPassport(p) {
+  return `${p.country} — ${p.fullName}<br>No. ${p.number} · exp. ${fmtDateWithYear(p.expiry)}`;
+}
+function renderCrew() {
+  const el = document.getElementById('crew-list');
+  el.innerHTML = CREW.map(c => {
+    const passportHtml = c.passportOnFile
+      ? `<div class="meta placeholder" style="margin-top:8px;">${c.passportOnFile}</div>`
+      : '';
+    return `
+    <div class="card">
+      <div class="crew-card">
+        <div class="avatar">${c.name[0]}</div>
+        <div>
+          <h3 style="margin-bottom:2px;">${c.name}</h3>
+          <div class="meta">${c.role}</div>
+        </div>
+      </div>
+      ${passportHtml}
+    </div>`;
+  }).join('') + `
+    <div class="card">
+      <div class="meta"><b>Diet:</b> ${TRIP.diet}</div>
+      <div class="meta" style="margin-top:8px;">${CONNECTIVITY}</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:6px;">Tour operator</h3>
+      <div class="meta">
+        ${TOUR_OPERATOR.company}<br>
+        Booking code ${TOUR_OPERATOR.bookingCode} · ${TOUR_OPERATOR.clients}<br>
+        Trip designer: ${TOUR_OPERATOR.designer}<br>
+        Hotline: ${TOUR_OPERATOR.hotline}<br>
+        ${TOUR_OPERATOR.price}
+      </div>
+      <div class="meta" style="margin-top:8px;">${TOUR_OPERATOR.note}</div>
+    </div>`;
+}
+
+// --- Timeline ------------------------------------------------------------
+function renderTimeline() {
+  const el = document.getElementById('timeline-list');
+  const days = dateRange(TRIP.start, TRIP.end);
+  const todayIso = new Date().toISOString().slice(0, 10);
+
+  el.innerHTML = days.map((iso, idx) => {
+    const h = hotelForDate(iso);
+    const note = DAY_NOTES[iso];
+    const isCheckin = h && h.checkin === iso;
+    const isToday = iso === todayIso;
+    const d = new Date(iso + "T00:00:00");
+    return `
+    <details class="day-group ${isToday ? 'today' : ''}">
+      <summary>
+        <div class="day-badge"><span class="num">${d.getDate()}</span><span class="mon">${MONTHS[d.getMonth()]}</span></div>
+        <div class="day-head">
+          <div class="loc">Day ${idx + 1} · ${h ? h.dest : '—'}</div>
+          <div class="hotel">${h ? h.hotel : ''}${isCheckin ? ' (check-in)' : ''}</div>
+        </div>
+        <div class="chev">▸</div>
+      </summary>
+      <div class="day-body">
+        ${note ? `<div class="note">${note}</div>` : `<div class="placeholder">Day plan not finalized yet — tell Claude what's happening this day and it'll go here.</div>`}
+      </div>
+    </details>`;
+  }).join('');
+}
+
+// --- Rendered-state tracking (for lazy per-tab rendering) --------------
+const rendered = { flights: false, hotels: false, map: false, car: false, budget: false, notes: false, crew: false, timeline: false };
+
+function renderSub(name) {
+  if (rendered[name]) return;
+  rendered[name] = true;
+  if (name === 'flights') renderFlights();
+  else if (name === 'hotels') renderHotels();
+  else if (name === 'car') renderCar();
+  else if (name === 'budget') renderBudget();
+  else if (name === 'notes') renderReminders();
+  else if (name === 'crew') renderCrew();
+  else if (name === 'timeline') renderTimeline();
+  // 'map' is handled separately by renderMap()'s own lazy-load logic
+}
+
+// --- Nav / tabs ------------------------------------------------------
+function wireNav() {
+  document.querySelectorAll('nav.views button, nav.bottom button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + view).classList.add('active');
+      document.querySelectorAll('nav.views button, nav.bottom button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (view === 'timeline') {
+        renderSub('timeline');
+      } else if (view === 'overview') {
+        const activeSub = document.querySelector('.subtabs button.active');
+        if (activeSub) {
+          const subName = activeSub.dataset.sub;
+          renderSub(subName);
+          if (subName === 'map') setTimeout(renderMap, 50);
+        }
+      }
+    });
+  });
+
+  document.querySelectorAll('.subtabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sub = btn.dataset.sub;
+      document.querySelectorAll('.subview').forEach(v => v.classList.remove('active'));
+      document.getElementById('sub-' + sub).classList.add('active');
+      document.querySelectorAll('.subtabs button').forEach(b => b.classList.toggle('active', b === btn));
+      if (sub === 'map') {
+        setTimeout(renderMap, 50);
+      } else {
+        renderSub(sub);
+      }
+    });
+  });
+}
+
+// --- Back to top --------------------------------------------------------
+function wireBackTop() {
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// --- Init --------------------------------------------------------------
+function render() {
+  renderCountdown();
+  renderSub('flights'); // only the tab that's actually visible on unlock
+}
+
+async function init() {
+  wireNav();
+  wireBackTop();
+
+  // Auto-unlock within the same browser tab session
+  // Auto-unlock if previously unlocked — check localStorage, then cookie fallback
+  try {
+    const cookieUnlocked = document.cookie.split('; ').some(c => c === 'jt_unlocked=1');
+    if (localStorage.getItem('jt_unlocked') === '1' || cookieUnlocked) {
+      unlock();
+    }
+  } catch (e) {}
+
+  document.getElementById('pw-input').focus();
+
+  // Service worker — deferred to the load event so it doesn't compete with
+  // initial render, matching the pattern from a proven-working sibling site.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+}
+init();
+
+</script>
 </body>
 </html>
