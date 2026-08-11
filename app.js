@@ -341,6 +341,22 @@ function renderTimeline() {
   }).join('');
 }
 
+// --- Rendered-state tracking (for lazy per-tab rendering) --------------
+const rendered = { flights: false, hotels: false, map: false, car: false, budget: false, notes: false, crew: false, timeline: false };
+
+function renderSub(name) {
+  if (rendered[name]) return;
+  rendered[name] = true;
+  if (name === 'flights') renderFlights();
+  else if (name === 'hotels') renderHotels();
+  else if (name === 'car') renderCar();
+  else if (name === 'budget') renderBudget();
+  else if (name === 'notes') renderReminders();
+  else if (name === 'crew') renderCrew();
+  else if (name === 'timeline') renderTimeline();
+  // 'map' is handled separately by renderMap()'s own lazy-load logic
+}
+
 // --- Nav / tabs ------------------------------------------------------
 function wireNav() {
   document.querySelectorAll('nav.views button, nav.bottom button').forEach(btn => {
@@ -350,8 +366,15 @@ function wireNav() {
       document.getElementById('view-' + view).classList.add('active');
       document.querySelectorAll('nav.views button, nav.bottom button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
       window.scrollTo({ top: 0, behavior: 'instant' });
-      if (view === 'overview' && document.getElementById('sub-map').classList.contains('active')) {
-        setTimeout(renderMap, 50);
+      if (view === 'timeline') {
+        renderSub('timeline');
+      } else if (view === 'overview') {
+        const activeSub = document.querySelector('.subtabs button.active');
+        if (activeSub) {
+          const subName = activeSub.dataset.sub;
+          renderSub(subName);
+          if (subName === 'map') setTimeout(renderMap, 50);
+        }
       }
     });
   });
@@ -362,7 +385,11 @@ function wireNav() {
       document.querySelectorAll('.subview').forEach(v => v.classList.remove('active'));
       document.getElementById('sub-' + sub).classList.add('active');
       document.querySelectorAll('.subtabs button').forEach(b => b.classList.toggle('active', b === btn));
-      if (sub === 'map') setTimeout(renderMap, 50);
+      if (sub === 'map') {
+        setTimeout(renderMap, 50);
+      } else {
+        renderSub(sub);
+      }
     });
   });
 }
@@ -379,13 +406,7 @@ function wireBackTop() {
 // --- Init --------------------------------------------------------------
 function render() {
   renderCountdown();
-  renderFlights();
-  renderHotels();
-  renderCar();
-  renderBudget();
-  renderReminders();
-  renderCrew();
-  renderTimeline();
+  renderSub('flights'); // only the tab that's actually visible on unlock
 }
 
 async function init() {
