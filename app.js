@@ -21,25 +21,35 @@ async function checkPassword(input) {
 }
 
 function unlock() {
-  document.getElementById('lock').classList.add('hidden');
-  document.getElementById('app').classList.add('show');
-  try { sessionStorage.setItem('jt_unlocked', '1'); } catch (e) {}
-  render();
+  try {
+    document.getElementById('lock').classList.add('hidden');
+    document.getElementById('app').classList.add('show');
+    try { sessionStorage.setItem('jt_unlocked', '1'); } catch (e) {}
+    render();
+  } catch (e) {
+    if (window.__showAppError) window.__showAppError('unlock()/render() threw', e);
+    else alert('Error after unlock: ' + (e && e.message ? e.message : e));
+  }
 }
 
 document.getElementById('pw-submit').addEventListener('click', trySubmit);
 document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') trySubmit(); });
 
 async function trySubmit() {
-  const input = document.getElementById('pw-input');
-  const err = document.getElementById('lock-error');
-  const ok = await checkPassword(input.value);
-  if (ok) {
-    unlock();
-  } else {
-    err.textContent = 'Not quite — try again.';
-    input.value = '';
-    input.focus();
+  try {
+    const input = document.getElementById('pw-input');
+    const err = document.getElementById('lock-error');
+    const ok = await checkPassword(input.value);
+    if (ok) {
+      unlock();
+    } else {
+      err.textContent = 'Not quite — try again.';
+      input.value = '';
+      input.focus();
+    }
+  } catch (e) {
+    if (window.__showAppError) window.__showAppError('trySubmit() threw', e);
+    else alert('Error during password check: ' + (e && e.message ? e.message : e));
   }
 }
 

@@ -242,6 +242,51 @@ nav.bottom svg{width:21px;height:21px;}
   main{max-width:820px;}
 }
 </style>
+<!-- On-page error display — catches crashes/errors and shows them visibly,
+     so problems are diagnosable without needing a computer or DevTools. -->
+<div id="err-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#1a0d0d;color:#ffdddd;overflow:auto;font-family:monospace;">
+  <button id="err-copy" style="position:fixed;top:10px;right:10px;padding:10px 16px;background:#c85a3d;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:-apple-system,sans-serif;z-index:2;">Copy debug info</button>
+  <div id="err-text" style="padding:20px;padding-top:60px;font-size:12px;line-height:1.6;white-space:pre-wrap;"></div>
+</div>
+<script>
+(function() {
+  function showError(label, detail) {
+    var overlay = document.getElementById('err-overlay');
+    var text = document.getElementById('err-text');
+    if (!overlay || !text) return;
+    overlay.style.display = 'block';
+    text.textContent += '\n\n[' + new Date().toISOString() + '] ' + label + '\n' + detail;
+  }
+  window.__showAppError = function(label, e) {
+    showError(label, (e && e.message ? e.message : String(e)) + (e && e.stack ? '\nStack: ' + e.stack : ''));
+  };
+  window.addEventListener('error', function(e) {
+    showError('JS ERROR', (e.message || 'unknown') + '\nFile: ' + (e.filename || '?') + ':' + (e.lineno || '?') + ':' + (e.colno || '?') + '\nStack: ' + (e.error && e.error.stack ? e.error.stack : 'n/a'));
+  });
+  window.addEventListener('unhandledrejection', function(e) {
+    showError('UNHANDLED PROMISE REJECTION', (e.reason && e.reason.stack) ? e.reason.stack : String(e.reason));
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('err-copy');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var textEl = document.getElementById('err-text');
+        var full = 'User agent: ' + navigator.userAgent + '\n' + textEl.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(full).then(function() {
+            btn.textContent = 'Copied!';
+            setTimeout(function() { btn.textContent = 'Copy debug info'; }, 2000);
+          }).catch(function() {
+            btn.textContent = 'Copy failed — screenshot instead';
+          });
+        } else {
+          btn.textContent = 'Screenshot this instead';
+        }
+      });
+    }
+  });
+})();
+</script>
 </head>
 <body>
 
