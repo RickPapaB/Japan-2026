@@ -514,18 +514,6 @@ const HOTELS = [
 // Flights — add each confirmed leg here as you get them.
 const FLIGHTS = [
   {
-    route: "Tel Aviv (TLV) → Tokyo Narita (NRT)",
-    flightNo: "LY91 (El Al, Dreamliner)",
-    bookingRef: "ZE7M8J",
-    cabin: "Premium Economy (Q)",
-    stops: "Direct",
-    status: "Confirmed",
-    depAirport: "TLV", depDateTime: "2026-11-03T19:00:00",
-    arrAirport: "NRT", arrDateTime: "2026-11-04T13:25:00",
-    duration: "11h 25m",
-    flag: "This conflicts with the return flight below — both can't be right. This one has you departing Tel Aviv for Tokyo at 19:00 on Nov 3, the same day the flight below has you departing Tokyo for home at 15:45. Worth checking whether this ticket belongs to this trip at all, or was uploaded in error."
-  },
-  {
     route: "Tokyo Narita (NRT) → Tel Aviv (TLV)",
     flightNo: "LY92 (El Al, Dreamliner)",
     bookingRef: "ZT03TX",
@@ -592,7 +580,7 @@ const REMINDERS = [
   { text: "Car rental: confirmed pickup is Kyoto Station on Oct 5, drop-off Shin-Osaka on Oct 24 — earlier notes mentioning a Kanazawa pickup are outdated.", flag: true },
   { text: "Israeli passport holders don't need a visa for Japan for stays up to 90 days — this trip is well within that. Just make sure passports are valid 6+ months beyond Nov 3, 2026, and be ready to show proof of onward/return travel at immigration.", flag: false },
   { text: "Driving in Japan requires an International Driving Permit (IDP) — this has to be obtained in Israel before you fly (from the Ministry of Transport / a licensing bureau), it cannot be arranged in Japan. This isn't yet in the budget as a line item beyond the placeholder — get this sorted well before Oct 5.", flag: true },
-  { text: "Return flight confirmed: LY92, Narita → Tel Aviv, departs Nov 3 at 15:45, arrives Tel Aviv 21:50 same day. The earlier ticket (LY91, ref ZE7M8J) conflicts with it — see the flag on the Flights tab — worth checking whether that one actually belongs to this trip.", flag: true },
+  { text: "Return flight confirmed: LY92, Narita → Tel Aviv, departs Nov 3 at 15:45, arrives Tel Aviv 21:50 same day (booking ref ZT03TX).", flag: false },
   { text: "The repo hosting this site is public (required for free GitHub Pages). Passport numbers were removed from the Crew tab for that reason — they're kept separately, off this site.", flag: false },
   { text: "Travel insurance: policy numbers and emergency-assistance line to be added once you send them over.", flag: false },
   { text: "Kinsuikan (Miyajima): consider upgrading to a sea-view / annex room for torii gate views and a private bathroom.", flag: false },
@@ -789,7 +777,10 @@ function renderFlights() {
       </div>
     </div>
     ${f.flag ? `<div class="card" style="border-left:4px solid var(--maple-500);"><div class="meta"><b>Worth double-checking:</b> ${f.flag}</div></div>` : ''}
-  `).join('');
+  `).join('') + `
+  <div class="card" style="background:var(--cream-100);border-style:dashed;">
+    <div class="meta placeholder">Outbound flight (Tel Aviv → Japan, around Sep 25) not added yet — upload the confirmation whenever you have it.</div>
+  </div>`;
 }
 
 // --- Hotels list ---------------------------------------------------------
