@@ -133,6 +133,58 @@ main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
 .subview{display:none;}
 .subview.active{display:block;}
 
+/* Home hero */
+.home-hero{
+  min-height:calc(100vh - 260px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 16px;position:relative;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 20%, rgba(200,90,61,0.12), transparent 65%),
+    var(--cream-50);
+  border-radius:18px;
+  border:1px solid var(--cream-200);
+}
+.home-eyebrow{
+  font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--maple-600);
+  margin-bottom:14px;font-weight:700;
+}
+.home-title{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(48px,13vw,88px);line-height:0.92;color:var(--indigo-900);
+  letter-spacing:-0.01em;margin:0;
+}
+.home-title span{
+  display:block;color:var(--maple-600);font-size:0.5em;font-weight:700;letter-spacing:0.05em;margin-top:6px;
+}
+.home-cities{
+  margin-top:20px;font-size:13px;color:var(--ink-600);line-height:1.9;
+  max-width:480px;letter-spacing:0.02em;
+}
+.home-leg{
+  margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.home-leg-dates{
+  font-family:var(--font-display);font-size:13px;letter-spacing:0.15em;color:var(--indigo-700);font-weight:600;
+}
+.home-leg-name{
+  font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--maple-600);margin:2px 0;
+}
+.home-leg-len{
+  font-size:11px;letter-spacing:0.2em;color:var(--ink-600);text-transform:uppercase;
+}
+#home-countdown{margin-top:26px;}
+.home-cd-units{display:flex;gap:14px;justify-content:center;}
+.home-cd-unit{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.home-cd-num{
+  font-family:var(--font-display);font-size:clamp(26px,7vw,40px);font-weight:800;color:#fff;
+  background:var(--indigo-900);border-radius:10px;padding:10px clamp(12px,3vw,18px);
+  min-width:60px;text-align:center;line-height:1;
+}
+.home-cd-label{font-size:10px;letter-spacing:0.2em;color:var(--ink-600);text-transform:uppercase;}
+.home-cd-live{
+  font-family:var(--font-display);font-style:italic;font-size:19px;color:var(--maple-600);font-weight:600;
+}
+
 h2.section-title{
   font-family:var(--font-display);font-size:19px;color:var(--indigo-900);
   margin:0 0 12px;font-weight:600;
@@ -313,13 +365,34 @@ nav.bottom svg{width:21px;height:21px;}
   </header>
 
   <nav class="views">
-    <button data-view="overview" class="active">Overview</button>
+    <button data-view="home" class="active">Home</button>
+    <button data-view="overview">Overview</button>
     <button data-view="timeline">Timeline</button>
   </nav>
 
   <main>
+    <!-- ---------- HOME ---------- -->
+    <section id="view-home" class="view active">
+      <div class="home-hero">
+        <div class="home-eyebrow">秋 · Doritte &amp; Rick</div>
+        <h1 class="home-title">JAPAN<span>2026</span></h1>
+        <div class="home-cities" id="home-cities"></div>
+        <div class="home-leg">
+          <span class="home-leg-dates">8 SEP – 26 SEP 2026</span>
+          <span class="home-leg-name">Vietnam</span>
+          <span class="home-leg-len">19 DAYS / 18 NIGHTS</span>
+        </div>
+        <div class="home-leg">
+          <span class="home-leg-dates">26 SEP – 3 NOV 2026</span>
+          <span class="home-leg-name">Japan</span>
+          <span class="home-leg-len">39 DAYS / 39 NIGHTS</span>
+        </div>
+        <div id="home-countdown"></div>
+      </div>
+    </section>
+
     <!-- ---------- OVERVIEW ---------- -->
-    <section id="view-overview" class="view active">
+    <section id="view-overview" class="view">
       <div class="subtabs">
         <button data-sub="flights" class="active">Flights</button>
         <button data-sub="hotels">Hotels</button>
@@ -377,7 +450,11 @@ nav.bottom svg{width:21px;height:21px;}
   <button class="back-top" id="back-top" aria-label="Back to top">↑</button>
 
   <nav class="bottom">
-    <button data-view="overview" class="active">
+    <button data-view="home" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>
+      Home
+    </button>
+    <button data-view="overview">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
       Overview
     </button>
@@ -1042,6 +1119,50 @@ function renderSub(name) {
   // 'map' is handled separately by renderMap()'s own lazy-load logic
 }
 
+// --- Home hero ---------------------------------------------------------
+let homeCountdownInterval = null;
+function renderHome() {
+  // City list, deduped and in trip order, straight from HOTELS
+  const el = document.getElementById('home-cities');
+  const seen = new Set();
+  const cities = [];
+  HOTELS.forEach(h => { if (!seen.has(h.dest)) { seen.add(h.dest); cities.push(h.dest); } });
+  el.textContent = cities.join('  ·  ');
+
+  const wrap = document.getElementById('home-countdown');
+  const DEP = new Date('2026-09-07T22:30:00+03:00');   // IZ595 TLV departure (Israel, IDT)
+  const VN_START = new Date('2026-09-08T00:00:00+07:00'); // Vietnam local
+  const VN_END = new Date('2026-09-26T00:00:00+07:00');
+  const JP_START = new Date('2026-09-26T00:00:00+09:00'); // Japan local
+  const JP_END = new Date('2026-11-04T00:00:00+09:00');
+
+  function paint() {
+    const now = new Date();
+    if (now < DEP) {
+      const diff = DEP - now;
+      const d = Math.floor(diff / 864e5);
+      const h = Math.floor(diff % 864e5 / 36e5);
+      const m = Math.floor(diff % 36e5 / 6e4);
+      wrap.innerHTML = `<div class="home-cd-units">
+        <div class="home-cd-unit"><div class="home-cd-num">${d}</div><div class="home-cd-label">Days</div></div>
+        <div class="home-cd-unit"><div class="home-cd-num">${h}</div><div class="home-cd-label">Hours</div></div>
+        <div class="home-cd-unit"><div class="home-cd-num">${m}</div><div class="home-cd-label">Min</div></div>
+      </div>`;
+    } else if (now < VN_END) {
+      const day = Math.min(19, Math.floor((now - VN_START) / 864e5) + 1);
+      wrap.innerHTML = `<div class="home-cd-live">🇻🇳 Day ${day} of 19 — we're in Vietnam!</div>`;
+    } else if (now < JP_END) {
+      const day = Math.min(39, Math.floor((now - JP_START) / 864e5) + 1);
+      wrap.innerHTML = `<div class="home-cd-live">🍁 Day ${day} of 39 — we're in Japan!</div>`;
+    } else {
+      wrap.innerHTML = `<div class="home-cd-live">Welcome home 🍁</div>`;
+    }
+  }
+  paint();
+  if (homeCountdownInterval) clearInterval(homeCountdownInterval);
+  homeCountdownInterval = setInterval(paint, 30000);
+}
+
 // --- Nav / tabs ------------------------------------------------------
 function wireNav() {
   document.querySelectorAll('nav.views button, nav.bottom button').forEach(btn => {
@@ -1091,6 +1212,7 @@ function wireBackTop() {
 // --- Init --------------------------------------------------------------
 function render() {
   renderCountdown();
+  renderHome();
   renderSub('flights'); // only the tab that's actually visible on unlock
 }
 
