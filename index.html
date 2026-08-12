@@ -160,6 +160,9 @@ main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
   margin-top:20px;font-size:13px;color:var(--ink-600);line-height:1.9;
   max-width:480px;letter-spacing:0.02em;
 }
+.home-legs-row{display:flex;align-items:stretch;justify-content:center;gap:18px;margin-top:18px;}
+.home-flag{font-size:clamp(40px,11vw,64px);line-height:1;display:flex;align-items:center;}
+.home-legs-stack{display:flex;flex-direction:column;gap:14px;}
 .home-leg{
   margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:2px;
 }
@@ -184,6 +187,62 @@ main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
 .home-cd-live{
   font-family:var(--font-display);font-style:italic;font-size:19px;color:var(--maple-600);font-weight:600;
 }
+
+/* Flight ticket cards, styled after the reference site */
+.fc{
+  background:#fff;border:1px solid var(--cream-200);border-radius:12px;
+  padding:18px 18px;margin-bottom:12px;
+  display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;
+}
+.ftag{
+  display:inline-block;background:var(--indigo-900);color:var(--gold-300);
+  font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;
+  padding:3px 9px;border-radius:20px;margin-bottom:7px;
+}
+.fcity{font-family:var(--font-display);font-size:clamp(15px,3.5vw,20px);font-weight:700;color:var(--ink-900);}
+.fcode{font-size:9.5px;color:var(--maple-600);letter-spacing:0.08em;font-weight:600;margin-top:2px;}
+.ftime{font-family:var(--font-display);font-size:clamp(17px,4vw,23px);color:var(--indigo-900);font-weight:700;margin-top:5px;}
+.fdate{font-size:9.5px;color:var(--ink-600);letter-spacing:0.04em;margin-top:2px;}
+.farrow{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.farr-line{width:clamp(24px,6vw,60px);height:1px;background:linear-gradient(90deg,transparent,var(--maple-500),transparent);}
+.fnum{font-size:9.5px;color:var(--maple-600);letter-spacing:0.05em;font-weight:700;}
+.fdur{font-size:9px;color:var(--ink-600);}
+.fmeta{grid-column:1/-1;border-top:1px dashed var(--cream-200);padding-top:10px;margin-top:4px;display:flex;gap:14px;flex-wrap:wrap;}
+.fmi{font-size:10.5px;color:var(--ink-600);letter-spacing:0.02em;}
+.fmi span{color:var(--ink-900);font-weight:700;}
+@media(max-width:420px){
+  .fc{grid-template-columns:1fr;gap:8px;}
+  .farrow{flex-direction:row;justify-content:center;}
+  .farr-line{width:38px;}
+}
+
+/* Hotel cards, styled after the reference site */
+.hcard{
+  background:#fff;border:1px solid var(--cream-200);border-radius:12px;overflow:hidden;
+  margin-bottom:14px;display:flex;flex-direction:column;
+}
+.hbanner{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0;}
+.hemoji{font-size:26px;}
+.hstars{color:rgba(255,255,255,0.85);font-size:12px;letter-spacing:2px;}
+.hbody{padding:16px 18px;display:flex;flex-direction:column;}
+.hcity{font-size:9.5px;letter-spacing:0.18em;color:var(--maple-600);text-transform:uppercase;font-weight:700;margin-bottom:3px;}
+.hname{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink-900);margin-bottom:2px;}
+.hnights{display:inline-block;background:var(--indigo-900);color:#fff;font-size:9.5px;letter-spacing:0.05em;padding:3px 10px;border-radius:20px;margin:8px 0;}
+.hdates{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.hdb{background:var(--cream-100);border-radius:8px;padding:8px 10px;}
+.hdl{font-size:8.5px;letter-spacing:0.12em;color:var(--ink-600);text-transform:uppercase;margin-bottom:2px;}
+.hdv{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--ink-900);}
+.hmapcode{font-size:10px;color:var(--ink-600);padding-top:10px;border-top:1px dashed var(--cream-200);letter-spacing:0.03em;margin-bottom:6px;}
+.hmapcode span{color:var(--indigo-700);font-weight:700;}
+.href-row{font-size:10px;color:var(--ink-600);letter-spacing:0.02em;margin-bottom:12px;}
+.hlinks{display:flex;gap:8px;margin-top:auto;}
+.hlink-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:9px 10px;border-radius:8px;font-size:11.5px;font-weight:700;
+  text-decoration:none;white-space:nowrap;
+}
+.hlink-maps{background:#eaf5ec;color:#2e7d32;border:1px solid rgba(46,125,50,0.2);}
+.hlink-web{background:#e8f0fb;color:#1c4d8c;border:1px solid rgba(28,77,140,0.2);}
 
 h2.section-title{
   font-family:var(--font-display);font-size:19px;color:var(--indigo-900);
@@ -377,15 +436,21 @@ nav.bottom svg{width:21px;height:21px;}
         <div class="home-eyebrow">秋 · Doritte &amp; Rick</div>
         <h1 class="home-title">JAPAN<span>2026</span></h1>
         <div class="home-cities" id="home-cities"></div>
-        <div class="home-leg">
-          <span class="home-leg-dates">8 SEP – 26 SEP 2026</span>
-          <span class="home-leg-name">Vietnam</span>
-          <span class="home-leg-len">19 DAYS / 18 NIGHTS</span>
-        </div>
-        <div class="home-leg">
-          <span class="home-leg-dates">26 SEP – 3 NOV 2026</span>
-          <span class="home-leg-name">Japan</span>
-          <span class="home-leg-len">39 DAYS / 39 NIGHTS</span>
+        <div class="home-legs-row">
+          <div class="home-flag" aria-hidden="true">🇻🇳</div>
+          <div class="home-legs-stack">
+            <div class="home-leg">
+              <span class="home-leg-dates">8 SEP – 26 SEP 2026</span>
+              <span class="home-leg-name">Vietnam</span>
+              <span class="home-leg-len">19 DAYS / 18 NIGHTS</span>
+            </div>
+            <div class="home-leg">
+              <span class="home-leg-dates">26 SEP – 3 NOV 2026</span>
+              <span class="home-leg-name">Japan</span>
+              <span class="home-leg-len">39 DAYS / 39 NIGHTS</span>
+            </div>
+          </div>
+          <div class="home-flag" aria-hidden="true">🇯🇵</div>
         </div>
         <div id="home-countdown"></div>
       </div>
@@ -488,142 +553,173 @@ const HOTELS = [
     dest: "Kyoto", hotel: "Minn Nijo-jo", checkin: "2026-09-25", checkout: "2026-10-03", nights: 8,
     address: "17-1 Shinsenencho, Nakagyo-ku, Kyoto", phone: "+81 50-3627-5213", total: 1750,
     lat: 35.0117, lng: 135.7444,
-    notes: "First 8 nights of Kyoto, near Nijo Castle."
+    notes: "First 8 nights of Kyoto, near Nijo Castle.",
+    mapcode: "7 585 591*63", website: null, emoji: "🏯", banner: "linear-gradient(135deg,#8B2E2E,#C8452F)"
   },
   {
     dest: "Kyoto", hotel: "Nazuna Kyoto Nishi Honganji", checkin: "2026-10-03", checkout: "2026-10-05", nights: 2,
     address: "228-2 Bukuguyacho, Shimogyo-ku, Kyoto", phone: "+81 75-585-2810", total: 1590,
     lat: 34.9928, lng: 135.7530,
-    notes: "Final 2 Kyoto nights — a ryokan-style close to the Kyoto leg before the drive north."
+    notes: "Final 2 Kyoto nights — a ryokan-style close to the Kyoto leg before the drive north.",
+    mapcode: "7 457 543*07", website: "https://www.nazuna.co/en/", emoji: "🏮", banner: "linear-gradient(135deg,#5c2e1e,#a8502a)"
   },
   {
     dest: "Kanazawa", hotel: "Mitsui Garden Hotel Kanazawa", checkin: "2026-10-05", checkout: "2026-10-07", nights: 2,
     address: "1-22 Kamitsutsumi-cho, Kanazawa, Ishikawa", phone: "+81 76-263-5531", total: 387,
     lat: 36.5652, lng: 136.6559,
-    notes: "Top-floor public bath looks toward Kanazawa Castle Park and Kenrokuen."
+    notes: "Top-floor public bath looks toward Kanazawa Castle Park and Kenrokuen.",
+    mapcode: "53 707 037*72", website: "https://www.gardenhotels.co.jp/kanazawa/eng/", emoji: "🎋", banner: "linear-gradient(135deg,#2f5c4a,#4f8c6e)"
   },
   {
     dest: "Takayama", hotel: "Takayama Green Hotel (Keio)", checkin: "2026-10-07", checkout: "2026-10-09", nights: 2,
     address: "2-180 Nishino-isshiki, Takayama, Gifu", phone: "+81 577-33-5500", total: 700,
     lat: 36.1408, lng: 137.2519,
-    notes: "One hotel dinner here is worth it — Hida beef / regional set menu."
+    notes: "One hotel dinner here is worth it — Hida beef / regional set menu.",
+    mapcode: "189 720 408*28", website: "https://www.takayama-gh.com/en/", emoji: "⛰️", banner: "linear-gradient(135deg,#5c4018,#9c7030)"
   },
   {
     dest: "Hirayu Onsen", hotel: "Hodakaso Yamano Hotel", checkin: "2026-10-09", checkout: "2026-10-11", nights: 2,
     address: "577-13 Okuhida Onsengo Kansaka, Takayama", phone: "+81 578-892-004", total: 800,
     lat: 36.2072, lng: 137.5814,
-    notes: "Inform the hotel if arriving after 18:00 — dinner may not be served. Eat both dinners at the hotel; evening options nearby are limited."
+    notes: "Inform the hotel if arriving after 18:00 — dinner may not be served. Eat both dinners at the hotel; evening options nearby are limited.",
+    mapcode: "598 748 648*77", website: "https://shinhodaka-yamanohotel.jp/index_e.html", emoji: "♨️", banner: "linear-gradient(135deg,#37505c,#5f8a99)"
   },
   {
     dest: "Matsumoto", hotel: "Matsumoto Hotel Kagetsu", checkin: "2026-10-11", checkout: "2026-10-13", nights: 2,
     address: "4-8-9 Ote, Matsumoto, Nagano", phone: "+81 263-32-0114", total: 710,
     lat: 36.2380, lng: 137.9720,
-    notes: "Reserve at least one of the two Matsumoto dinners; keep the other casual."
+    notes: "Reserve at least one of the two Matsumoto dinners; keep the other casual.",
+    mapcode: "76 024 028*47", website: "https://matsumotohotel-kagetsu.com/en/", emoji: "🏯", banner: "linear-gradient(135deg,#1c2b4a,#3e5171)"
   },
   {
     dest: "Shiojiri / Narai", hotel: "La Terra Resort", checkin: "2026-10-13", checkout: "2026-10-14", nights: 1,
     address: "4045-1 Senba, Shiojiri City, Nagano", phone: "+81 263-52-7000", total: 470,
     lat: 36.1103, lng: 137.9530,
-    notes: "For an October stay, request the cabin with the private outdoor tub rather than a main-building room."
+    notes: "For an October stay, request the cabin with the private outdoor tub rather than a main-building room.",
+    mapcode: "77 001 803*35", website: "https://laterra-resort.com/", emoji: "🌲", banner: "linear-gradient(135deg,#2e4a2e,#5c8a5c)"
   },
   {
     dest: "Kiso Valley", hotel: "Ryori Ryokan Shikanoyu", checkin: "2026-10-14", checkout: "2026-10-16", nights: 2,
     address: "Ena, Gifu Prefecture (details in confirmation)", phone: "Via booking confirmation", total: 591,
     lat: 35.5333, lng: 137.4167,
-    notes: "Nakasendo Magome–Tsumago hike booked for Oct 15 ($300)."
+    notes: "Nakasendo Magome–Tsumago hike booked for Oct 15 ($300).",
+    mapcode: "256 745 263*11", website: null, emoji: "🏔️", banner: "linear-gradient(135deg,#4a3728,#7a5a3e)"
   },
   {
     dest: "Gujo Hachiman", hotel: "Miharaya Ryokan", checkin: "2026-10-16", checkout: "2026-10-17", nights: 1,
     address: "266 Hachimancho Yanagimachi, Gujo, Gifu", phone: "+81 575-65-3348", total: 192,
     lat: 35.7167, lng: 136.9583,
-    notes: "One-night reset between the mountains and the coast — canal-town wandering, no big sightseeing agenda."
+    notes: "One-night reset between the mountains and the coast — canal-town wandering, no big sightseeing agenda.",
+    mapcode: "227 761 400*22", website: null, emoji: "💧", banner: "linear-gradient(135deg,#2a4a5c,#4d7d94)"
   },
   {
     dest: "Ise-Shima", hotel: "Nemu Resort Hotel Nemu", checkin: "2026-10-17", checkout: "2026-10-19", nights: 2,
     address: "2692-3 Hazako, Hamajima-cho, Shima City, Mie", phone: "+81 599-52-1211", total: 492,
     lat: 34.3350, lng: 136.7986,
-    notes: "Meals currently booked for 3 guests — confirm this is intentional, or amend headcount. Ise Grand Shrine guided walk booked Oct 18 ($220). Eat dinner at the resort both nights, not in town."
+    notes: "Meals show as booked for 3 guests — confirmed this is just a hotel-side mix-up, not something to action. Ise Grand Shrine guided walk booked Oct 18 ($220). Eat dinner at the resort both nights, not in town.",
+    mapcode: "167 073 869*17", website: "https://www.nemuresort.com/en/", emoji: "⛩️", banner: "linear-gradient(135deg,#8a5a2e,#c8862f)"
   },
   {
     dest: "Kumano", hotel: "Minamino Fields Fudozaka Cottage", checkin: "2026-10-19", checkout: "2026-10-22", nights: 3,
     address: "1227 Minamihirano, Nachikatsuura, Wakayama", phone: "Contact via Booking.com", total: 334,
     lat: 33.6167, lng: 135.9333,
-    notes: "Self-catering cottage, no meals — plan a serious grocery stop before driving up. Contact the host in advance with your arrival time; check-in window is 15:00–17:00."
+    notes: "Self-catering cottage, no meals — plan a serious grocery stop before driving up. Contact the host in advance with your arrival time; check-in window is 15:00–17:00.",
+    mapcode: "385 603 456*22", website: "https://www.kumano-travel.com/en/accommodations/minamino-fields-fudozaka-cottage", emoji: "🌿", banner: "linear-gradient(135deg,#2a4a2e,#4e7a4f)"
   },
   {
     dest: "Koyasan", hotel: "Koyasan Syukubou Fudouin", checkin: "2026-10-22", checkout: "2026-10-24", nights: 2,
     address: "Koyasan 456, Koya Town, Wakayama", phone: "+81 736-562-414", total: 1220,
     lat: 34.2125, lng: 135.5936,
-    notes: "Meals currently booked for 3 guests — amend to 2 before the free-cancellation deadline of Oct 7, 2026, if it's just the two of you."
+    notes: "Meals show as booked for 3 guests — confirmed this is just a hotel-side mix-up, not something to action.",
+    mapcode: "306 730 069*11", website: "https://eng-shukubo.net/shukubo/fudo-in/", emoji: "🙏", banner: "linear-gradient(135deg,#3a2a4a,#6a4d8a)"
   },
   {
     dest: "Kurashiki", hotel: "Kurashiki Ivy Square", checkin: "2026-10-24", checkout: "2026-10-25", nights: 1,
     address: "7-2 Honmachi, Kurashiki, Okayama", phone: "+81 86-422-0011", total: 300,
     lat: 34.5967, lng: 133.7717,
-    notes: "One night before the ferry crossing to Naoshima. To reach Naoshima: train/taxi from Kurashiki to Uno Port (~30 min), then the ferry."
+    notes: "One night before the ferry crossing to Naoshima. To reach Naoshima: train/taxi from Kurashiki to Uno Port (~30 min), then the ferry.",
+    mapcode: "55 711 401*68", website: "https://www.ivysquare.co.jp/", emoji: "🧱", banner: "linear-gradient(135deg,#7a2e1e,#b85a2f)"
   },
   {
     dest: "Naoshima", hotel: "UOGASHI 7070 Ocean View", checkin: "2026-10-25", checkout: "2026-10-28", nights: 3,
     address: "2193-2 Miyanoura, Naoshima, Kagawa", phone: "Contact details in confirmation", total: 865,
     lat: 34.4597, lng: 133.9967,
-    notes: "3 nights gives room for a Teshima side trip. Request upgrading to a sea-view / annex room for the torii gate views and a private bathroom."
+    notes: "3 nights gives room for a Teshima side trip. Request upgrading to a sea-view / annex room for the torii gate views and a private bathroom.",
+    mapcode: "79 592 561*47", website: null, emoji: "🎨", banner: "linear-gradient(135deg,#1e4a5c,#3e7d94)"
   },
   {
     dest: "Miyajima", hotel: "Kinsuikan", checkin: "2026-10-28", checkout: "2026-10-29", nights: 1,
     address: "1133 Miyajima-cho, Hatsukaichi, Hiroshima", phone: "+81 829-44-2131", total: 880,
     lat: 34.2960, lng: 132.3196,
-    notes: "One night on the island."
+    notes: "One night on the island.",
+    mapcode: "168 658 516*07", website: "https://www.kinsuikan.jp/", emoji: "⛩️", banner: "linear-gradient(135deg,#8b1a1a,#1c2b4a)"
   },
   {
     dest: "Hiroshima", hotel: "Sheraton Grand Hiroshima", checkin: "2026-10-29", checkout: "2026-10-30", nights: 1,
     address: "12-1 Wakakusa-cho, Higashi-ku, Hiroshima", phone: "+81 82-262-7111", total: 383,
     lat: 34.3963, lng: 132.4756,
-    notes: "Peace Memorial Museum is the natural anchor for this stop."
+    notes: "Peace Memorial Museum is the natural anchor for this stop.",
+    mapcode: "34 463 248*22", website: "https://www.marriott.com/en-us/hotels/hijsi-sheraton-grand-hiroshima-hotel/overview/", emoji: "🕊️", banner: "linear-gradient(135deg,#2a3a4a,#4a5f78)"
   },
   {
     dest: "Tokyo", hotel: "Dai-ichi Hotel Tokyo", checkin: "2026-10-30", checkout: "2026-11-03", nights: 4,
     address: "1-2-6 Shimbashi, Minato-ku, Tokyo", phone: "+81 3-3501-4411", total: 1595,
     lat: 35.6669, lng: 139.7592,
-    notes: "4-5 nights makes up for a rushed Tokyo last time. Guided Omotesando/Aoyama architecture tour booked for Oct 31 (VietnamStay/Lily) — Prada Aoyama, Nezu Museum, 21_21 DESIGN SIGHT. Last day (Nov 3) is kept deliberately open as a rest day before flying home."
+    notes: "4-5 nights makes up for a rushed Tokyo last time. Guided Omotesando/Aoyama architecture tour booked for Oct 31 (VietnamStay/Lily) — Prada Aoyama, Nezu Museum, 21_21 DESIGN SIGHT. Last day (Nov 3) is kept deliberately open as a rest day before flying home.",
+    mapcode: "86 414 283*26", website: "https://global.hankyu-hotel.com/daiichi-hotel-tokyo/", emoji: "🗼", banner: "linear-gradient(135deg,#12203c,#2f4368)"
   }
 ];
 
 // Flights — add each confirmed leg here as you get them.
 const FLIGHTS = [
   {
-    route: "Tel Aviv (TLV) → Hanoi (HAN)",
-    flightNo: "IZ595 (Arkia)",
+    tag: "OUTBOUND · ARKIA DIRECT",
+    flightNo: "IZ595", carrier: "Arkia · Airbus A330 · Direct",
     bookingRef: "13048969",
-    cabin: "—",
-    stops: "—",
-    status: "Confirmed",
-    depAirport: "TLV", depDateTime: "2026-09-07T22:30:00",
-    arrAirport: "HAN", arrDateTime: "2026-09-08T14:05:00",
+    depCity: "Tel Aviv", depCode: "TLV · Ben Gurion T3", depTime: "22:30", depDate: "Mon 7 Sep 2026",
+    arrCity: "Hanoi", arrCode: "HAN · Noi Bai", arrTime: "14:05", arrDate: "Tue 8 Sep 2026",
     duration: "11h 35m",
-    flag: "This is the start of the combined trip — Sep 7 to Sep 26 is the Vietnam leg, tracked in the separate Vietnam trip app, not this site."
+    meta: ["Booking <span>13048969</span>", "1 checked bag + trolley incl."],
+    flag: "Start of the combined trip — Sep 8 to Sep 26 is the Vietnam leg, tracked in the separate Vietnam trip app, not this site."
   },
   {
-    route: "Ho Chi Minh City (SGN) → Osaka Kansai (KIX)",
-    flightNo: "VN320 (Vietnam Airlines, Airbus A350)",
+    tag: "INTRA-VIETNAM · VIETNAM AIRLINES",
+    flightNo: "VN1545", carrier: "Airbus A321 · Economy",
+    bookingRef: "EAK3EY",
+    depCity: "Hanoi", depCode: "HAN · Noi Bai T1", depTime: "16:35", depDate: "Sat 19 Sep 2026",
+    arrCity: "Huế", arrCode: "HUI · Phu Bai Airport", arrTime: "17:55", arrDate: "Sat 19 Sep 2026",
+    duration: "1h 20m",
+    meta: ["Booking <span>EAK3EY</span>", "1PC 23kg"],
+    flag: null
+  },
+  {
+    tag: "INTRA-VIETNAM · VIETNAM AIRLINES",
+    flightNo: "VN129", carrier: "Airbus A321 · Economy",
+    bookingRef: "EAK3EY",
+    depCity: "Đà Nẵng", depCode: "DAD · Da Nang T1", depTime: "13:30", depDate: "Thu 24 Sep 2026",
+    arrCity: "Hồ Chí Minh", arrCode: "SGN · Tan Son Nhat T3", arrTime: "15:05", arrDate: "Thu 24 Sep 2026",
+    duration: "1h 35m",
+    meta: ["Booking <span>EAK3EY</span>", "1PC 23kg"],
+    flag: null
+  },
+  {
+    tag: "ONWARD TO JAPAN 🇯🇵",
+    flightNo: "VN320", carrier: "Vietnam Airlines · Airbus A350 · Non-stop",
     bookingRef: "FJWOAW",
-    cabin: "Economy",
-    stops: "Non-stop",
-    status: "Confirmed",
-    depAirport: "SGN", depDateTime: "2026-09-26T00:10:00",
-    arrAirport: "KIX", arrDateTime: "2026-09-26T07:20:00",
+    depCity: "Hồ Chí Minh", depCode: "SGN · Tan Son Nhat T2", depTime: "00:10", depDate: "Sat 26 Sep 2026",
+    arrCity: "Osaka", arrCode: "KIX · Kansai Int'l T1", arrTime: "07:20", arrDate: "Sat 26 Sep 2026",
     duration: "5h 10m",
+    meta: ["Booking <span>FJWOAW</span>", "Ticket 2322657156 / 2322657157"],
     flag: "This lands in Osaka the morning of Sep 26 — but the first Kyoto hotel (Minn Nijo-jo) checks in Sep 25, a day earlier. That first night may go unused; worth confirming with the hotel whether that's a deliberate buffer or worth adjusting."
   },
   {
-    route: "Tokyo Narita (NRT) → Tel Aviv (TLV)",
-    flightNo: "LY92 (El Al, Dreamliner)",
+    tag: "RETURN · EL AL DIRECT",
+    flightNo: "LY92", carrier: "El Al · Dreamliner · Premium (Q) · Non-stop",
     bookingRef: "ZT03TX",
-    cabin: "Premium (Q)",
-    stops: "Non-stop",
-    status: "Confirmed",
-    depAirport: "NRT", depDateTime: "2026-11-03T15:45:00",
-    arrAirport: "TLV", arrDateTime: "2026-11-03T21:50:00",
+    depCity: "Tokyo", depCode: "NRT · Narita", depTime: "15:45", depDate: "Tue 3 Nov 2026",
+    arrCity: "Tel Aviv", arrCode: "TLV · Ben Gurion", arrTime: "21:50", arrDate: "Tue 3 Nov 2026",
     duration: "13h 05m",
+    meta: ["Booking <span>ZT03TX</span>"],
     flag: null
   }
 ];
@@ -870,16 +966,25 @@ function renderFlights() {
     return;
   }
   el.innerHTML = FLIGHTS.map(f => `
-    <div class="card">
-      <h3>${f.route}</h3>
-      <div class="meta">${f.flightNo} · ${f.cabin} · ${f.stops} · Booking ref ${f.bookingRef}</div>
-      <div class="meta" style="margin-top:10px;">
-        <b>Depart</b> ${f.depAirport} — ${fmtDateFull(f.depDateTime.slice(0,10))}, ${f.depDateTime.slice(11,16)}<br>
-        <b>Arrive</b> ${f.arrAirport} — ${fmtDateFull(f.arrDateTime.slice(0,10))}, ${f.arrDateTime.slice(11,16)}<br>
-        <b>Duration</b> ${f.duration} · <b>Status</b> ${f.status}
+    <div class="fc">
+      <div>
+        <div class="ftag">${f.tag}</div>
+        <div class="fcity">${f.depCity}</div>
+        <div class="fcode">${f.depCode}</div>
+        <div class="ftime">${f.depTime}</div>
+        <div class="fdate">${f.depDate}</div>
       </div>
+      <div class="farrow"><div class="farr-line"></div><div class="fnum">${f.flightNo}</div><div class="fdur">${f.duration}</div></div>
+      <div>
+        <div style="height:20px"></div>
+        <div class="fcity">${f.arrCity}</div>
+        <div class="fcode">${f.arrCode}</div>
+        <div class="ftime">${f.arrTime}</div>
+        <div class="fdate">${f.arrDate}</div>
+      </div>
+      <div class="fmeta">${f.meta.map(m => `<div class="fmi">${m}</div>`).join('')}<div class="fmi">${f.carrier}</div></div>
     </div>
-    ${f.flag ? `<div class="card" style="border-left:4px solid var(--maple-500);"><div class="meta"><b>Worth double-checking:</b> ${f.flag}</div></div>` : ''}
+    ${f.flag ? `<div class="card" style="border-left:4px solid var(--maple-500);margin-top:-4px;"><div class="meta"><b>Worth double-checking:</b> ${f.flag}</div></div>` : ''}
   `).join('');
 }
 
@@ -888,17 +993,27 @@ function renderHotels() {
   const el = document.getElementById('hotel-list');
   el.innerHTML = HOTELS.map(h => {
     const gmaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.hotel + ' ' + h.address)}`;
+    const webBtn = h.website ? `<a class="hlink-btn hlink-web" href="${h.website}" target="_blank" rel="noopener">🌐 Website</a>` : '';
     return `
-    <div class="card">
-      <h3>${h.hotel}</h3>
-      <div class="meta">${h.dest} · ${h.address}<br>
-        ${fmtDate(h.checkin)} → ${fmtDate(h.checkout)} · <a href="tel:${h.phone.replace(/\s/g,'')}">${h.phone}</a>
+    <div class="hcard">
+      <div class="hbanner" style="background:${h.banner}">
+        <div class="hemoji">${h.emoji}</div>
+        <div class="hstars">${'★'.repeat(4)}</div>
       </div>
-      <span class="tag nights">${h.nights} night${h.nights > 1 ? 's' : ''}</span>
-      <span class="tag price">${usd(h.total)}</span>
-      <div class="meta" style="margin-top:8px;">${h.notes}</div>
-      <div class="hotel-links">
-        <a href="${gmaps}" target="_blank" rel="noopener">📍 Google Maps</a>
+      <div class="hbody">
+        <div class="hcity">${h.dest} · ${h.nights} night${h.nights > 1 ? 's' : ''}</div>
+        <div class="hname">${h.hotel}</div>
+        <div class="hnights">${usd(h.total)} total</div>
+        <div class="hdates">
+          <div class="hdb"><div class="hdl">Check-in</div><div class="hdv">${fmtDate(h.checkin)}</div></div>
+          <div class="hdb"><div class="hdl">Check-out</div><div class="hdv">${fmtDate(h.checkout)}</div></div>
+        </div>
+        <div class="hmapcode">${h.address}<br><a href="tel:${h.phone.replace(/\s/g,'')}">${h.phone}</a> · Mapcode <span>${h.mapcode}</span></div>
+        <div class="href-row">${h.notes}</div>
+        <div class="hlinks">
+          <a class="hlink-btn hlink-maps" href="${gmaps}" target="_blank" rel="noopener">📍 Maps</a>
+          ${webBtn}
+        </div>
       </div>
     </div>`;
   }).join('');
