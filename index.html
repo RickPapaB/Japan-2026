@@ -378,6 +378,19 @@ table.budget tr.total td{font-weight:700;border-top:2px solid var(--indigo-900);
   border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:13.5px;line-height:1.55;
 }
 .reminder-list li.flag{border-left-color:var(--maple-500);}
+
+/* Note sections: food guide, driving tips, Naoshima/Hiroshima */
+.note-tag{
+  display:inline-block;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;
+  padding:2px 9px;border-radius:20px;margin-bottom:7px;
+}
+.note-tag.food{background:#fbe4e4;color:var(--maple-600);}
+.note-tag.drive{background:#e8f0fb;color:var(--indigo-700);}
+.note-tag.place{background:#f3e9d8;color:#8a5a2e;}
+.note-checklist{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-600);line-height:1.8;}
+.note-contact{font-size:12.5px;color:var(--indigo-700);margin-top:4px;}
+.note-contact a{color:inherit;text-decoration:none;}
+
 .crew-card{display:flex;align-items:center;gap:12px;}
 .avatar{
   width:46px;height:46px;border-radius:50%;
@@ -582,6 +595,15 @@ nav.bottom svg{width:21px;height:21px;}
       <div id="sub-notes" class="subview">
         <h2 class="section-title">Reminders &amp; things to confirm</h2>
         <ul class="reminder-list" id="reminder-list"></ul>
+
+        <h2 class="section-title" style="margin-top:26px;">Food guide</h2>
+        <div id="food-guide-list"></div>
+
+        <h2 class="section-title" style="margin-top:26px;">Mountain driving tips</h2>
+        <div id="driving-tips-list"></div>
+
+        <h2 class="section-title" style="margin-top:26px;">Naoshima &amp; Hiroshima notes</h2>
+        <div id="naoshima-hiroshima-list"></div>
       </div>
 
       <div id="sub-crew" class="subview">
@@ -884,6 +906,80 @@ const REMINDERS = [
   { text: "La Terra Resort (Shiojiri/Narai): request the cabin with the private outdoor tub rather than a main-building room for an October stay.", flag: false },
   { text: "Uno Port ferry to Naoshima: train or taxi from Kurashiki to Uno Port (~30 min), then the ferry across.", flag: false },
   { text: "Hodakaso Yamano Hotel (Hirayu Onsen): inform the property if arriving after 18:00 — dinner may not be served.", flag: false }
+];
+
+// --- Food guide -----------------------------------------------------
+const FOOD_GUIDE = [
+  {
+    name: "Izakaya", bestPlaces: "Kanazawa, Takayama, Matsumoto, Tokyo",
+    desc: "A Japanese pub/tavern, usually with much better food than \"pub\" suggests — multiple small shared dishes, often with sake, beer, highballs, or wine. Can be casual, smoky, noisy, refined, tiny, modern, or old-school. Typical dishes: grilled fish, sashimi, yakitori, fried tofu, pickles, seasonal vegetables, tempura, small meat dishes, rice or noodles to finish.",
+    tip: "Doritte can usually eat well here as a pescatarian, while Rick can add meat if he wants — often the best \"local feel\" dinner of the trip."
+  },
+  {
+    name: "Kaga Cuisine", bestPlaces: "Kanazawa",
+    desc: "The traditional regional cuisine of Kanazawa and the old Kaga domain — refined, seasonal, elegant food shaped by the city's history as a wealthy castle town with a strong craft culture, often beautifully plated on lacquerware or Kutani ceramics. Expect local Sea of Japan seafood, seasonal vegetables, jibuni (a famous Kanazawa duck stew), delicate simmered dishes, crab in season, lotus root, greens, mushrooms, clear soups.",
+    tip: "Worth one Kaga cuisine dinner or lunch in Kanazawa — more formal and regional than an izakaya, a \"cultural meal\" rather than every-meal territory."
+  },
+  {
+    name: "Nodoguro", bestPlaces: "Kanazawa",
+    desc: "A prized fish associated with the Sea of Japan coast (English: blackthroat seaperch / rosy seabass) — rich, fatty, delicate, almost buttery when grilled. Served grilled whole, as sushi, sashimi, lightly seared, in a set meal, or at higher-end izakaya/seafood restaurants. Pricier than ordinary fish, worth trying once in season.",
+    tip: "A good target dish for Doritte especially — not \"adventurous strange food,\" just excellent fish."
+  },
+  {
+    name: "Hida Beef", bestPlaces: "Takayama / Hida region",
+    desc: "Premium wagyu from the Hida region around Takayama/Gifu — the local luxury food there, very marbled, tender, and rich. Common preparations: steak, tabletop grill, sushi-style slices, skewers, hot pot, and hoba miso (beef cooked with miso on a magnolia leaf).",
+    tip: "Worth having once in Takayama for Rick. For Doritte, choose a restaurant/hotel dinner with good fish/vegetable alternatives alongside it."
+  }
+];
+const FOOD_GUIDE_SUMMARY = "Suggested plan: in Kanazawa, book one refined Kaga/seafood dinner where Doritte can enjoy excellent fish; in Takayama, book one Hida beef-oriented dinner where Rick gets the beef experience while she still has good non-meat options.";
+
+// --- Mountain driving tips -------------------------------------------
+const DRIVING_TIPS = [
+  {
+    route: "Shiojiri → Ena (the Kiso Valley day)",
+    recommendation: "Take Route 19 down the Kiso Valley — the scenic route, and probably the right one for you. It costs maybe 30–45 minutes of pure driving time over the expressway (up to an hour with traffic/roadwork), but with worthwhile stops it becomes a proper half-day drive rather than a transfer.",
+    stops: ["Narai-juku — the best \"old post town\" stop near Shiojiri", "Kiso-Fukushima — historic checkpoint town on the Kiso River", "Nezame-no-toko — easy scenic gorge stop", "Tsumago / Magome — if not already covered by the guided walk"],
+    note: "Skip the expressway unless the weather's awful, you're tired, or you just need to get there. Check Google Maps the morning of for live conditions."
+  },
+  {
+    route: "Kiso Valley → Gujo Hachiman",
+    recommendation: "Take the northern route: Ena → Route 257 → Route 256 → Gujo Hachiman. More interesting and more \"Japan backroads\" than the southern E19/Mino route, and gives a more coherent transition from Kiso country into Gujo's mountain-water culture. Route 256 passes Roadside Station Wara — a good coffee/snack/restroom stop between Gujo Hachiman and Gero.",
+    stops: [],
+    note: "Switch to the southern E19/Mino route instead if: the weather's bad, you're tired, Google Maps shows roadwork or closures, you want the simplest drive, or you're running late for check-in/dinner. Nothing wrong with the practical option."
+  },
+  {
+    route: "Koyasan → Shin-Osaka (car return day)",
+    recommendation: "Keep this a pure logistics drive: Route 480/370 down toward Hashimoto/Katsuragi, then the expressway network into Osaka, finishing at Shin-Osaka. About 1.5–2 hours of driving (Rome2Rio estimates ~79km/1hr28min) — build in a cushion for the mountain descent, Osaka approach, and refueling. No scenic detours this day; you're heading to Kurashiki afterward.",
+    stops: [],
+    note: "Leave Koyasan after breakfast, aim to return the car late morning/midday, not late afternoon."
+  }
+];
+const DRIVING_TIPS_CHECKLIST = ["Confirm the exact rental return branch and hours", "Put the rental branch phone number / Mapcode into the car GPS", "Fill gas near Shin-Osaka, not up in the mountains", "Keep toll/ETC card instructions clear", "Allow at least 45 minutes between arriving near Shin-Osaka and being truly done with the car"];
+
+// --- Naoshima & Hiroshima notes ---------------------------------------
+const NAOSHIMA_HIROSHIMA_NOTES = [
+  {
+    topic: "Benesse calendar & when to book tickets",
+    body: "Online tickets are required for Naoshima/Teshima/Inujima art facilities — some require advance purchase specifically to manage congestion. Chichu Art Museum requires an advance date/time reservation, with no same-day on-site sales if tickets sell out. Book Chichu first, then Teshima Art Museum, as soon as your dates are fixed — don't just trust the calendar's \"available\" mark, click into the actual time slots since some may already be gone.",
+    note: "As of this note, the October reservation calendar wasn't published yet — expected around Aug 6. Check benesse-artsite.jp/en/general-information.html directly."
+  },
+  {
+    topic: "Naoshima dinner — book everything before arrival",
+    body: "Naoshima dinner is a real planning problem, not an afterthought. APRON CAFE looks appealing and vegetarian-friendly but is lunch-hours only — don't count on it for dinner. If not staying at Benesse House or ROKA, dinner choices get thin fast — ask the hotel now to help reserve one of the options below.",
+    contacts: [
+      { name: "Cafe Salon Naka-Oku", detail: "Reservation needed for Oct 26 — closed Tuesday the 27th.", phone: "087-892-3887", email: "nakaoku@ksn.biglobe.ne.jp" },
+      { name: "New Olympia", detail: "Basically seafood.", phone: "+81 87-892-3092" }
+    ]
+  },
+  {
+    topic: "Luggage forwarding",
+    body: "Yamato Transport / Kuroneko Yamato (\"takkyubin\" / TA-Q-BIN) is the default — hotel-to-hotel forwarding works when the sending hotel's reception partners with Yamato and the receiving hotel can accept luggage at the front desk. Ask the front desk: \"Can you send luggage by Yamato to our next hotel?\", confirm the next hotel can receive it, and send big bags 1–2 days ahead of islands or ryokan-style stops. There's also a local Naoshima Island Luggage Service (via Naoshima Tours) for arrival/departure days, but only for a limited list of accommodations — worth checking if UOGASHI 7070 is covered.",
+    note: "Practical plan: forward large bags from Kurashiki or Shin-Osaka to Hiroshima or Tokyo, then travel with a small bag through Naoshima and Miyajima."
+  },
+  {
+    topic: "A logistics service for this segment?",
+    body: "Two options if you want help: SICS (Setouchi Islands Concierge Service) specializes in Setouchi-specific planning — ferries, meals, sightseeing, island coordination. The Japan Concierge is a fuller-service bespoke planning firm, likely more than needed here. A light-touch logistics service (confirming train/ferry timing, booking Chichu/Teshima tickets, reserving Naoshima dinners, arranging luggage forwarding and taxis, and a printed backup plan for missed ferries) is probably more valuable than a guide narrating the islands day to day."
+  }
 ];
 
 const CREW = [
@@ -1734,6 +1830,55 @@ function renderBudget() {
 function renderReminders() {
   const el = document.getElementById('reminder-list');
   el.innerHTML = REMINDERS.map(r => `<li class="${r.flag ? 'flag' : ''}">${r.text}</li>`).join('');
+  renderFoodGuide();
+  renderDrivingTips();
+  renderNaoshimaHiroshima();
+}
+
+function renderFoodGuide() {
+  const el = document.getElementById('food-guide-list');
+  el.innerHTML = FOOD_GUIDE.map(f => `
+    <div class="card">
+      <div class="note-tag food">${f.bestPlaces}</div>
+      <h3>${f.name}</h3>
+      <div class="meta" style="margin-top:6px;">${f.desc}</div>
+      <div class="meta" style="margin-top:8px;"><b>Take:</b> ${f.tip}</div>
+    </div>`).join('') + `
+    <div class="card" style="background:var(--cream-100);border-style:dashed;">
+      <div class="meta">${FOOD_GUIDE_SUMMARY}</div>
+    </div>`;
+}
+
+function renderDrivingTips() {
+  const el = document.getElementById('driving-tips-list');
+  el.innerHTML = DRIVING_TIPS.map(d => `
+    <div class="card">
+      <div class="note-tag drive">Route</div>
+      <h3>${d.route}</h3>
+      <div class="meta" style="margin-top:6px;">${d.recommendation}</div>
+      ${d.stops.length ? `<ul class="note-checklist">${d.stops.map(s => `<li>${s}</li>`).join('')}</ul>` : ''}
+      <div class="meta" style="margin-top:8px;">${d.note}</div>
+    </div>`).join('') + `
+    <div class="card" style="background:var(--cream-100);border-style:dashed;">
+      <h3 style="margin-bottom:6px;">Before returning the car at Shin-Osaka</h3>
+      <ul class="note-checklist">${DRIVING_TIPS_CHECKLIST.map(c => `<li>${c}</li>`).join('')}</ul>
+    </div>`;
+}
+
+function renderNaoshimaHiroshima() {
+  const el = document.getElementById('naoshima-hiroshima-list');
+  el.innerHTML = NAOSHIMA_HIROSHIMA_NOTES.map(n => `
+    <div class="card">
+      <div class="note-tag place">Naoshima / Hiroshima</div>
+      <h3>${n.topic}</h3>
+      <div class="meta" style="margin-top:6px;">${n.body}</div>
+      ${n.contacts ? n.contacts.map(c => `
+        <div class="note-contact">
+          <b>${c.name}</b>${c.detail ? ' — ' + c.detail : ''}<br>
+          ${c.phone ? `<a href="tel:${c.phone.replace(/\s/g,'')}">${c.phone}</a>` : ''}${c.phone && c.email ? ' · ' : ''}${c.email ? `<a href="mailto:${c.email}">${c.email}</a>` : ''}
+        </div>`).join('') : ''}
+      ${n.note ? `<div class="meta" style="margin-top:8px;">${n.note}</div>` : ''}
+    </div>`).join('');
 }
 
 // --- Crew ------------------------------------------------------------
