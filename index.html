@@ -244,6 +244,64 @@ main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
 .hlink-maps{background:#eaf5ec;color:#2e7d32;border:1px solid rgba(46,125,50,0.2);}
 .hlink-web{background:#e8f0fb;color:#1c4d8c;border:1px solid rgba(28,77,140,0.2);}
 
+/* Timeline — hero, day cards, events (styled after the reference site) */
+.tl-hero{
+  background:linear-gradient(160deg,var(--indigo-950),var(--indigo-900));
+  padding:34px 20px 26px;border-radius:16px;margin-bottom:14px;
+}
+.tl-hero-label{font-size:9px;letter-spacing:0.3em;color:var(--gold-300);text-transform:uppercase;margin-bottom:8px;font-weight:700;}
+.tl-hero-title{font-family:var(--font-display);font-size:clamp(26px,6vw,38px);font-weight:800;color:#fff;line-height:1.05;}
+.tl-hero-title em{font-style:italic;color:var(--gold-300);}
+.tl-hero-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-top:8px;font-style:italic;}
+
+.tl-nav-strip{
+  position:sticky;top:0;z-index:10;background:var(--cream-50);
+  display:flex;gap:8px;overflow-x:auto;padding:8px 2px 14px;scrollbar-width:none;
+}
+.tl-nav-strip::-webkit-scrollbar{display:none;}
+.tl-nav-link{
+  flex:0 0 auto;font-size:10.5px;letter-spacing:0.08em;font-weight:700;color:var(--indigo-700);
+  background:#fff;border:1px solid var(--cream-200);border-radius:20px;padding:6px 13px;
+  text-decoration:none;white-space:nowrap;
+}
+
+.tl-day{border-radius:14px;overflow:hidden;margin-bottom:12px;border:1px solid var(--cream-200);}
+.tl-day-header{display:flex;align-items:stretch;cursor:pointer;user-select:none;background:#fff;}
+.tl-day-num{
+  width:clamp(56px,10vw,74px);background:var(--indigo-900);color:#fff;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 6px;
+}
+.tl-day.today .tl-day-num{background:var(--maple-500);}
+.tl-day-num-n{font-family:var(--font-display);font-size:clamp(20px,4vw,28px);font-weight:800;line-height:1;}
+.tl-day-num-label{font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:3px;}
+.tl-day-info{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+.tl-day-date{font-size:9px;letter-spacing:0.14em;color:var(--maple-600);text-transform:uppercase;font-weight:700;margin-bottom:3px;}
+.tl-day-place{font-family:var(--font-display);font-size:clamp(15px,3.4vw,19px);font-weight:700;color:var(--ink-900);}
+.tl-day-tagline{font-size:12px;color:var(--ink-600);font-style:italic;margin-top:2px;}
+.tl-day-toggle{display:flex;align-items:center;padding:0 14px;color:var(--indigo-700);font-size:15px;transition:transform 0.25s;flex-shrink:0;}
+.tl-day-header.open .tl-day-toggle{transform:rotate(180deg);}
+
+.tl-events{display:none;padding:4px 0 4px clamp(56px,10vw,74px);background:var(--cream-50);}
+.tl-events.open{display:block;}
+.tl-event{
+  display:grid;grid-template-columns:52px 30px 1fr;gap:0 10px;align-items:start;
+  padding:12px clamp(14px,3.5vw,24px) 12px 0;position:relative;
+}
+.tl-event::before{content:'';position:absolute;left:52px;top:30px;bottom:-12px;width:1px;background:var(--cream-200);margin-left:14px;}
+.tl-event:last-child::before{display:none;}
+.tl-event-time{font-size:10px;color:var(--maple-600);font-weight:700;text-align:right;padding-top:4px;letter-spacing:0.02em;}
+.tl-event-time.est{color:var(--ink-600);font-weight:600;}
+.tl-event-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;position:relative;z-index:1;}
+.icon-drive{background:#e8f0fb;}
+.icon-hotel{background:#f3e9d8;}
+.icon-activity{background:#eef4ea;}
+.icon-food{background:#fbe9e4;}
+.icon-note{background:var(--cream-200);}
+.icon-flight{background:#fbe4e4;}
+.tl-event-body{padding-top:2px;min-width:0;}
+.tl-event-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--ink-900);margin-bottom:3px;}
+.tl-event-desc{font-size:12.5px;color:var(--ink-600);line-height:1.55;}
+
 h2.section-title{
   font-family:var(--font-display);font-size:19px;color:var(--indigo-900);
   margin:0 0 12px;font-weight:600;
@@ -507,7 +565,12 @@ nav.bottom svg{width:21px;height:21px;}
 
     <!-- ---------- TIMELINE ---------- -->
     <section id="view-timeline" class="view">
-      <h2 class="section-title">Day by day</h2>
+      <div class="tl-hero">
+        <div class="tl-hero-label">秋 · Doritte &amp; Rick · Japan 2026 · Day by Day</div>
+        <div class="tl-hero-title">Full Trip<br><em>Timeline</em></div>
+        <div class="tl-hero-sub">39 nights · flights, hotels, drives and days — tap a day to expand</div>
+      </div>
+      <div class="tl-nav-strip" id="tl-nav-strip"></div>
       <div id="timeline-list"></div>
     </section>
   </main>
@@ -779,7 +842,7 @@ const REMINDERS = [
   { text: "Driving in Japan requires an International Driving Permit (IDP) — this has to be obtained in Israel before you fly (from the Ministry of Transport / a licensing bureau), it cannot be arranged in Japan. This isn't yet in the budget as a line item beyond the placeholder — get this sorted well before Oct 5.", flag: true },
   { text: "Return flight confirmed: LY92, Narita → Tel Aviv, departs Nov 3 at 15:45, arrives Tel Aviv 21:50 same day (booking ref ZT03TX).", flag: false },
   { text: "The Sep 7–26 Vietnam leg is tracked in a separate app (your son-in-law's build) — TLV → Hanoi (Sep 7) and HCMC → Osaka (Sep 26) are shown here on the Flights tab for context, since they bookend this Japan trip.", flag: false },
-  { text: "First Kyoto hotel (Minn Nijo-jo) checks in Sep 25, but the Osaka flight doesn't land until Sep 26 at 07:20 — that first night may go unused. Worth confirming this is intentional or adjusting with the hotel.", flag: true },
+  { text: "First Kyoto hotel (Minn Nijo-jo) checks in Sep 25 even though the Osaka flight doesn't land until Sep 26 at 07:20 — that's intentional, booked so the room is ready for an early check-in on arrival rather than waiting for standard check-in time.", flag: false },
   { text: "The repo hosting this site is public (required for free GitHub Pages). Passport numbers were removed from the Crew tab for that reason — they're kept separately, off this site.", flag: false },
   { text: "Travel insurance: policy numbers and emergency-assistance line to be added once you send them over.", flag: false },
   { text: "Kinsuikan (Miyajima): consider upgrading to a sea-view / annex room for torii gate views and a private bathroom.", flag: false },
@@ -843,6 +906,71 @@ const DAY_NOTES = {
   "2026-10-30": "Hiroshima → Tokyo — Dai-ichi Hotel Tokyo, 4 nights.",
   "2026-10-31": "Guided tour (VietnamStay/Lily) — Omotesando & Aoyama Architecture: architectural walk through Omotesando/Aoyama, Prada Aoyama (Herzog & de Meuron), Nezu Museum (Kengo Kuma, bamboo approach & garden), 21_21 DESIGN SIGHT (Tadao Ando), Tokyo Midtown design district. English-speaking guide, private Alphard vehicle, 10 hours.",
   "2026-11-03": "Rest day — departure. Last day of the trip, kept deliberately open before flying home."
+};
+
+// Rich, event-by-event timeline data, keyed by ISO date. Days without an
+// entry here fall back to the single-line DAY_NOTES text above, shown as
+// one event. Feed in more docs and this fills in day by day.
+const TIMELINE_EVENTS = {
+  "2026-10-05": {
+    place: "Kyoto → Kanazawa", tagline: "Start of the driving portion — pick up the car, keep the first day simple",
+    events: [
+      { time: "8:30 AM", est: true, icon: "drive", title: "Pick up rental car at Kyoto Station", desc: "Confirm the ETC card, English GPS/CarPlay, and fuel type before leaving the lot. Enter the Kanazawa hotel into both phone navigation and the car's GPS." },
+      { time: "~9:00 AM", est: true, icon: "drive", title: "Drive to Kanazawa", desc: "Fairly direct — don't over-sightsee on this first driving day. Stop at a Japanese expressway service area for lunch, coffee, or a restroom break." },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Check in at Mitsui Garden Hotel Kanazawa", desc: "Use the bath if desired, then a light orientation walk: Kanazawa Castle Park exterior, Oyama Shrine, maybe Korinbo/Katamachi." },
+      { time: "Evening", est: true, icon: "food", title: "Dinner in Kanazawa", desc: "Sushi, seafood, Kaga cuisine, or a refined izakaya." }
+    ]
+  },
+  "2026-10-06": {
+    place: "Kanazawa", tagline: "Gardens, craft, architecture, food — a full day in the city",
+    events: [
+      { time: "Early AM", est: true, icon: "activity", title: "Kenrokuen & Kanazawa Castle Park", desc: "Start reasonably early to get ahead of the crowds." },
+      { time: "Late morning", est: true, icon: "activity", title: "Pick one museum, not all three", desc: "D.T. Suzuki Museum · 21st Century Museum of Contemporary Art · the Yoshiro & Yoshio Taniguchi Museum of Architecture." },
+      { time: "Midday", est: true, icon: "food", title: "Lunch around Omicho Market", desc: "" },
+      { time: "Afternoon", est: true, icon: "activity", title: "Pick a focused combination", desc: "Nagamachi Samurai District + Nomura Samurai House · Higashi Chaya teahouse district · one craft stop (gold leaf, Kaga-yuzen, Kutani, lacquer)." },
+      { time: "Evening", est: true, icon: "food", title: "Dinner — book in advance", desc: "" },
+      { time: "Note", est: false, icon: "note", title: "Guide: optional half-day, morning through lunch", desc: "Only worth it if the guide is genuinely strong." }
+    ]
+  },
+  "2026-10-07": {
+    place: "Kanazawa → Shirakawa-go → Takayama", tagline: "A controlled visit to Shirakawa-go, then settle into Takayama",
+    events: [
+      { time: "8:30 AM", est: true, icon: "drive", title: "Leave Kanazawa", desc: "" },
+      { time: "~9:30 AM", est: true, icon: "activity", title: "Shirakawa-go / Ogimachi — about 2.5–3 hours", desc: "Observation viewpoint, village lanes, one gassho-zukuri house interior (probably Wada House), quick lunch or snack if convenient." },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Continue to Takayama, check into Hida Takayama Green Hotel", desc: "" },
+      { time: "Late afternoon", est: true, icon: "activity", title: "First walk through Sanmachi Suji old town", desc: "Sake brewery streets, river area — an easy first look, nothing strenuous." },
+      { time: "Evening", est: true, icon: "food", title: "Dinner at the hotel", desc: "Preferably a Hida beef or regional dinner." }
+    ]
+  },
+  "2026-10-08": {
+    place: "Takayama", tagline: "Markets, old town, folk architecture, Hida culture",
+    events: [
+      { time: "Morning", est: true, icon: "activity", title: "Miyagawa Morning Market & old town", desc: "Go before crowds build. Takayama Jinya too, if interested." },
+      { time: "Midday", est: true, icon: "food", title: "Lunch in town", desc: "Soba, Hida beef, ramen, or a light café meal." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Pick one: Hida Folk Village or Hida Furukawa", desc: "Hida Folk Village is the stronger pick for architecture and material culture; Hida Furukawa is a quieter townscape with canals and white-walled storehouses." },
+      { time: "Late afternoon", est: true, icon: "hotel", title: "Back to the hotel for bath/rest", desc: "" },
+      { time: "Evening", est: true, icon: "food", title: "Dinner in town if bookable, hotel as fallback", desc: "" }
+    ]
+  },
+  "2026-10-09": {
+    place: "Takayama → Hirayu Onsen", tagline: "From town/craft Japan into mountain/onsen Japan",
+    events: [
+      { time: "Morning", est: true, icon: "activity", title: "Flexible morning in Takayama", desc: "Final market stroll, old town revisit, buy snacks/water for Kamikochi, or Hida Folk Village if it got skipped the day before." },
+      { time: "Late morning", est: true, icon: "drive", title: "Leave for Hirayu", desc: "An optional light stop en route is fine if the weather's good — just don't overfill the day." },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Check into Hodakaso Yamano Hotel", desc: "Early enough to actually enjoy the baths." },
+      { time: "Evening", est: true, icon: "food", title: "Dinner at the hotel", desc: "Confirm it's included or pre-booked." }
+    ]
+  },
+  "2026-10-10": {
+    place: "Kamikochi (day trip from Hirayu)", tagline: "A beautiful, controlled nature day",
+    events: [
+      { time: "Early AM", est: true, icon: "drive", title: "Leave the car at/near Hirayu or Akandana", desc: "You can't drive into Kamikochi — take the shuttle bus or a taxi into the park. Aim for an early entry, especially since October is busy." },
+      { time: "Day", est: true, icon: "activity", title: "Walking route: Taisho Pond → Tashiro Marsh/Pond → Kappa Bridge", desc: "Optional extension to Myojin Pond if weather and energy are good. Shorter version: Taisho Pond to Kappa Bridge only. Bring snacks and water — don't rely too heavily on lunch options in the park." },
+      { time: "Late afternoon", est: true, icon: "drive", title: "Return to Hirayu", desc: "Before late-afternoon transport gets stressful." },
+      { time: "Evening", est: true, icon: "food", title: "Hotel dinner again", desc: "" },
+      { time: "Note", est: false, icon: "note", title: "A private taxi may be worth it for convenience", desc: "A walking guide isn't necessary for this day." }
+    ]
+  }
 };
 
 </script>
@@ -1190,31 +1318,78 @@ function renderCrew() {
 }
 
 // --- Timeline ------------------------------------------------------------
+const ICON_EMOJI = { drive: '🚗', hotel: '🏨', activity: '⛰️', food: '🍽️', note: '📝', flight: '✈️' };
+
+function toggleDay(headerEl) {
+  const wasOpen = headerEl.classList.contains('open');
+  const eventsEl = headerEl.nextElementSibling;
+  headerEl.classList.toggle('open', !wasOpen);
+  eventsEl.classList.toggle('open', !wasOpen);
+}
+window.toggleDay = toggleDay;
+
 function renderTimeline() {
   const el = document.getElementById('timeline-list');
+  const navEl = document.getElementById('tl-nav-strip');
   const days = dateRange(TRIP.start, TRIP.end);
   const todayIso = new Date().toISOString().slice(0, 10);
+  const todayInRange = days.includes(todayIso);
+
+  // Quick-jump nav strip: first day, every ~6th day, and today if in range
+  const navDays = [0];
+  for (let i = 6; i < days.length; i += 6) navDays.push(i);
+  if (days.length - 1 > navDays[navDays.length - 1]) navDays.push(days.length - 1);
+  navEl.innerHTML = navDays.map(idx => `<a class="tl-nav-link" href="#tl-d${idx + 1}">Day ${idx + 1}</a>`).join('');
 
   el.innerHTML = days.map((iso, idx) => {
     const h = hotelForDate(iso);
-    const note = DAY_NOTES[iso];
     const isCheckin = h && h.checkin === iso;
     const isToday = iso === todayIso;
     const d = new Date(iso + "T00:00:00");
+    const days3 = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const dateLabel = `${days3[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+
+    const rich = TIMELINE_EVENTS[iso];
+    const place = rich ? rich.place : (h ? h.dest : '—');
+    const tagline = rich ? rich.tagline : (isCheckin ? `Check in at ${h.hotel}` : (h ? h.hotel : ''));
+
+    let eventsHtml;
+    if (rich) {
+      eventsHtml = rich.events.map(ev => `
+        <div class="tl-event">
+          <div class="tl-event-time ${ev.est ? 'est' : ''}">${ev.time}</div>
+          <div class="tl-event-icon icon-${ev.icon}">${ICON_EMOJI[ev.icon] || '•'}</div>
+          <div class="tl-event-body">
+            <div class="tl-event-title">${ev.title}</div>
+            ${ev.desc ? `<div class="tl-event-desc">${ev.desc}</div>` : ''}
+          </div>
+        </div>`).join('');
+    } else {
+      const note = DAY_NOTES[iso];
+      eventsHtml = `
+        <div class="tl-event">
+          <div class="tl-event-time est">—</div>
+          <div class="tl-event-icon icon-note">📝</div>
+          <div class="tl-event-body">
+            <div class="tl-event-desc">${note || "Day plan not finalized yet — send a doc or tell me what's happening this day and it'll go here."}</div>
+          </div>
+        </div>`;
+    }
+
+    const openClass = isToday ? 'open' : '';
     return `
-    <details class="day-group ${isToday ? 'today' : ''}">
-      <summary>
-        <div class="day-badge"><span class="num">${d.getDate()}</span><span class="mon">${MONTHS[d.getMonth()]}</span></div>
-        <div class="day-head">
-          <div class="loc">Day ${idx + 1} · ${h ? h.dest : '—'}</div>
-          <div class="hotel">${h ? h.hotel : ''}${isCheckin ? ' (check-in)' : ''}</div>
+    <div class="tl-day ${isToday ? 'today' : ''}" id="tl-d${idx + 1}">
+      <div class="tl-day-header ${openClass}" onclick="toggleDay(this)">
+        <div class="tl-day-num"><div class="tl-day-num-n">${idx + 1}</div><div class="tl-day-num-label">${MONTHS[d.getMonth()]} ${d.getDate()}</div></div>
+        <div class="tl-day-info">
+          <div class="tl-day-date">${dateLabel}</div>
+          <div class="tl-day-place">${place}</div>
+          <div class="tl-day-tagline">${tagline}</div>
         </div>
-        <div class="chev">▸</div>
-      </summary>
-      <div class="day-body">
-        ${note ? `<div class="note">${note}</div>` : `<div class="placeholder">Day plan not finalized yet — tell Claude what's happening this day and it'll go here.</div>`}
+        <div class="tl-day-toggle">▾</div>
       </div>
-    </details>`;
+      <div class="tl-events ${openClass}">${eventsHtml}</div>
+    </div>`;
   }).join('');
 }
 
