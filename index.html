@@ -915,28 +915,52 @@ const TOURS = [
   {
     date: "2026-09-27", title: "Nanzen-ji, Aqueduct & Japanese Gardens", city: "Kyoto",
     stops: ["Nanzen-ji Temple & Sanmon Gate", "Suirokaku Aqueduct", "Murin-an Garden", "Keage Incline", "Shoren-in Temple"],
-    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours", operator: "VietnamStay / Lily", cost: null
   },
   {
     date: "2026-09-28", title: "Antique Streets, Gion & Machiya Architecture", city: "Kyoto",
     stops: ["Shinmonzen & Furumonzen Streets", "Gion District (Shirakawa, Tatsumi Bridge)", "Machiya architecture", "Kennin-ji Temple"],
-    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours", operator: "VietnamStay / Lily", cost: null
   },
   {
     date: "2026-09-29", title: "Nishijin Textiles & Kamishichiken", city: "Kyoto",
     stops: ["Nishijin District & textile workshop", "Kamishichiken geisha district", "Free time"],
-    logistics: "English-speaking guide, half day · private Alphard vehicle"
+    logistics: "English-speaking guide, half day · private Alphard vehicle", operator: "VietnamStay / Lily", cost: null
   },
   {
     date: "2026-10-02", title: "Uji Tea Culture & Byodo-in", city: "Kyoto",
     stops: ["Fukujuen guided tea visit", "Matcha grinding experience", "Byodo-in Temple (Phoenix Hall & Hoshokan Museum)", "Uji River walk"],
-    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours", operator: "VietnamStay / Lily", cost: null
+  },
+  {
+    date: "2026-10-06", title: "Kanazawa Night Walking Tour", city: "Kanazawa",
+    stops: ["Evening walking tour of Kanazawa"],
+    logistics: "Start 18:00", operator: "Independently booked", cost: "$75 total for 2"
+  },
+  {
+    date: "2026-10-15", title: "Nakasendo Guided Walk — Magome to Tsumago", city: "Kiso Valley",
+    stops: ["Guided walk from Magome to Tsumago along the old Nakasendo road"],
+    logistics: "Start 9:00 AM · ~6 hours · Meeting point: Magome Bus Station", operator: "Independently booked", cost: "$300 total"
+  },
+  {
+    date: "2026-10-18", title: "Ise Grand Shrine Guided Walking Tour", city: "Ise-Shima",
+    stops: ["Guided walking tour of Ise Grand Shrine"],
+    logistics: "Start 8:00 AM · 4 hours · Meeting point: Comfort Hotel ERA Ise (opposite Iseshi Station)", operator: "Independently booked", cost: "$220 total"
   },
   {
     date: "2026-10-31", title: "Omotesando & Aoyama Architecture", city: "Tokyo",
     stops: ["Omotesando/Aoyama architectural walk", "Prada Aoyama (Herzog & de Meuron)", "Nezu Museum (Kengo Kuma)", "21_21 DESIGN SIGHT (Tadao Ando)", "Tokyo Midtown design district"],
-    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours", operator: "VietnamStay / Lily", cost: null
   }
+];
+
+// Tours discussed/wanted but not yet booked.
+const TOURS_OUTSTANDING = [
+  { title: "Kamikochi shuttle", note: "Needed to get into the park from Hirayu — see Oct 10." },
+  { title: "Naoshima museum timed-entry tickets", note: "Chichu / Teshima Art Museum — book as soon as the online window opens (Benesse tickets open from Oct 1)." },
+  { title: "Okunoin night tour", note: "Optional guided version of the Oct 23 dusk walk — self-guided is fine too." },
+  { title: "teamLab", note: "Not yet assigned to a specific day." },
+  { title: "Hiroshima private guided tour", note: "Oct 29 — concept agreed (focus on Peace Memorial Park), no booking confirmed yet." }
 ];
 
 // Driving route maps — none uploaded yet.
@@ -1086,7 +1110,8 @@ const TIMELINE_EVENTS = {
       { time: "Late morning", est: true, icon: "activity", title: "Pick one museum, not all three", desc: "D.T. Suzuki Museum · 21st Century Museum of Contemporary Art · the Yoshiro & Yoshio Taniguchi Museum of Architecture." },
       { time: "Midday", est: true, icon: "food", title: "Lunch around Omicho Market", desc: "" },
       { time: "Afternoon", est: true, icon: "activity", title: "Pick a focused combination", desc: "Nagamachi Samurai District + Nomura Samurai House · Higashi Chaya teahouse district · one craft stop (gold leaf, Kaga-yuzen, Kutani, lacquer)." },
-      { time: "Evening", est: true, icon: "food", title: "Dinner — book in advance", desc: "" },
+      { time: "Evening", est: true, icon: "food", title: "Dinner — book in advance", desc: "Wrap up before the 18:00 walking tour." },
+      { time: "6:00 PM", est: false, icon: "activity", title: "Kanazawa Night Walking Tour — confirmed", desc: "$75 total for 2." },
       { time: "Note", est: false, icon: "note", title: "Guide: optional half-day, morning through lunch", desc: "Only worth it if the guide is genuinely strong." }
     ]
   },
@@ -1165,13 +1190,12 @@ const TIMELINE_EVENTS = {
     ]
   },
   "2026-10-15": {
-    place: "Kiso Valley / Nakasendo", tagline: "One beautiful old-road walk, done at your own pace",
+    place: "Kiso Valley / Nakasendo", tagline: "Nakasendo Guided Walk — confirmed",
     events: [
-      { time: "Morning", est: true, icon: "activity", title: "Tsumago → Magome, or a shortened version", desc: "Full version: 8km / ~3hrs, then taxi/bus back to the car. Shorter: Tsumago → Otsumago partway, then return. Weather-light: drive between the towns and just walk each one. Pre-arrange or confirm the taxi/bus back the night before — that's the one logistical thing that matters." },
-      { time: "Lunch", est: true, icon: "food", title: "Simple soba / café / tea house in Tsumago or Magome", desc: "Not destination dining." },
+      { time: "9:00 AM", est: false, icon: "activity", title: "Nakasendo Guided Walk — Magome to Tsumago", desc: "$300 total, ~6 hours, guided. Meeting point: Magome Bus Station — get there in time to meet the guide, factoring in transfer time from the ryokan." },
+      { time: "Lunch", est: true, icon: "food", title: "Simple soba / café / tea house in Tsumago or Magome", desc: "Not destination dining — likely mid-walk or just after, depending on the guide's pacing." },
       { time: "Afternoon", est: true, icon: "hotel", title: "Return to the ryokan — bath, rest", desc: "No more sightseeing today." },
-      { time: "Evening", est: true, icon: "food", title: "Ryokan dinner again", desc: "" },
-      { time: "Note", est: false, icon: "note", title: "No guide needed", desc: "The trail is well-signposted — a guide would add commentary but reduce freedom." }
+      { time: "Evening", est: true, icon: "food", title: "Ryokan dinner again", desc: "" }
     ]
   },
   "2026-10-16": {
@@ -1192,10 +1216,10 @@ const TIMELINE_EVENTS = {
     ]
   },
   "2026-10-18": {
-    place: "Ise-Shima full day", tagline: "Shrine, sea, and coastal culture — elemental, not a museum day",
+    place: "Ise-Shima full day", tagline: "Ise Grand Shrine Guided Walking Tour — confirmed, then free-form coastal afternoon",
     events: [
-      { time: "Early AM", est: true, icon: "activity", title: "Ise Jingu Naiku — the Inner Shrine", desc: "Open 5:00 AM–5:00 PM in Oct–Dec, so early morning works in your favor. Less architecturally showy than Kyoto — more about restraint, ritual, forest, materials, and the psychological crossing of the Uji Bridge." },
-      { time: "Late morning", est: true, icon: "food", title: "Oharai-machi / Okage Yokocho for lunch and shops", desc: "" },
+      { time: "8:00 AM", est: false, icon: "activity", title: "Ise Grand Shrine Guided Walking Tour — confirmed", desc: "$220 total, 4 hours. Meeting point: Comfort Hotel ERA Ise (opposite Iseshi Station) — plan the drive/transfer from NEMU with enough buffer to be there for 8:00." },
+      { time: "Midday", est: true, icon: "food", title: "Oharai-machi / Okage Yokocho for lunch and shops", desc: "Right after the tour wraps up." },
       { time: "Afternoon", est: true, icon: "activity", title: "Choose one", desc: "Yokoyama Observatory / Ago Bay (the classic Ise-Shima view — islands, bay, soft coastline, good payoff for little strain) · an Ama hut experience (only if it's a real reserved lunch, not too commercial — fits the pescatarian diet well) · pearl/Kashikojima/coastal drive (best if weather's poor or you want something more relaxed)." },
       { time: "Evening", est: true, icon: "food", title: "Back to NEMU — bath, rest, dinner", desc: "Reserve/confirm at the resort again unless you have a specific outside booking." }
     ]
@@ -1632,10 +1656,17 @@ function renderTours() {
         ${t.stops.map(s => `<li>${s}</li>`).join('')}
       </ul>
       <div class="meta" style="margin-top:10px;">${t.logistics}</div>
+      <div class="meta" style="margin-top:4px;">${t.operator}${t.cost ? ' · ' + t.cost : ''}</div>
     </div>`).join('') + `
     <div class="card" style="background:var(--cream-100);border-style:dashed;">
-      <div class="meta">Booked through ${TOUR_OPERATOR.company} — ${TOUR_OPERATOR.designer}</div>
-    </div>`;
+      <div class="meta">Kyoto/Tokyo guided days booked through ${TOUR_OPERATOR.company} — ${TOUR_OPERATOR.designer}. The rest booked independently.</div>
+    </div>
+    <h2 class="section-title" style="margin-top:22px;">Still to book</h2>
+    ` + TOURS_OUTSTANDING.map(o => `
+    <div class="card" style="border-left:4px solid var(--gold-500);">
+      <h3 style="margin-bottom:4px;">${o.title}</h3>
+      <div class="meta">${o.note}</div>
+    </div>`).join('');
 }
 
 function renderCar() {
