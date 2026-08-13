@@ -1034,29 +1034,46 @@ async function trySubmit() {
 
 // --- Formatting helpers -----------------------------------------------
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+// Parse an ISO date string (YYYY-MM-DD) as a UTC-anchored Date, so date math
+// never shifts by a day depending on the visitor's local timezone offset.
+function parseISO(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d));
+}
+// The visitor's actual local calendar date (for "how many days until the trip"),
+// built from local getters directly rather than via toISOString() (which is UTC
+// and can be off by a day near midnight in timezones ahead of UTC).
+function todayLocalISO() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
 function fmtDate(iso) {
-  const d = new Date(iso + "T00:00:00");
-  return `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  const d = parseISO(iso);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}`;
 }
 function fmtDateFull(iso) {
-  const d = new Date(iso + "T00:00:00");
+  const d = parseISO(iso);
   const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  return `${days[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  return `${days[d.getUTCDay()]}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}`;
 }
 function fmtDateWithYear(iso) {
-  const d = new Date(iso + "T00:00:00");
-  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  const d = parseISO(iso);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
 }
 function usd(n) { return '$' + n.toLocaleString('en-US'); }
 function addDays(iso, n) {
-  const d = new Date(iso + "T00:00:00");
-  d.setDate(d.getDate() + n);
+  const d = parseISO(iso);
+  d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 }
 function dateRange(startIso, endIso) {
   const out = [];
   let cur = startIso;
-  while (cur <= endIso) { out.push(cur); cur = addDays(cur, 1); }
+  let guard = 0;
+  while (cur <= endIso && guard < 400) { out.push(cur); cur = addDays(cur, 1); guard++; }
   return out;
 }
 function hotelForDate(iso) {
@@ -1067,11 +1084,10 @@ function hotelForDate(iso) {
 // --- Countdown ----------------------------------------------------------
 function renderCountdown() {
   const el = document.getElementById('countdown');
-  const now = new Date();
-  const todayIso = now.toISOString().slice(0, 10);
-  const start = new Date(TRIP.start + "T00:00:00");
-  const end = new Date(TRIP.end + "T00:00:00");
-  const today = new Date(todayIso + "T00:00:00");
+  const todayIso = todayLocalISO();
+  const start = parseISO(TRIP.start);
+  const end = parseISO(TRIP.end);
+  const today = parseISO(todayIso);
 
   if (today < start) {
     const diff = Math.ceil((start - today) / 86400000);
@@ -1345,9 +1361,9 @@ function renderTimeline() {
     const h = hotelForDate(iso);
     const isCheckin = h && h.checkin === iso;
     const isToday = iso === todayIso;
-    const d = new Date(iso + "T00:00:00");
+    const d = parseISO(iso);
     const days3 = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-    const dateLabel = `${days3[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+    const dateLabel = `${days3[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
 
     const rich = TIMELINE_EVENTS[iso];
     const place = rich ? rich.place : (h ? h.dest : '—');
@@ -1380,7 +1396,7 @@ function renderTimeline() {
     return `
     <div class="tl-day ${isToday ? 'today' : ''}" id="tl-d${idx + 1}">
       <div class="tl-day-header ${openClass}" onclick="toggleDay(this)">
-        <div class="tl-day-num"><div class="tl-day-num-n">${idx + 1}</div><div class="tl-day-num-label">${MONTHS[d.getMonth()]} ${d.getDate()}</div></div>
+        <div class="tl-day-num"><div class="tl-day-num-n">${idx + 1}</div><div class="tl-day-num-label">${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}</div></div>
         <div class="tl-day-info">
           <div class="tl-day-date">${dateLabel}</div>
           <div class="tl-day-place">${place}</div>
