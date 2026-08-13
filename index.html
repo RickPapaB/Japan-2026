@@ -956,6 +956,20 @@ const DRIVING_TIPS = [
 ];
 const DRIVING_TIPS_CHECKLIST = ["Confirm the exact rental return branch and hours", "Put the rental branch phone number / Mapcode into the car GPS", "Fill gas near Shin-Osaka, not up in the mountains", "Keep toll/ETC card instructions clear", "Allow at least 45 minutes between arriving near Shin-Osaka and being truly done with the car"];
 
+// Crucial, safety/functional driving notes — shown ahead of the route-by-route tips.
+const DRIVING_TIPS_CRUCIAL = [
+  {
+    title: "The Kamikochi hard border",
+    body: "Hodakaso Yamano Hotel to the Kamikochi Bus Terminal cannot be driven directly, however phone navigation may route it. The Naka-no-yu Gate is an actively enforced closure — private cars get turned around there, not just discouraged. Leave the car at Hirayu (or Akandana) and take the shuttle bus or a taxi in.",
+    sources: [{ label: "kamikochi.org", url: "https://www.kamikochi.org/access/car" }, { label: "easytravelfollowme.com", url: "https://easytravelfollowme.com/en/drivingtips-kamikochi-en/" }]
+  },
+  {
+    title: "ETC card — confirm it's actually activated",
+    body: "This itinerary runs almost entirely on major toll expressways (Hokuriku and Tokai-Hokuriku). At pickup, don't just ask whether an ETC card is included — confirm the rental agency has physically inserted and activated it before leaving the depot gate. An uninserted or inactive card at a toll gate is a real hold-up, not a minor inconvenience.",
+    sources: []
+  }
+];
+
 // --- Naoshima & Hiroshima notes ---------------------------------------
 const NAOSHIMA_HIROSHIMA_NOTES = [
   {
@@ -1193,7 +1207,7 @@ const TIMELINE_EVENTS = {
   "2026-10-05": {
     place: "Kyoto → Kanazawa", tagline: "Start of the driving portion — pick up the car, keep the first day simple",
     events: [
-      { time: "8:30 AM", est: true, icon: "drive", title: "Pick up rental car at Kyoto Station", desc: "Confirm the ETC card, English GPS/CarPlay, and fuel type before leaving the lot. Enter the Kanazawa hotel into both phone navigation and the car's GPS." },
+      { time: "8:30 AM", est: true, icon: "drive", title: "Pick up rental car at Kyoto Station", desc: "Don't just ask if an ETC card is included — confirm it's physically inserted and activated before leaving the depot gate. This route runs almost entirely on toll expressways (Hokuriku and Tokai-Hokuriku), so an inactive card at a toll gate is a real hold-up. Also confirm English GPS/CarPlay and fuel type, and enter the Kanazawa hotel into both phone navigation and the car's GPS." },
       { time: "~9:00 AM", est: true, icon: "drive", title: "Drive to Kanazawa", desc: "Fairly direct — don't over-sightsee on this first driving day. Stop at a Japanese expressway service area for lunch, coffee, or a restroom break." },
       { time: "Afternoon", est: true, icon: "hotel", title: "Check in at Mitsui Garden Hotel Kanazawa", desc: "Use the bath if desired, then a light orientation walk: Kanazawa Castle Park exterior, Oyama Shrine, maybe Korinbo/Katamachi." },
       { time: "Evening", est: true, icon: "food", title: "Dinner in Kanazawa", desc: "Sushi, seafood, Kaga cuisine, or a refined izakaya." }
@@ -1243,7 +1257,7 @@ const TIMELINE_EVENTS = {
   "2026-10-10": {
     place: "Kamikochi (day trip from Hirayu)", tagline: "A beautiful, controlled nature day",
     events: [
-      { time: "Early AM", est: true, icon: "drive", title: "Leave the car at/near Hirayu or Akandana", desc: "You can't drive into Kamikochi — take the shuttle bus or a taxi into the park. Aim for an early entry, especially since October is busy." },
+      { time: "Early AM", est: true, icon: "drive", title: "Leave the car at/near Hirayu or Akandana — do not drive to Kamikochi", desc: "This isn't just discouraged — the Naka-no-yu Gate is an actively enforced closure, and phone navigation may still try to route you straight through it. Private cars get turned around there. Take the shuttle bus or a taxi in instead, and aim for an early entry since October is busy." },
       { time: "Day", est: true, icon: "activity", title: "Walking route: Taisho Pond → Tashiro Marsh/Pond → Kappa Bridge", desc: "Optional extension to Myojin Pond if weather and energy are good. Shorter version: Taisho Pond to Kappa Bridge only. Bring snacks and water — don't rely too heavily on lunch options in the park." },
       { time: "Late afternoon", est: true, icon: "drive", title: "Return to Hirayu", desc: "Before late-afternoon transport gets stressful." },
       { time: "Evening", est: true, icon: "food", title: "Hotel dinner again", desc: "" },
@@ -1851,7 +1865,14 @@ function renderFoodGuide() {
 
 function renderDrivingTips() {
   const el = document.getElementById('driving-tips-list');
-  el.innerHTML = DRIVING_TIPS.map(d => `
+  el.innerHTML = DRIVING_TIPS_CRUCIAL.map(c => `
+    <div class="card" style="border-left:4px solid var(--maple-500);">
+      <div class="note-tag" style="background:#fbe4e4;color:var(--maple-600);">Crucial</div>
+      <h3>${c.title}</h3>
+      <div class="meta" style="margin-top:6px;">${c.body}</div>
+      ${c.sources.length ? `<div class="meta" style="margin-top:8px;">Sources: ${c.sources.map(s => `<a href="${s.url}" target="_blank" rel="noopener">${s.label}</a>`).join(' · ')}</div>` : ''}
+    </div>`).join('') +
+    DRIVING_TIPS.map(d => `
     <div class="card">
       <div class="note-tag drive">Route</div>
       <h3>${d.route}</h3>
