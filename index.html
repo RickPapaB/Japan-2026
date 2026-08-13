@@ -1074,7 +1074,66 @@ const TOURS_OUTSTANDING = [
 ];
 
 // Driving route maps — none uploaded yet.
-const DRIVING_MAPS = [];
+function gmapsDirUrl(origin, destination) {
+  return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+}
+
+const DRIVING_MAPS = [
+  {
+    date: "2026-10-05",
+    route: "Kyoto Station → Mitsui Garden Hotel Kanazawa",
+    origin: "389 Munkaku-cho, Higashi-Nakasuji, Kyoto", destination: "1-22 Kamitsutsumi-cho, Kanazawa, Ishikawa",
+    distance: "~260 km", duration: "~3h 15m",
+    tollNote: "Meishin → Hokuriku Expwy · tolls approx. ¥6,500",
+    notes: [
+      "Leaving Kyoto Station puts you straight into city traffic — push toward the Kyoto-Higashi IC to clear the urban grid and get onto the Meishin Expressway safely.",
+      "Watch the navigation closely near Maibara Junction — you need to cleanly split off the Meishin and hook north onto the Hokuriku Expressway. Miss this fork and you'll be tracking off-course toward Nagoya.",
+      "The Hokuriku route runs along the coast of Shiga and Fukui. Nanjojo SA or Shizugatake SA both make good lunch/refuel stops before Ishikawa."
+    ]
+  },
+  {
+    date: "2026-10-07",
+    route: "Kanazawa → Shirakawa-go",
+    origin: "1-22 Kamitsutsumi-cho, Kanazawa, Ishikawa", destination: "Seseragi Park Parking Lot, Shirakawa-go, Gifu",
+    distance: "~65 km", duration: "~1h 15m",
+    tollNote: "Hokuriku → Tokai-Hokuriku Expwy · tolls approx. ¥2,200",
+    notes: [
+      "Exiting central Kanazawa toward the Kanazawa-Morimoto IC gets tight during the morning rush — give yourself a buffer.",
+      "Follow the local overhead electronic signs directly to Seseragi Park Parking Lot. Don't try to drive across the footbridge into the historic village streets — that's pedestrian-only."
+    ]
+  },
+  {
+    date: "2026-10-07",
+    route: "Shirakawa-go → Takayama Green Hotel",
+    origin: "Shirakawa-go, Ono District, Gifu", destination: "2-180 Nishino-isshiki, Takayama, Gifu",
+    distance: "~50 km", duration: "~50m",
+    tollNote: "Tokai-Hokuriku Expwy (heavy tunnels) · tolls approx. ¥1,800",
+    notes: [
+      "This stretch is almost entirely successive single-lane tunnels, including the Hida Tunnel — over 10km long. Switch headlights to manual \"on\" rather than trusting auto-sensors, stay alert to brake lights ahead, and keep a steady following gap."
+    ]
+  },
+  {
+    date: "2026-10-09",
+    route: "Takayama Green Hotel → Hodakaso Yamano Hotel",
+    origin: "2-180 Nishino-isshiki, Takayama, Gifu", destination: "577-13 Okuhida Onsengo Kansaka, Takayama",
+    distance: "~40 km", duration: "~50m",
+    tollNote: "Route 158 eastbound mountain pass · no tolls",
+    notes: [
+      "Route 158 climbs straight into the Southern Alps — a single-lane mountain pass with tight switchbacks and slow-moving regional transit buses. Use the designated pull-off lanes if local traffic stacks up behind you.",
+      "Fog can drop fast around the Abo Tunnel entrance on October mornings — cut speed immediately if visibility drops."
+    ]
+  },
+  {
+    date: "2026-10-10",
+    route: "Hodakaso Yamano Hotel → Shiei Akandana Parking (Kamikochi hub)",
+    origin: "577-13 Okuhida Onsengo Kansaka, Takayama", destination: "Akandana Parking, Matsumoto, Nagano",
+    distance: "~10 km", duration: "~15m",
+    tollNote: "Prefectural Route 475 · no tolls (parking fee ¥600/day)",
+    notes: [
+      "Akandana Parking is the hard terminus — private vehicles are fully barred past this gate. Park here, pay the day-rate at the kiosk, then walk straight to the bus lane for the Kamikochi shuttle."
+    ]
+  }
+];
 
 // Narrative day notes, keyed by ISO date, pulled from the planning-chat docs.
 // Days without an entry just show the hotel/location — that's expected for legs
@@ -1742,17 +1801,25 @@ function renderDrivingMaps() {
   const el = document.getElementById('driving-maps-list');
   if (!DRIVING_MAPS.length) {
     el.innerHTML = `<div class="card" style="background:var(--cream-100);border-style:dashed;">
-      <div class="meta placeholder">No driving route maps added yet — upload screenshots, PDFs, or Google Maps links for the driving days (Kyoto → Kanazawa → Takayama → Hirayu → Matsumoto → Kiso → Gujo → Ise-Shima → Kumano → Koyasan → Osaka) and they'll show up here, organized by route.</div>
+      <div class="meta placeholder">No driving route maps added yet.</div>
     </div>`;
     return;
   }
-  el.innerHTML = DRIVING_MAPS.map(m => `
+  el.innerHTML = DRIVING_MAPS.map(m => {
+    const url = gmapsDirUrl(m.origin, m.destination);
+    const dateLabel = fmtDateFull(m.date.slice(0, 10));
+    return `
     <div class="card">
-      <h3>${m.title}</h3>
-      <div class="meta">${m.date ? fmtDateFull(m.date) : ''}${m.distance ? ' · ' + m.distance : ''}${m.duration ? ' · ' + m.duration : ''}</div>
-      ${m.notes ? `<div class="meta" style="margin-top:8px;">${m.notes}</div>` : ''}
-      ${m.url ? `<div class="hotel-links"><a href="${m.url}" target="_blank" rel="noopener">🗺️ Open route</a></div>` : ''}
-    </div>`).join('');
+      <div class="note-tag drive">${dateLabel}</div>
+      <h3>${m.route}</h3>
+      <div class="meta">${m.distance} · ${m.duration}</div>
+      <div class="meta" style="margin-top:6px;">${m.tollNote}</div>
+      ${m.notes.map(n => `<div class="meta" style="margin-top:8px;">${n}</div>`).join('')}
+      <div class="hotel-links" style="margin-top:10px;">
+        <a href="${url}" target="_blank" rel="noopener">🗺️ Open driving directions</a>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // --- Tours ---------------------------------------------------------
