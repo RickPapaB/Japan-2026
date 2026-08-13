@@ -407,6 +407,21 @@ nav.bottom svg{width:21px;height:21px;}
 }
 .back-top.show{display:flex;}
 
+/* Install banner */
+#install-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:600;
+  background:var(--indigo-950);border-top:2px solid var(--gold-500);
+  padding:14px clamp(16px,5vw,32px);display:none;align-items:center;gap:14px;
+  box-shadow:0 -8px 30px rgba(0,0,0,0.35);
+  padding-bottom:calc(14px + env(safe-area-inset-bottom));
+}
+#install-banner.show{display:flex;}
+.ib-icon{font-size:24px;flex-shrink:0;}
+.ib-text{flex:1;font-size:13px;color:rgba(255,255,255,0.8);line-height:1.4;}
+.ib-text strong{color:var(--gold-300);}
+.ib-btn{background:var(--maple-500);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:0.03em;cursor:pointer;white-space:nowrap;}
+.ib-close{background:none;border:none;color:rgba(255,255,255,0.4);font-size:20px;cursor:pointer;padding:4px;line-height:1;}
+
 @media(min-width:760px){
   main{max-width:820px;}
 }
@@ -520,6 +535,8 @@ nav.bottom svg{width:21px;height:21px;}
         <button data-sub="flights" class="active">Flights</button>
         <button data-sub="hotels">Hotels</button>
         <button data-sub="map">Map</button>
+        <button data-sub="drivingmaps">Driving Maps</button>
+        <button data-sub="tours">Tours</button>
         <button data-sub="car">Car</button>
         <button data-sub="budget">Budget</button>
         <button data-sub="notes">Notes</button>
@@ -540,6 +557,16 @@ nav.bottom svg{width:21px;height:21px;}
         <h2 class="section-title">The route</h2>
         <div class="map-legend">Tap a pin for dates &amp; a link to the hotel. Line follows stay order, not the literal driving road.</div>
         <div id="map"></div>
+      </div>
+
+      <div id="sub-drivingmaps" class="subview">
+        <h2 class="section-title">Driving maps</h2>
+        <div id="driving-maps-list"></div>
+      </div>
+
+      <div id="sub-tours" class="subview">
+        <h2 class="section-title">Tours</h2>
+        <div id="tours-list"></div>
       </div>
 
       <div id="sub-car" class="subview">
@@ -576,6 +603,13 @@ nav.bottom svg{width:21px;height:21px;}
   </main>
 
   <button class="back-top" id="back-top" aria-label="Back to top">↑</button>
+
+  <div id="install-banner">
+    <div class="ib-icon">🍁</div>
+    <div class="ib-text"><strong>Install Japan 2026</strong> on your home screen — works offline, opens like an app.</div>
+    <button class="ib-btn" id="install-btn">Install</button>
+    <button class="ib-close" onclick="dismissInstall()">×</button>
+  </div>
 
   <nav class="bottom">
     <button data-view="home" class="active">
@@ -875,6 +909,38 @@ const TOUR_OPERATOR = {
   price: "US$2,333/person (land services, after 3% returning-client discount) — US$4,666 total for 2, matching the budget's guided-package line",
   note: "Confirmed day tours below. International flight details still need to go to VietnamStay for airport transfer arrangements."
 };
+
+// Confirmed guided tours (VietnamStay/Lily), pulled from the tour proposal PDF.
+const TOURS = [
+  {
+    date: "2026-09-27", title: "Nanzen-ji, Aqueduct & Japanese Gardens", city: "Kyoto",
+    stops: ["Nanzen-ji Temple & Sanmon Gate", "Suirokaku Aqueduct", "Murin-an Garden", "Keage Incline", "Shoren-in Temple"],
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+  },
+  {
+    date: "2026-09-28", title: "Antique Streets, Gion & Machiya Architecture", city: "Kyoto",
+    stops: ["Shinmonzen & Furumonzen Streets", "Gion District (Shirakawa, Tatsumi Bridge)", "Machiya architecture", "Kennin-ji Temple"],
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+  },
+  {
+    date: "2026-09-29", title: "Nishijin Textiles & Kamishichiken", city: "Kyoto",
+    stops: ["Nishijin District & textile workshop", "Kamishichiken geisha district", "Free time"],
+    logistics: "English-speaking guide, half day · private Alphard vehicle"
+  },
+  {
+    date: "2026-10-02", title: "Uji Tea Culture & Byodo-in", city: "Kyoto",
+    stops: ["Fukujuen guided tea visit", "Matcha grinding experience", "Byodo-in Temple (Phoenix Hall & Hoshokan Museum)", "Uji River walk"],
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+  },
+  {
+    date: "2026-10-31", title: "Omotesando & Aoyama Architecture", city: "Tokyo",
+    stops: ["Omotesando/Aoyama architectural walk", "Prada Aoyama (Herzog & de Meuron)", "Nezu Museum (Kengo Kuma)", "21_21 DESIGN SIGHT (Tadao Ando)", "Tokyo Midtown design district"],
+    logistics: "English-speaking guide · private Alphard vehicle · 10 hours"
+  }
+];
+
+// Driving route maps — none uploaded yet.
+const DRIVING_MAPS = [];
 
 // Narrative day notes, keyed by ISO date, pulled from the planning-chat docs.
 // Days without an entry just show the hotel/location — that's expected for legs
@@ -1537,6 +1603,41 @@ function renderMap() {
 }
 
 // --- Car card ----------------------------------------------------------
+// --- Driving Maps -------------------------------------------------------
+function renderDrivingMaps() {
+  const el = document.getElementById('driving-maps-list');
+  if (!DRIVING_MAPS.length) {
+    el.innerHTML = `<div class="card" style="background:var(--cream-100);border-style:dashed;">
+      <div class="meta placeholder">No driving route maps added yet — upload screenshots, PDFs, or Google Maps links for the driving days (Kyoto → Kanazawa → Takayama → Hirayu → Matsumoto → Kiso → Gujo → Ise-Shima → Kumano → Koyasan → Osaka) and they'll show up here, organized by route.</div>
+    </div>`;
+    return;
+  }
+  el.innerHTML = DRIVING_MAPS.map(m => `
+    <div class="card">
+      <h3>${m.title}</h3>
+      <div class="meta">${m.date ? fmtDateFull(m.date) : ''}${m.distance ? ' · ' + m.distance : ''}${m.duration ? ' · ' + m.duration : ''}</div>
+      ${m.notes ? `<div class="meta" style="margin-top:8px;">${m.notes}</div>` : ''}
+      ${m.url ? `<div class="hotel-links"><a href="${m.url}" target="_blank" rel="noopener">🗺️ Open route</a></div>` : ''}
+    </div>`).join('');
+}
+
+// --- Tours ---------------------------------------------------------
+function renderTours() {
+  const el = document.getElementById('tours-list');
+  el.innerHTML = TOURS.map(t => `
+    <div class="card">
+      <div class="ftag" style="margin-bottom:8px;">${fmtDateFull(t.date).toUpperCase()} · ${t.city.toUpperCase()}</div>
+      <h3>${t.title}</h3>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-600);line-height:1.8;">
+        ${t.stops.map(s => `<li>${s}</li>`).join('')}
+      </ul>
+      <div class="meta" style="margin-top:10px;">${t.logistics}</div>
+    </div>`).join('') + `
+    <div class="card" style="background:var(--cream-100);border-style:dashed;">
+      <div class="meta">Booked through ${TOUR_OPERATOR.company} — ${TOUR_OPERATOR.designer}</div>
+    </div>`;
+}
+
 function renderCar() {
   const el = document.getElementById('car-card');
   const gmapsPickup = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CAR.pickupLocation + ' ' + CAR.pickupAddress)}`;
@@ -1720,7 +1821,7 @@ function renderTimeline() {
 }
 
 // --- Rendered-state tracking (for lazy per-tab rendering) --------------
-const rendered = { flights: false, hotels: false, map: false, car: false, budget: false, notes: false, crew: false, timeline: false };
+const rendered = { flights: false, hotels: false, map: false, car: false, budget: false, notes: false, crew: false, timeline: false, drivingmaps: false, tours: false };
 
 function renderSub(name) {
   if (rendered[name]) return;
@@ -1732,6 +1833,8 @@ function renderSub(name) {
   else if (name === 'notes') renderReminders();
   else if (name === 'crew') renderCrew();
   else if (name === 'timeline') renderTimeline();
+  else if (name === 'drivingmaps') renderDrivingMaps();
+  else if (name === 'tours') renderTours();
   // 'map' is handled separately by renderMap()'s own lazy-load logic
 }
 
@@ -1856,6 +1959,40 @@ async function init() {
   }
 }
 init();
+
+/* --- PWA install banner --- */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (!localStorage.getItem('jt_install_dismissed')) {
+    document.getElementById('install-banner').classList.add('show');
+  }
+});
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  }
+  document.getElementById('install-banner').classList.remove('show');
+});
+function dismissInstall() {
+  localStorage.setItem('jt_install_dismissed', '1');
+  document.getElementById('install-banner').classList.remove('show');
+}
+window.dismissInstall = dismissInstall;
+// iOS Safari doesn't fire beforeinstallprompt — show a manual hint instead
+(function () {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const inStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (isIOS && !inStandalone && !localStorage.getItem('jt_install_dismissed')) {
+    const b = document.getElementById('install-banner');
+    b.querySelector('.ib-text').innerHTML = '<strong>Add to Home Screen:</strong> tap Share, then "Add to Home Screen"';
+    b.querySelector('.ib-btn').style.display = 'none';
+    setTimeout(() => b.classList.add('show'), 3000);
+  }
+})();
 
 </script>
 </body>
