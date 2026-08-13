@@ -912,6 +912,98 @@ const DAY_NOTES = {
 // entry here fall back to the single-line DAY_NOTES text above, shown as
 // one event. Feed in more docs and this fills in day by day.
 const TIMELINE_EVENTS = {
+  "2026-09-25": {
+    place: "Arrival / settle into Kyoto", tagline: "Land gently — no sightseeing ambition today",
+    events: [
+      { time: "Morning", est: true, icon: "activity", title: "No real sightseeing ambition today", desc: "" },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Check in, unpack properly, local walk around the neighborhood", desc: "Near Nijo: keep it very close — Nijo Castle exterior, Sanjo-dori arcades, local cafés, convenience-store orientation, ATM, transit cards." },
+      { time: "Evening", est: true, icon: "food", title: "Simple dinner near the apartment, early night", desc: "" },
+      { time: "Note", est: false, icon: "note", title: "Don't try to \"use\" arrival day", desc: "The win is landing gently." }
+    ]
+  },
+  "2026-09-26": {
+    place: "Kyoto — Saiho-ji / Katsura Imperial Villa", tagline: "The day that needs the most reservation discipline — do it early",
+    events: [
+      { time: "Morning", est: false, icon: "activity", title: "Saiho-ji / Kokedera, if reservations can be secured", desc: "Famous, but genuinely worthwhile as a moss-garden experience, not just a name." },
+      { time: "Afternoon", est: false, icon: "activity", title: "Katsura Imperial Villa, if available", desc: "Probably one of the most important architecture/garden experiences in Kyoto. If it doesn't work out, Daitoku-ji subtemples or Shugakuin Imperial Villa are good substitutes if scheduling allows." },
+      { time: "Evening", est: true, icon: "food", title: "Quiet dinner", desc: "You'll have absorbed a lot visually today." },
+      { time: "Note", est: false, icon: "note", title: "This day is about access, not crowds", desc: "Saiho-ji and the imperial villas require advance planning — don't overload the day with extra temples on top." }
+    ]
+  },
+  "2026-09-27": {
+    place: "Kyoto — Nanzen-ji, Aqueduct & Japanese Gardens", tagline: "Guided tour (VietnamStay/Lily) — confirmed",
+    events: [
+      { time: "Day", est: false, icon: "activity", title: "Nanzen-ji Temple & Sanmon Gate", desc: "The major Zen temple complex and its historic precincts." },
+      { time: "", est: false, icon: "activity", title: "Suirokaku Aqueduct", desc: "The Meiji-period brick aqueduct within the Nanzen-ji grounds." },
+      { time: "", est: false, icon: "activity", title: "Murin-an Garden", desc: "A modern Japanese garden — streams, lawn, moss, Higashiyama mountain views." },
+      { time: "", est: false, icon: "activity", title: "Keage Incline & Shoren-in Temple", desc: "The former inclined railway and canal heritage area, then the historic monzeki temple and its peaceful garden." },
+      { time: "Note", est: false, icon: "note", title: "English-speaking guide, private Alphard vehicle, 10 hours", desc: "Hotel: Minn Nijo-jo." }
+    ]
+  },
+  "2026-09-28": {
+    place: "Kyoto — Antique Streets, Gion & Machiya Architecture", tagline: "Guided tour (VietnamStay/Lily) — confirmed",
+    events: [
+      { time: "Day", est: false, icon: "activity", title: "Shinmonzen & Furumonzen Streets", desc: "Quiet streets known for antique shops, galleries, and traditional buildings." },
+      { time: "", est: false, icon: "activity", title: "Gion District", desc: "Gion Shirakawa, Tatsumi Bridge, and the stone-paved lanes of the geisha district." },
+      { time: "", est: false, icon: "activity", title: "Traditional machiya architecture", desc: "Wooden latticework, narrow street-facing façades, townhouse design." },
+      { time: "", est: false, icon: "activity", title: "Kennin-ji Temple", desc: "Zen gardens, painted screens, the Twin Dragons ceiling artwork." },
+      { time: "Note", est: false, icon: "note", title: "English-speaking guide, private Alphard vehicle, 10 hours", desc: "Hotel: Minn Nijo-jo." }
+    ]
+  },
+  "2026-09-29": {
+    place: "Kyoto — Nishijin Textiles & Kamishichiken", tagline: "Guided tour (VietnamStay/Lily) — confirmed, half day",
+    events: [
+      { time: "Day", est: false, icon: "activity", title: "Nishijin District & Textile Workshop", desc: "Kyoto's historic textile district — silk preparation, dyeing, and traditional weaving, with a possible craft demonstration." },
+      { time: "", est: false, icon: "activity", title: "Kamishichiken", desc: "One of Kyoto's oldest geisha districts." },
+      { time: "Afternoon", est: false, icon: "note", title: "Free time", desc: "Half-day guide, private Alphard vehicle. Hotel: Minn Nijo-jo." }
+    ]
+  },
+  "2026-09-30": {
+    place: "Kyoto — Higashiyama, early and selective", tagline: "\"Love it at 7:30 AM, hate it at 11:30\" — go early, leave before it becomes theater",
+    events: [
+      { time: "Early morning", est: true, icon: "activity", title: "Kiyomizu-dera, then down Sannenzaka / Ninenzaka before the tour groups arrive", desc: "Continue toward Yasaka Pagoda and Gion if energy allows." },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Rest back at the hotel", desc: "" },
+      { time: "Late afternoon", est: true, icon: "activity", title: "Return to Gion Shirakawa, Shinmonzen-dori, Furumonzen-dori", desc: "Antiques, galleries, old storefronts — make it a wandering afternoon, not a checklist." },
+      { time: "Evening", est: true, icon: "food", title: "Gion / Pontocho / Kiyamachi dinner, then a walk along the Shirakawa canal", desc: "If weather is pleasant." }
+    ]
+  },
+  "2026-10-01": {
+    place: "Nara — sacred architecture, forest, old merchant town", tagline: "Keep Nara — it is not optional",
+    events: [
+      { time: "Morning", est: true, icon: "drive", title: "Early train to Nara", desc: "Start with Todai-ji, then walk up to Nigatsu-do — often the emotional high point, giving air, height, wood, and view rather than just monumentality." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Kasuga Taisha and the forested shrine paths, then Naramachi", desc: "The old merchant district — a completely different scale from the temples." },
+      { time: "Evening", est: true, icon: "food", title: "Return to Kyoto, easy dinner", desc: "" },
+      { time: "Note", est: false, icon: "note", title: "Walk past the deer crowds", desc: "The further you go toward Nigatsu-do, the Kasuga forest paths, and Naramachi, the more rewarding the day becomes." }
+    ]
+  },
+  "2026-10-02": {
+    place: "Kyoto — Uji Tea Culture & Byodo-in", tagline: "Guided tour (VietnamStay/Lily) — confirmed",
+    events: [
+      { time: "Day", est: false, icon: "activity", title: "Fukujuen Guided Visit", desc: "Uji tea cultivation, processing, storage, and distribution." },
+      { time: "", est: false, icon: "activity", title: "Matcha Grinding Experience", desc: "A traditional stone mill, grinding tencha leaves into matcha." },
+      { time: "", est: false, icon: "activity", title: "Byodo-in Temple", desc: "Phoenix Hall and the Hoshokan Museum." },
+      { time: "", est: false, icon: "activity", title: "Uji River", desc: "A walk along the river and around Uji Bridge." },
+      { time: "Note", est: false, icon: "note", title: "English-speaking guide, private Alphard vehicle, 10 hours", desc: "Hotel: Minn Nijo-jo." }
+    ]
+  },
+  "2026-10-03": {
+    place: "Kyoto — Arashiyama, done intelligently", tagline: "Not a full-day crowd battle — unless you let it become one",
+    events: [
+      { time: "Very early", est: true, icon: "activity", title: "Bamboo Grove first", desc: "It becomes absurd later in the day. Then Tenryu-ji Garden and Okochi Sanso — worth it for the garden, views, and sense of retreat." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Choose one", desc: "River walk and a light lunch, then leave · continue to quieter northern temples (Gio-ji / Adashino Nenbutsu-ji) if energy is good · or return to central Kyoto and rest." },
+      { time: "Evening", est: true, icon: "food", title: "No structured dinner far away — stay local", desc: "" }
+    ]
+  },
+  "2026-10-04": {
+    place: "Kyoto — Fushimi Inari & Contemporary Kyoto (final day)", tagline: "Dawn shrine, then architecture — a good farewell to Kyoto",
+    events: [
+      { time: "Dawn", est: true, icon: "activity", title: "Fushimi Inari at dawn or very early", desc: "Don't just photograph the lower torii gates — walk upward until the crowds thin. No need to summit unless you feel like it. The lower section jams up; the upper trail is the real experience." },
+      { time: "Late morning", est: true, icon: "activity", title: "Kyoto Station as architecture and urban infrastructure", desc: "Worth actually looking at, not just passing through. Then Okazaki / KYOCERA Museum / ROHM Theatre area if you didn't cover enough there earlier in the stay." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Choose one focus, not four", desc: "Kyoto City KYOCERA Museum of Art and its district · machiya renovation / contemporary adaptive reuse · a curated architecture walk · or revisit your favorite temple/garden from the previous nine days." },
+      { time: "Evening", est: true, icon: "food", title: "Final Kyoto dinner — make this the one deliberately special meal", desc: "" },
+      { time: "Note", est: false, icon: "note", title: "A good last day", desc: "No need to fight the peak tourist sites — and a chance to revisit whatever caught you earlier in the stay." }
+    ]
+  },
   "2026-10-05": {
     place: "Kyoto → Kanazawa", tagline: "Start of the driving portion — pick up the car, keep the first day simple",
     events: [
@@ -1024,14 +1116,77 @@ const TIMELINE_EVENTS = {
       { time: "Evening", est: true, icon: "hotel", title: "Stay at Miharaya Ryokan", desc: "Eat there if dinner's available; otherwise reserve in town — Gujo is small and evening options can be limited." }
     ]
   },
-  "2026-10-24": {
-    place: "Koyasan → Kurashiki", tagline: "A logistics day after returning the car — keep it simple",
+  "2026-10-17": {
+    place: "Gujo Hachiman → Ise-Shima / NEMU Resort", tagline: "Mountain/river Japan to shrine/coastal Japan — don't overfill it",
     events: [
-      { time: "Midday", est: true, icon: "drive", title: "Return the rental car at Shin-Osaka", desc: "End of the driving portion of the trip." },
-      { time: "Afternoon", est: true, icon: "drive", title: "Shinkansen to Okayama, then local train to Kurashiki", desc: "No guide or driver needed beyond taxis at either end if tired." },
-      { time: "Evening", est: true, icon: "activity", title: "Check in, gentle walk in the Bikan Historical Quarter", desc: "Canals, white-walled storehouses, willow trees, old merchant atmosphere — a perfect first no-car evening." },
-      { time: "Dinner", est: true, icon: "food", title: "Reserve dinner in Kurashiki", desc: "Doesn't need to be a big culinary event — something pleasant and walkable." },
-      { time: "Note", est: false, icon: "note", title: "If you arrive early, peek at the Ohara Museum area", desc: "But don't make this a museum day — save energy." }
+      { time: "Morning", est: true, icon: "drive", title: "Leave Gujo Hachiman after breakfast", desc: "Plan this as a genuine 3-ish hour driving day before any sightseeing, longer with stops — don't trust a faster estimate. Direct to Ise is the simplest choice; you've already had plenty of old towns on this trip." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Ise Jingu Geku — the Outer Shrine", desc: "Traditionally visited before Naiku. Dedicated to Toyouke-no-omikami (food, clothing, shelter, industry) — a relaxing wooded walk through the precincts. Then drive to NEMU Resort and settle in." },
+      { time: "Evening", est: true, icon: "food", title: "Eat at NEMU Resort, not out", desc: "The resort sits in a beautiful but non-urban spot — not a night to be hunting for dinner after dark. Reserve/confirm ahead; NEMU leans into Ise-Shima seafood and kaiseki-style dining." },
+      { time: "Note", est: false, icon: "note", title: "No guide needed", desc: "Drive, park, then relax." }
+    ]
+  },
+  "2026-10-18": {
+    place: "Ise-Shima full day", tagline: "Shrine, sea, and coastal culture — elemental, not a museum day",
+    events: [
+      { time: "Early AM", est: true, icon: "activity", title: "Ise Jingu Naiku — the Inner Shrine", desc: "Open 5:00 AM–5:00 PM in Oct–Dec, so early morning works in your favor. Less architecturally showy than Kyoto — more about restraint, ritual, forest, materials, and the psychological crossing of the Uji Bridge." },
+      { time: "Late morning", est: true, icon: "food", title: "Oharai-machi / Okage Yokocho for lunch and shops", desc: "" },
+      { time: "Afternoon", est: true, icon: "activity", title: "Choose one", desc: "Yokoyama Observatory / Ago Bay (the classic Ise-Shima view — islands, bay, soft coastline, good payoff for little strain) · an Ama hut experience (only if it's a real reserved lunch, not too commercial — fits the pescatarian diet well) · pearl/Kashikojima/coastal drive (best if weather's poor or you want something more relaxed)." },
+      { time: "Evening", est: true, icon: "food", title: "Back to NEMU — bath, rest, dinner", desc: "Reserve/confirm at the resort again unless you have a specific outside booking." }
+    ]
+  },
+  "2026-10-19": {
+    place: "Ise-Shima → Kumano / Minamino Fields Fudozaka Cottage", tagline: "One of the most scenic drives of the trip — and the day logistics matter most",
+    events: [
+      { time: "Morning", est: true, icon: "drive", title: "Leave NEMU after breakfast, drive south along the Kii Peninsula coast", desc: "Don't try to do too much. Pick one: Magose-toge Pass / Kumano Kodo Iseji (a short pilgrimage-walk preview, well-marked with English maps) · Onigajo cliffs + Hana-no-Iwaya Shrine (visual, less physically demanding) · Shichiri-mihama beach (easy, atmospheric, good if tired). Do one, not several." },
+      { time: "Afternoon", est: true, icon: "note", title: "Grocery stop before heading inland", desc: "Breakfast supplies, simple dinner supplies, fruit, coffee/tea, snacks, wine/beer if desired, water, easy picnic/lunch supplies for the Kumano days ahead — this is essential, not optional." },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Check in at Minamino Fields Fudozaka Cottage", desc: "Check-in window is 15:00–17:00." },
+      { time: "Evening", est: true, icon: "food", title: "Cook/eat simply at the cottage, enjoy the deck/view", desc: "Don't plan to drive back down into town after dark unless you're very comfortable with the road." }
+    ]
+  },
+  "2026-10-20": {
+    place: "Kumano — Nachi / Daimonzaka / Nachi Falls", tagline: "The centerpiece of the Kumano stay",
+    events: [
+      { time: "Morning", est: true, icon: "activity", title: "Daimonzaka → Kumano Nachi Taisha / Seiganto-ji → Nachi Falls", desc: "Daimonzaka is a short but powerful Kumano Kodo section — a cobblestone stairway lined with old cedar, cypress, camphor, and bamboo, about 600m and 267 stairs, leading to the shrine-temple-waterfall complex. Short, atmospheric, meaningful — not a death march." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Choose one", desc: "Kii-Katsuura harbor / tuna town / early dinner supplies (easy and practical) · Nachi coastline scenic drive (good if clear) · or simply return to the cottage early — read, sit, cook, rest. Honestly may be the best option." },
+      { time: "Evening", est: true, icon: "food", title: "Self-cater at the cottage, or eat early in Kii-Katsuura before heading back uphill", desc: "Don't wing a late dinner out here." },
+      { time: "Note", est: false, icon: "note", title: "The one day worth considering a local half-day guide", desc: "Kumano's value is partly historical/spiritual — syncretic Shinto/Buddhist practice, pilgrimage, purification, Nachi as waterfall worship. A good guide adds real depth here; skip it if the guide seems mediocre." }
+    ]
+  },
+  "2026-10-21": {
+    place: "Kumano — choose Hongu depth or coastal ease", tagline: "The decision day — pick the mood based on energy",
+    events: [
+      { time: "Option A", est: false, icon: "activity", title: "Hongu / Yunomine / Oyunohara — the more spiritual day", desc: "Kumano Hongu Taisha, the Oyunohara great torii site, Yunomine or Kawayu Onsen, possibly a short walk. Given the base in Irokawa, keep any walk short — this is about shrine/torii/onsen atmosphere, not distance." },
+      { time: "Option B", est: false, icon: "activity", title: "Shingu / Hayatama / Kamikura / coast — the easier day", desc: "Kumano Hayatama Taisha, Kamikura Shrine if you want steep stone steps and drama, coastal stops, back to the cottage early. Less deep pilgrimage, better if you're tired." },
+      { time: "Recommendation", est: false, icon: "note", title: "Weather and energy decide it", desc: "Good weather and energy → Hongu. Poor weather or tired → Shingu/coast. Pick the mood and commit — this shouldn't be a checklist day." },
+      { time: "Evening", est: true, icon: "food", title: "Self-cater — groceries already on hand", desc: "" }
+    ]
+  },
+  "2026-10-22": {
+    place: "Kumano → Koyasan / Fudouin", tagline: "Sacred-continuity day — a transition, not sightseeing",
+    events: [
+      { time: "Morning", est: true, icon: "drive", title: "Check out by 10:00, full tank and snacks", desc: "The drive to Koyasan isn't trivial — check road conditions the day before, especially the mountain routes (Route 371 has had one-way traffic from landslide work). If the mountain route looks like a hassle, take the safer highway-biased route even if it's less scenic." },
+      { time: "Afternoon", est: true, icon: "hotel", title: "Arrive Koyasan by ~2:30–3:30 PM, check in at Koyasan Syukubou Fudouin", desc: "Temple lodgings tend to serve dinner early and expect guests settled beforehand. If you arrive with energy, a short walk to Danjo Garan; otherwise just let the place work on you." },
+      { time: "Evening", est: true, icon: "food", title: "Temple dinner, confirmed in advance. Quiet walk if practical.", desc: "" },
+      { time: "Note", est: false, icon: "note", title: "No guide needed today", desc: "Drive to arrive, then park it." }
+    ]
+  },
+  "2026-10-23": {
+    place: "Koyasan full day", tagline: "Contemplative, not busy — two nights means you don't need to rush",
+    events: [
+      { time: "Morning", est: true, icon: "activity", title: "Morning prayers/temple ritual if offered, then Okunoin Cemetery", desc: "A slow walk among the cedar trees and old memorials toward the Kobo Daishi mausoleum area." },
+      { time: "Afternoon", est: true, icon: "activity", title: "Choose two, not all", desc: "Kongobu-ji · Danjo Garan · Daimon Gate · Reihokan Museum · or just a quiet café/rest on the temple grounds." },
+      { time: "Evening", est: true, icon: "activity", title: "Okunoin at dusk", desc: "A self-guided quiet walk is probably the better call unless you find a genuinely excellent night-walk guide — narration can turn atmosphere into a lecture." },
+      { time: "Note", est: false, icon: "note", title: "Leave the car parked", desc: "Walk, or use the local bus/taxi." },
+      { time: "Dinner", est: true, icon: "food", title: "Temple dinner", desc: "" }
+    ]
+  },
+  "2026-10-24": {
+    place: "Koyasan → Osaka / Shin-Osaka car return → Kurashiki", tagline: "Pure logistics — no sightseeing added",
+    events: [
+      { time: "Morning", est: true, icon: "hotel", title: "Temple breakfast, check out", desc: "Drive toward Osaka/Shin-Osaka to return the car." },
+      { time: "Before drop-off", est: false, icon: "note", title: "Car return checklist", desc: "Fill the tank near the return branch, remove the ETC card if instructed, empty all luggage, keep passports/rail tickets/valuables separate — photograph the fuel gauge if you want a paper trail." },
+      { time: "Midday", est: true, icon: "drive", title: "Return the car, then Shinkansen Shin-Osaka → Okayama → local train to Kurashiki", desc: "Worth reserving Shinkansen seats at this stage — convenience matters more than saving a little money." },
+      { time: "Evening", est: true, icon: "activity", title: "Arrive Kurashiki, check in, light canal walk if energy allows", desc: "Reserve dinner if arriving late; otherwise a simple local meal." }
     ]
   },
   "2026-10-25": {
