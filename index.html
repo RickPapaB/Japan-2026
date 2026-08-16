@@ -774,7 +774,7 @@ const HOTELS = [
     dest: "Tokyo", hotel: "Hotel New Otani Tokyo (The Main wing)", checkin: "2026-10-26", checkout: "2026-10-30", nights: 4,
     address: "4-1 Kioicho, Chiyoda-ku, Tokyo", phone: "+81 3-3265-1111", total: null,
     lat: 35.6797, lng: 139.7368,
-    notes: "First half of an 8-night Tokyo stay — confirmed reservation, The Main wing requested. Arrive via Shinkansen Nozomi from Hiroshima (~4 hrs). Nikko day trip booked for Oct 29 (Toshogu Shrine, Lake Chuzenji/Kegon Falls if time allows — no overnight, return to New Otani same night).",
+    notes: "First half of an 8-night Tokyo stay — confirmed reservation, The Main wing requested. Arrive via Shinkansen Nozomi from Hiroshima (~4 hrs). Nikko day trip booked for Oct 28 (Toshogu Shrine, Lake Chuzenji/Kegon Falls if time allows — no overnight, return to New Otani same night).",
     mapcode: "4 785 355*20", website: "https://www.newotani.co.jp/en/tokyo/", emoji: "🏙️", banner: "linear-gradient(135deg,#4a2e5c,#7d4e94)"
   },
   {
@@ -1039,9 +1039,9 @@ const TOURS = [
     logistics: "Start 8:00 AM · 4 hours · Meeting point: Comfort Hotel ERA Ise (opposite Iseshi Station)", operator: "Independently booked", cost: "$220 total"
   },
   {
-    date: "2026-10-29", title: "Nikko Full Day Luxury Private Tour (English Driver)", city: "Tokyo / Nikko",
+    date: "2026-10-28", title: "Nikko Full Day Luxury Private Tour (English Driver)", city: "Tokyo / Nikko",
     stops: ["Private day tour to Nikko — itinerary customizable, typically Toshogu Shrine, Lake Chuzenji / Kegon Falls if time allows"],
-    logistics: "Pickup 6:00 AM at Hotel New Otani Tokyo (The Main) lobby · 10 hours · up to 6 in the group · English-speaking driver · booking ref GYG6H752BF42",
+    logistics: "Pickup 6:00 AM at Hotel New Otani Tokyo (The Main) lobby · 10 hours · up to 6 in the group · English-speaking driver · booking ref GYG6H752BF42 · PIN +@g&=SXv",
     operator: "Nihon Ride (via GetYourGuide)", cost: "₪872 (~$235)"
   },
   {
@@ -1236,7 +1236,7 @@ const DAY_NOTES = {
   "2026-10-24": "Koyasan → Shin-Osaka (return rental car) → train + ferry to Miyajima. Naoshima and the Kurashiki overnight were dropped from the itinerary.",
   "2026-10-25": "Miyajima → Hiroshima — Sheraton Grand Hiroshima. Self-guided, no private tour. Peace Memorial Museum likely anchor for the day.",
   "2026-10-26": "Hiroshima → Tokyo via Shinkansen Nozomi (~4 hrs). Check into Hotel New Otani Tokyo (The Main wing), first of 8 nights in Tokyo.",
-  "2026-10-29": "Nikko Full Day Luxury Private Tour, confirmed (Nihon Ride via GetYourGuide) — 6:00 AM pickup at Hotel New Otani lobby, English-speaking driver, 10 hours. Toshogu Shrine, Lake Chuzenji/Kegon Falls if time allows. Return to New Otani same night.",
+  "2026-10-28": "Nikko Full Day Luxury Private Tour, confirmed (Nihon Ride via GetYourGuide) — 6:00 AM pickup at Hotel New Otani lobby, English-speaking driver, 10 hours. Toshogu Shrine, Lake Chuzenji/Kegon Falls if time allows. Return to New Otani same night. Booking ref GYG6H752BF42, PIN +@g&=SXv.",
   "2026-10-30": "Check out Hotel New Otani, check into Dai-ichi Hotel Tokyo (existing booking, unchanged) for the second half of the Tokyo stay.",
   "2026-10-31": "Guided tour (VietnamStay/Lily) — Omotesando & Aoyama Architecture: architectural walk through Omotesando/Aoyama, Prada Aoyama (Herzog & de Meuron), Nezu Museum (Kengo Kuma, bamboo approach & garden), 21_21 DESIGN SIGHT (Tadao Ando), Tokyo Midtown design district. English-speaking guide, private Alphard vehicle, 10 hours. Overlaps the Designart Tokyo 2026 festival zone — guide notified.",
   "2026-11-03": "Rest day — departure. Last day of the trip, kept deliberately open before flying home. Departure airport (Narita vs Haneda) not yet confirmed, which affects the final train leg."
@@ -1550,19 +1550,19 @@ const TIMELINE_EVENTS = {
     ]
   },
   "2026-10-28": {
-    place: "Tokyo", tagline: "Open — new Tokyo timeline to come",
-    events: [
-      { time: "", est: false, icon: "note", title: "Day plan not finalized yet", desc: "Send the Tokyo timeline whenever it's ready and it'll go here." }
-    ]
-  },
-  "2026-10-29": {
     place: "Nikko Full Day Luxury Private Tour", tagline: "Confirmed — Nihon Ride, English-speaking driver, no overnight",
     events: [
       { time: "6:00 AM", est: false, icon: "drive", title: "Pickup at Hotel New Otani Tokyo (The Main) lobby", desc: "Wait in the lobby — the driver will call/message when they arrive rather than come find you. 10 hours total, private vehicle, group up to 6, English-speaking driver throughout." },
       { time: "Day", est: false, icon: "activity", title: "Toshogu Shrine complex", desc: "The elaborately decorated shrine-mausoleum of Tokugawa Ieyasu — a very different visual register from Kyoto's restraint. Itinerary is customizable with the driver." },
       { time: "If time allows", est: false, icon: "activity", title: "Lake Chuzenji / Kegon Falls", desc: "Further up in elevation — likely if the Toshogu visit doesn't run long. Weather can affect visibility up there." },
       { time: "Evening", est: false, icon: "hotel", title: "Drop-off back at Hotel New Otani", desc: "Same pickup location. Bring comfortable walking shoes; no food, alcohol, or drugs allowed in the vehicle." },
-      { time: "Note", est: false, icon: "note", title: "Booking ref GYG6H752BF42 · Nihon Ride", desc: "Free cancellation up to 6:00 AM on Oct 27. Payment (₪872, ~$235) processes automatically Oct 25 unless paid earlier." }
+      { time: "Note", est: false, icon: "note", title: "Booking ref GYG6H752BF42 · PIN +@g&=SXv · Nihon Ride", desc: "Free cancellation up to 6:00 AM on Oct 27. Payment (₪872, ~$235) processes automatically Oct 25 unless paid earlier." }
+    ]
+  },
+  "2026-10-29": {
+    place: "Tokyo", tagline: "Open — new Tokyo timeline to come",
+    events: [
+      { time: "", est: false, icon: "note", title: "Day plan not finalized yet", desc: "Send the Tokyo timeline whenever it's ready and it'll go here." }
     ]
   },
   "2026-10-30": {
