@@ -176,6 +176,10 @@ main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
   font-size:11px;letter-spacing:0.2em;color:var(--ink-600);text-transform:uppercase;
 }
 #home-countdown{margin-top:26px;}
+.home-cd-label-row{
+  font-family:var(--font-display);font-size:13px;letter-spacing:0.15em;color:var(--indigo-700);font-weight:600;
+  text-align:center;margin-bottom:10px;text-transform:uppercase;
+}
 .home-cd-units{display:flex;gap:14px;justify-content:center;}
 .home-cd-unit{display:flex;flex-direction:column;align-items:center;gap:4px;}
 .home-cd-num{
@@ -2180,7 +2184,8 @@ function renderHome() {
       const d = Math.floor(diff / 864e5);
       const h = Math.floor(diff % 864e5 / 36e5);
       const m = Math.floor(diff % 36e5 / 6e4);
-      wrap.innerHTML = `<div class="home-cd-units">
+      wrap.innerHTML = `<div class="home-cd-label-row">Time Till Departure</div>
+      <div class="home-cd-units">
         <div class="home-cd-unit"><div class="home-cd-num">${d}</div><div class="home-cd-label">Days</div></div>
         <div class="home-cd-unit"><div class="home-cd-num">${h}</div><div class="home-cd-label">Hours</div></div>
         <div class="home-cd-unit"><div class="home-cd-num">${m}</div><div class="home-cd-label">Min</div></div>
