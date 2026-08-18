@@ -1642,32 +1642,42 @@ const TIMELINE_EVENTS = {
     ]
   },
   "2026-10-24": {
-    place: "Koyasan → Shin-Osaka (car return) → Miyajima", tagline: "Logistics day — car returns for good, then straight to the island",
+    place: "Koyasan → Shin-Osaka (car return) → Miyajima", tagline: "Car return, then arrive right at low tide to walk out to the Great Torii",
     events: [
-      { time: "Morning", est: true, icon: "hotel", title: "Temple breakfast, check out", desc: "Drive toward Osaka/Shin-Osaka to return the car." },
-      { time: "Before drop-off", est: false, icon: "note", title: "Car return checklist", desc: "Fill the tank near the return branch, remove the ETC card if instructed, empty all luggage, keep passports/rail tickets/valuables separate — photograph the fuel gauge if you want a paper trail." },
-      { time: "Midday", est: true, icon: "drive", title: "Return the car at Shin-Osaka — end of the driving portion of the trip", desc: "This is the last day with the rental car." },
-      { time: "Afternoon", est: true, icon: "drive", title: "Train + ferry to Miyajima", desc: "Via Hiroshima/Miyajimaguchi, then the ferry across. Naoshima and the Kurashiki overnight were dropped from the itinerary to simplify this stretch." },
-      { time: "Evening", est: true, icon: "hotel", title: "Check into Kinsuikan, let the island work", desc: "Waterfront walk, Itsukushima Shrine area, the torii at whatever the tide allows, quiet streets once the day-trippers leave." },
-      { time: "Dinner", est: true, icon: "food", title: "Ideally at the ryokan/hotel", desc: "Miyajima after dark is atmospheric but not a flexible restaurant town — dinner included is strongly preferable here." }
+      { time: "8:00 AM", est: false, icon: "drive", title: "Depart Koyasan", desc: "Temple breakfast, check out, on the road by 8:00 — deliberately earlier than a standard travel day, since this buys the early Miyajima afternoon below. Mountain descent then expressway, budget 2–2.5 hours to Shin-Osaka." },
+      { time: "Before drop-off", est: false, icon: "note", title: "Car return checklist", desc: "Fill the tank near the return branch, remove the ETC card if instructed, empty all luggage including under seats and the boot, separate out passports/rail tickets/valuables before unloading." },
+      { time: "~11:00–11:30 AM", est: false, icon: "drive", title: "Return the car at Shin-Osaka, board a reserved-seat Nozomi to Hiroshima", desc: "Allow 30–45 min for fueling/inspection before the car return. Nozomi to Hiroshima ~1h25m." },
+      { time: "Midday", est: false, icon: "drive", title: "Hiroshima Station → JR Sanyo Line → ferry to Miyajima", desc: "JR Sanyo Line toward Miyajimaguchi (~25–28 min), then the JR ferry (10 min, every ~15 min) — about 45 min door to door. Should land on Miyajima by roughly 2:00 PM." },
+      { time: "2:00 PM", est: false, icon: "hotel", title: "Check in at Kinsuikan, drop bags, head straight for the shrine", desc: "Low tide is 2:36 PM (0.95m) — this is the window to walk out across the exposed sand to the base of the Great Torii. Not accidental timing." },
+      { time: "Afternoon", est: false, icon: "activity", title: "Waterfront walk, shrine precincts at your own pace", desc: "Quiet streets as the day-trip ferries thin out in early evening." },
+      { time: "Evening", est: false, icon: "food", title: "Dinner at Kinsuikan — confirmed in advance", desc: "Not a flexible restaurant town after dark." },
+      { time: "After dinner", est: false, icon: "activity", title: "Walk back to the waterfront for the illuminated, floating torii", desc: "High tide is 8:34 PM (3.34m), well above the ~2.5m floating threshold. Day-trippers long gone, gate lit — arguably the best viewing window of the whole stay, for the cost of a short walk." },
+      { time: "Note", est: false, icon: "note", title: "No guide tonight", desc: "About atmosphere, not information." }
     ]
   },
   "2026-10-25": {
-    place: "Miyajima → Hiroshima", tagline: "The island before the crowds, then Hiroshima — self-guided",
+    place: "Miyajima morning → Hiroshima", tagline: "Shrine at dawn — floating and empty at once — then Peace Memorial Park",
     events: [
-      { time: "Morning", est: true, icon: "activity", title: "Early walk before the day-trippers arrive", desc: "Itsukushima Shrine early, Daisho-in Temple, a short Mount Misen ropeway/view if the weather's excellent, coffee/waterfront walk. Don't force a strenuous hike — the island doesn't need it." },
-      { time: "Midday", est: true, icon: "drive", title: "Move to Hiroshima", desc: "Check into Sheraton Grand Hiroshima." },
-      { time: "Afternoon", est: true, icon: "activity", title: "Peace Memorial Park / Museum — self-guided", desc: "No private tour booked for this one; give the space room — it's emotionally heavy. Hours vary seasonally (7:30–19:00 Mar–Jul & Sep–Nov, later in August), closed Dec 30–31. Don't stack a cheerful food tour immediately after unless it feels right in the moment." },
-      { time: "Evening", est: true, icon: "food", title: "Dinner", desc: "Okonomiyaki is the obvious Hiroshima choice, but a calmer restaurant is fine too, depending on how the afternoon lands." }
+      { time: "7:00–7:30 AM", est: false, icon: "activity", title: "Itsukushima Shrine — opens 6:30 AM", desc: "High tide is 9:10 AM (3.58m); the floating effect lasts roughly 2–3 hours around each high tide. Arriving now catches both: water high enough to float, island still empty before crowds build. The single best window of the whole Miyajima stay." },
+      { time: "Morning", est: false, icon: "activity", title: "Daisho-in Temple", desc: "A short uphill walk from the shrine — dense with statuary and prayer wheels, atmospheric on its own terms." },
+      { time: "Note", est: false, icon: "note", title: "Skip the Mount Misen ropeway", desc: "A legitimate attraction, but adding it on top of an already tide-choreographed morning risks rushing the shrine or running late for the Hiroshima transfer." },
+      { time: "11:00–11:30 AM", est: false, icon: "hotel", title: "Breakfast at Kinsuikan if not already had, check out", desc: "" },
+      { time: "Midday", est: false, icon: "drive", title: "Ferry + JR local back to Hiroshima Station (~45 min)", desc: "Check into Sheraton Grand Hiroshima, adjacent to the station." },
+      { time: "Afternoon", est: false, icon: "activity", title: "Peace Memorial Park and Museum", desc: "Museum hours 7:30 AM–7:00 PM (Mar–Jul & Sep–Nov). About 25 min on foot from the hotel, or a short tram/taxi — worth taking transit given the afternoon ahead. Don't stack a cheerful activity right after unless it genuinely feels right — no obligation to fill the rest of the day." },
+      { time: "Evening", est: false, icon: "food", title: "Dinner — decide once you're there", desc: "Okonomiyaki is the obvious good choice, but read the room after the museum — a calmer restaurant if the afternoon landed heavily." },
+      { time: "Note", est: false, icon: "note", title: "Guide optional", desc: "If used, a half-day focused specifically on Peace Park context, not a full city tour. Skip entirely if nothing genuinely strong is available." }
     ]
   },
   "2026-10-26": {
-    place: "Tokyo — Arrival & Immediate Immersion", tagline: "Land gently, then a soft first walk near the hotel",
+    place: "Hiroshima → Tokyo", tagline: "A relaxed final Hiroshima morning, then the Shinkansen to Tokyo",
     events: [
-      { time: "Afternoon", est: true, icon: "drive", title: "Arrive from Hiroshima via Shinkansen, check into Hotel New Otani", desc: "First of 4 nights here (Akasaka/Kioicho base) before switching to the Dai-ichi Hotel on Oct 30 — 8 Tokyo nights total." },
-      { time: "Afternoon", est: true, icon: "activity", title: "2-hour exploratory walk from the hotel garden into Hie Shrine", desc: "The New Otani's own 400-year-old Japanese garden, winding down into Kioicho, then up the escalator-assisted paths of Hie Shrine. No need to go far — this is deliberately close to home." },
-      { time: "Evening", est: true, icon: "food", title: "Dinner in Akasaka's backstreets", desc: "No reservation required — follow your eyes through the local, bustling lanes." },
-      { time: "Note", est: false, icon: "note", title: "Energy: low–medium", desc: "First day off a travel day — keep it unambitious on purpose." }
+      { time: "Morning", est: false, icon: "activity", title: "Shukkei-en Garden, then Hiroshima Castle", desc: "About 12 minutes apart on foot, a natural pair. Shukkei-en: a compact Edo-period landscape garden built around a miniature of West Lake. Castle: exterior and moat only — the current structure is a 1958 reconstruction, the grounds are the point." },
+      { time: "Morning", est: false, icon: "food", title: "Coffee or a late breakfast", desc: "Before or after, depending on the hotel and how you feel." },
+      { time: "Midday", est: false, icon: "hotel", title: "Check out, head to Hiroshima Station", desc: "Time for a relaxed lunch — an ekiben on the platform or aboard the train is a good low-effort option." },
+      { time: "1:00–1:30 PM", est: false, icon: "drive", title: "Reserved-seat Nozomi to Tokyo (~4 hrs)", desc: "Puts you into Tokyo Station around 5:00–5:30 PM — reasonable timing to reach Hotel New Otani, check in, and settle in without feeling rushed." },
+      { time: "Evening", est: false, icon: "hotel", title: "Hotel New Otani arrival", desc: "A short Kioicho/Akasaka orientation walk if energy allows — the hotel's own 400-year-old Japanese garden, winding into Kioicho, up to Hie Shrine — otherwise straight to settling in." },
+      { time: "Evening", est: false, icon: "food", title: "Dinner in Akasaka's backstreets", desc: "No reservation needed on arrival night — walk until something looks right." },
+      { time: "Note", est: false, icon: "note", title: "Car already returned", desc: "None needed for the rest of the trip." }
     ]
   },
   "2026-10-27": {
