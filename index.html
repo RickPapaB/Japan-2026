@@ -607,6 +607,9 @@ nav.bottom svg{width:21px;height:21px;}
         <h2 class="section-title" style="margin-top:26px;">Mountain driving tips</h2>
         <div id="driving-tips-list"></div>
 
+        <h2 class="section-title" style="margin-top:26px;">Laundry plan</h2>
+        <div id="laundry-plan-list"></div>
+
         <h2 class="section-title" style="margin-top:26px;">Naoshima &amp; Hiroshima notes</h2>
         <div id="naoshima-hiroshima-list"></div>
       </div>
@@ -744,11 +747,11 @@ const HOTELS = [
     mapcode: "167 073 869*17", website: "https://www.nemuresort.com/en/", emoji: "⛩️", banner: "linear-gradient(135deg,#8a5a2e,#c8862f)"
   },
   {
-    dest: "Kumano", hotel: "Minamino Fields Fudozaka Cottage", checkin: "2026-10-19", checkout: "2026-10-22", nights: 3,
-    address: "1227 Minamihirano, Nachikatsuura, Wakayama", phone: "Contact via Booking.com", total: 334,
-    lat: 33.6167, lng: 135.9333,
-    notes: "Self-catering cottage, no meals — plan a serious grocery stop before driving up. Contact the host in advance with your arrival time; check-in window is 15:00–17:00.",
-    mapcode: "385 603 456*22", website: "https://www.kumano-travel.com/en/accommodations/minamino-fields-fudozaka-cottage", emoji: "🌿", banner: "linear-gradient(135deg,#2a4a2e,#4e7a4f)"
+    dest: "Kumano", hotel: "Kamenoi Hotel Nachi Katsuura", checkin: "2026-10-19", checkout: "2026-10-22", nights: 3,
+    address: "216-19 Katsuura, Nachikatsuura-cho, Higashimuro-gun, Wakayama 649-5334", phone: "+81 735-52-0333", total: null,
+    lat: 33.6014, lng: 135.9358,
+    notes: "4-star ryokan, 11 min walk from Kii-Katsuura Station. On-site self-service laundry, indoor mineral hot spring plus 2 indoor/outdoor onsen, restaurant with kaiseki dinner, Japanese breakfast (surcharge). Several good restaurants within a 10-min walk, including Bodai (see Day 26 lunch).",
+    mapcode: null, website: "https://www.kamenoi-hotel.com/nachikatsuura/", emoji: "♨️", banner: "linear-gradient(135deg,#2a4a2e,#4e7a4f)"
   },
   {
     dest: "Koyasan", hotel: "Koyasan Syukubou Fudouin", checkin: "2026-10-22", checkout: "2026-10-24", nights: 2,
@@ -902,7 +905,7 @@ const REMINDERS = [
   { text: "The repo hosting this site is public (required for free GitHub Pages). Passport numbers were removed from the Crew tab for that reason — they're kept separately, off this site.", flag: false },
   { text: "Travel insurance: policy numbers and emergency-assistance line to be added once you send them over.", flag: false },
   { text: "Kinsuikan (Miyajima): consider upgrading to a sea-view / annex room for torii gate views and a private bathroom.", flag: false },
-  { text: "Minamino Fields Fudozaka (Kumano): contact the host in advance with your arrival time.", flag: false },
+  { text: "Kamenoi Hotel Nachi Katsuura (Kumano): has on-site self-service laundry — good stop for a laundry cycle given the trip's 6–9 day cadence (see the laundry plan below).", flag: false },
   { text: "La Terra Resort (Shiojiri/Narai): request the cabin with the private outdoor tub rather than a main-building room for an October stay.", flag: false },
   { text: "Hodakaso Yamano Hotel (Hirayu Onsen): inform the property if arriving after 18:00 — dinner may not be served.", flag: false }
 ];
@@ -970,6 +973,15 @@ const DRIVING_TIPS_CRUCIAL = [
 ];
 
 // --- Naoshima & Hiroshima notes ---------------------------------------
+// --- Laundry plan -----------------------------------------------------
+const LAUNDRY_PLAN = [
+  { stop: "Kyoto apartment", when: "Days 1–10 (Sep 25 – Oct 5)", detail: "Built-in washer/dryer in the apartment — no planning needed, just the most reliable stop of the whole trip." },
+  { stop: "Matsumoto", when: "Days 17–18 (Oct 11–13)", detail: "No specific coin laundry confirmed yet, but Matsumoto is a real city with several コインランドリー (coin laundry) locations — search that term on Google Maps near Hotel Kagetsu once there." },
+  { stop: "Kamenoi Hotel Nachi Katsuura (Kumano)", when: "Days 25–27 (Oct 19–22)", detail: "Confirmed on-site self-service laundry — the easiest stop of the trip after Kyoto. Run a load the evening of arrival (Oct 19) or the following morning." },
+  { stop: "Tokyo (New Otani / Dai-ichi)", when: "Days 32–39 (Oct 26 – Nov 3)", detail: "Trivial — coin laundries all over the city, or hotel laundry service if you'd rather pay for convenience. 8 nights total gives plenty of flexibility on timing." }
+];
+const LAUNDRY_PLAN_NOTE = "This spacing keeps every gap inside the 6–9 day window: Kyoto → Matsumoto (~7 days) → Kumano (~8 days) → Tokyo (whenever suits within the 8-night stay).";
+
 const NAOSHIMA_HIROSHIMA_NOTES = [
   {
     topic: "Naoshima removed from the itinerary",
@@ -1178,19 +1190,19 @@ const DRIVING_MAPS = [
   },
   {
     date: "2026-10-19",
-    route: "Nemu Resort Hotel Nemu → Minamino Fields Fudozaka Cottage (Kumano)",
-    origin: "2692-3 Hazako, Hamajima-cho, Shima City, Mie", destination: "1227 Minamihirano, Nachikatsuura, Wakayama",
+    route: "Nemu Resort Hotel Nemu → Kamenoi Hotel Nachi Katsuura (Kumano)",
+    origin: "2692-3 Hazako, Hamajima-cho, Shima City, Mie", destination: "216-19 Katsuura, Nachikatsuura-cho, Higashimuro-gun, Wakayama",
     distance: "~145 km", duration: "~2h 50m",
     tollNote: "Coastal Route 42 & Kisei Expwy (free/paid segments) · tolls approx. ¥1,200",
     notes: [
       "Follows Route 42 and the Kisei Expressway south along the Kii Peninsula coast, alternating long tunnels with ocean views.",
-      "The final kilometers to the cottage climb narrow, steep mountain logging lanes with no guardrails or center lines — low-gear climbing, and extra caution if driving in late-afternoon mountain mist."
+      "Unlike the previous cottage booking, this hotel sits right in Nachikatsuura town near Kii-Katsuura Station — a normal, well-signed approach, not a remote mountain lane."
     ]
   },
   {
     date: "2026-10-22",
-    route: "Minamino Fields Fudozaka Cottage → Koyasan Syukubou Fudouin",
-    origin: "1227 Minamihirano, Nachikatsuura, Wakayama", destination: "Koyasan 456, Koya Town, Wakayama",
+    route: "Kamenoi Hotel Nachi Katsuura → Koyasan Syukubou Fudouin",
+    origin: "216-19 Katsuura, Nachikatsuura-cho, Higashimuro-gun, Wakayama", destination: "Koyasan 456, Koya Town, Wakayama",
     distance: "~115 km", duration: "~2h 40m",
     tollNote: "Route 168 / 311 to Hashimoto, then Route 480 mountain pass · minor tolls",
     notes: [
@@ -1232,7 +1244,7 @@ const DAY_NOTES = {
   "2026-10-16": "Transition to Gujo Hachiman — Miharaya Ryokan. Canal-town wandering, easy dinner.",
   "2026-10-17": "Drive Gujo Hachiman → Ise-Shima (plan on ~3 hrs before sightseeing, longer with stops). Visit Ise Jingu Geku (Outer Shrine) in the afternoon, then settle into NEMU Resort. Dinner at the resort.",
   "2026-10-18": "Ise Grand Shrine guided walk booked ($220) — Ise Jingu Naiku (Inner Shrine) early, then Oharai-machi / Okage Yokocho for lunch. Afternoon: Yokoyama Observatory / Ago Bay for the classic Ise-Shima coastal view.",
-  "2026-10-19": "Drive to Kumano — Minamino Fields Fudozaka cottage. Grocery stop essential; no meals at the cottage.",
+  "2026-10-19": "Drive to Kumano — Kamenoi Hotel Nachi Katsuura, a proper ryokan with on-site laundry, onsen, and restaurant.",
   "2026-10-22": "Drive to Koyasan — Koyasan Syukubou Fudouin (temple lodging).",
   "2026-10-24": "Koyasan → Shin-Osaka (return rental car) → train + ferry to Miyajima. Naoshima and the Kurashiki overnight were dropped from the itinerary.",
   "2026-10-25": "Miyajima → Hiroshima — Sheraton Grand Hiroshima. Self-guided, no private tour. Peace Memorial Museum likely anchor for the day.",
@@ -1589,14 +1601,14 @@ const TIMELINE_EVENTS = {
     ]
   },
   "2026-10-19": {
-    place: "Ise-Shima → Kumano Coast", tagline: "A pilgrimage-trail preview, then settling into the cottage",
+    place: "Ise-Shima → Kumano Coast", tagline: "A pilgrimage-trail preview, then a proper ryokan with onsen and laundry",
     events: [
       { time: "9:00 AM", est: false, icon: "drive", title: "Check out of NEMU Resort — drive south along the Kii Peninsula coast", desc: "" },
       { time: "11:00 AM", est: false, icon: "activity", title: "Magose-toge Pass — ancient stone-paved paths (1.5 hr round trip)", desc: "" },
       { time: "1:00 PM", est: false, icon: "food", title: "Lunch — local diner in Owase or Kihoku", desc: "A casual seafood set meal near the coastal ports." },
-      { time: "2:30 PM", est: false, icon: "note", title: "Large grocery run at a major supermarket in Nachi-Katsuura", desc: "All cottage breakfast and dinner supplies — essential, not optional." },
-      { time: "4:00 PM", est: false, icon: "hotel", title: "Arrive at the cottage before dusk, via the rural mountain roads", desc: "" },
-      { time: "6:30 PM", est: false, icon: "food", title: "Self-catered dinner using your fresh local purchases", desc: "" }
+      { time: "4:00 PM", est: false, icon: "hotel", title: "Arrive at Kamenoi Hotel Nachi Katsuura, check in", desc: "Right in Nachikatsuura town, near Kii-Katsuura Station — a much easier arrival than the previous cottage plan." },
+      { time: "Laundry", est: false, icon: "note", title: "Good day to start a laundry cycle", desc: "On-site self-service laundry — worth running a load this evening or tomorrow morning, roughly on schedule for the trip's 6–9 day laundry cadence." },
+      { time: "Evening", est: false, icon: "activity", title: "Onsen soak, then dinner", desc: "Indoor mineral hot spring plus 2 indoor/outdoor onsen. Restaurant on-site with kaiseki dinner, or one of several places within a 10-min walk." }
     ]
   },
   "2026-10-20": {
@@ -1605,8 +1617,8 @@ const TIMELINE_EVENTS = {
       { time: "9:00 AM", est: false, icon: "drive", title: "Drive to the base of the mountain trail", desc: "" },
       { time: "9:30 AM", est: false, icon: "activity", title: "Daimonzaka — the cedar stairway (600 m) up to Kumano Nachi Taisha", desc: "" },
       { time: "11:00 AM", est: false, icon: "activity", title: "Seiganto-ji Temple's pagoda framed against the 133 m Nachi Falls", desc: "Walk down to Hirou-jinja for the close-up base view." },
-      { time: "1:00 PM", est: false, icon: "food", title: "Lunch — Bodai (Kii-Katsuura)", desc: "Near the station. Incredible local bluefin tuna rice bowls, and exceptional pescatarian-friendly set menus." },
-      { time: "2:30 PM", est: false, icon: "activity", title: "Stroll the working tuna harbor of Kii-Katsuura, or rest back at the cottage deck", desc: "" },
+      { time: "1:00 PM", est: false, icon: "food", title: "Lunch — Bodai (Kii-Katsuura)", desc: "Near the station, about 9 min walk from the hotel. Incredible local bluefin tuna rice bowls, and exceptional pescatarian-friendly set menus." },
+      { time: "2:30 PM", est: false, icon: "activity", title: "Stroll the working tuna harbor of Kii-Katsuura, or rest back at the hotel", desc: "Onsen soak is a good option here too." },
       { time: "Note", est: false, icon: "note", title: "A local half-day guide is worth considering for this day specifically", desc: "Kumano's value is partly historical/spiritual — a good guide adds real depth here." }
     ]
   },
@@ -1951,7 +1963,7 @@ function renderHotels() {
           <div class="hdb"><div class="hdl">Check-in</div><div class="hdv">${fmtDate(h.checkin)}</div></div>
           <div class="hdb"><div class="hdl">Check-out</div><div class="hdv">${fmtDate(h.checkout)}</div></div>
         </div>
-        <div class="hmapcode">${h.address}<br><a href="tel:${h.phone.replace(/\s/g,'')}">${h.phone}</a> · Mapcode <span>${h.mapcode}</span></div>
+        <div class="hmapcode">${h.address}<br><a href="tel:${h.phone.replace(/\s/g,'')}">${h.phone}</a>${h.mapcode ? ` · Mapcode <span>${h.mapcode}</span>` : ''}</div>
         <div class="href-row">${h.notes}</div>
         <div class="hlinks">
           <a class="hlink-btn hlink-maps" href="${gmaps}" target="_blank" rel="noopener">📍 Maps</a>
@@ -2143,7 +2155,21 @@ function renderReminders() {
   el.innerHTML = REMINDERS.map(r => `<li class="${r.flag ? 'flag' : ''}">${r.text}</li>`).join('');
   renderFoodGuide();
   renderDrivingTips();
+  renderLaundryPlan();
   renderNaoshimaHiroshima();
+}
+
+function renderLaundryPlan() {
+  const el = document.getElementById('laundry-plan-list');
+  el.innerHTML = LAUNDRY_PLAN.map(l => `
+    <div class="card">
+      <div class="note-tag" style="background:#e8f0fb;color:var(--indigo-700);">${l.when}</div>
+      <h3>${l.stop}</h3>
+      <div class="meta" style="margin-top:6px;">${l.detail}</div>
+    </div>`).join('') + `
+    <div class="card" style="background:var(--cream-100);border-style:dashed;">
+      <div class="meta">${LAUNDRY_PLAN_NOTE}</div>
+    </div>`;
 }
 
 function renderFoodGuide() {
