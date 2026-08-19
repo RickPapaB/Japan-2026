@@ -161,7 +161,8 @@ main{flex:1;padding:16px 16px 90px;max-width:720px;margin:0 auto;width:100%;}
   max-width:480px;letter-spacing:0.02em;
 }
 .home-legs-row{display:flex;align-items:stretch;justify-content:center;gap:18px;margin-top:18px;}
-.home-flag{font-size:clamp(40px,11vw,64px);line-height:1;display:flex;align-items:center;}
+.home-flag{width:clamp(48px,13vw,76px);flex-shrink:0;display:flex;align-items:center;}
+.home-flag svg{width:100%;height:auto;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,0.15);}
 .home-legs-stack{display:flex;flex-direction:column;gap:14px;}
 .home-leg{
   margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:2px;
@@ -527,7 +528,7 @@ nav.bottom svg{width:21px;height:21px;}
         <h1 class="home-title">JAPAN<span>2026</span></h1>
         <div class="home-cities" id="home-cities"></div>
         <div class="home-legs-row">
-          <div class="home-flag" aria-hidden="true">🇻🇳</div>
+          <div class="home-flag" aria-hidden="true"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#DA251D"/><polygon points="15,4 16.76,9.53 22.57,9.53 17.9,12.94 19.66,18.47 15,15.06 10.34,18.47 12.1,12.94 7.43,9.53 13.24,9.53" fill="#FFFF00"/></svg></div>
           <div class="home-legs-stack">
             <div class="home-leg">
               <span class="home-leg-dates">8 SEP – 26 SEP 2026</span>
@@ -540,7 +541,7 @@ nav.bottom svg{width:21px;height:21px;}
               <span class="home-leg-len">39 DAYS / 39 NIGHTS</span>
             </div>
           </div>
-          <div class="home-flag" aria-hidden="true">🇯🇵</div>
+          <div class="home-flag" aria-hidden="true"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#FFFFFF"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg></div>
         </div>
         <div id="home-countdown"></div>
       </div>
